@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../features/map/ui/map_page.dart';
 import 'navigation/router.dart';
 import 'theme/theme_light.dart';
 

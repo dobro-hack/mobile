@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_colors.dart';
 import 'app_text_style.dart';
@@ -7,7 +8,7 @@ ThemeData themeLight = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: AppColors.white,
   brightness: Brightness.light,
-  dividerColor: AppColors.greyMedium,
+  dividerColor: AppColors.red,
   elevatedButtonTheme: ElevatedButtonThemeData(style: _elevButtonLight),
   // disabledColor: AppColors.greyLight,
   appBarTheme: _appBarTheme,
@@ -64,29 +65,31 @@ InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
   iconColor: AppColors.textGreySecondary,
   hintStyle:
       Roboto().size16Weihtg400.copyWith(color: AppColors.textGreySecondary),
-  disabledBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.greyBorder),
-      borderRadius: BorderRadius.all(Radius.circular(8))),
-  enabledBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.greyBorder),
-      borderRadius: BorderRadius.all(Radius.circular(8))),
-  focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.greyBorder),
-      borderRadius: BorderRadius.all(Radius.circular(8))),
-  errorBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.red),
-      borderRadius: BorderRadius.all(Radius.circular(8))),
-  focusedErrorBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.red),
-      borderRadius: BorderRadius.all(Radius.circular(8))),
+  disabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.greyBorder),
+      borderRadius: BorderRadius.all(Radius.circular(12.r))),
+  enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.greyBorder),
+      borderRadius: BorderRadius.all(Radius.circular(12.r))),
+  focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.greyBorder),
+      borderRadius: BorderRadius.all(Radius.circular(12.r))),
+  errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.red),
+      borderRadius: BorderRadius.all(Radius.circular(12.r))),
+  focusedErrorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.red),
+      borderRadius: BorderRadius.all(Radius.circular(12.r))),
 );
 
-AppBarTheme _appBarTheme = const AppBarTheme(
+AppBarTheme _appBarTheme = AppBarTheme(
   centerTitle: false,
   foregroundColor: AppColors.black,
   backgroundColor: AppColors.white,
-  iconTheme: IconThemeData(color: AppColors.black),
+  iconTheme: const IconThemeData(color: AppColors.black),
   elevation: 0,
+  titleSpacing: 0,
+  titleTextStyle: Sans().size21Weihtg600.copyWith(color: AppColors.black),
 );
 
 ButtonStyle _elevButtonLight = ElevatedButton.styleFrom(
