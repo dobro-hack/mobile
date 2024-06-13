@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../base/domain/app_providers.dart';
-import '../models/route_info.dart';
-import '../models/route_response.dart';
-import '../repositories/route_repository.dart';
+import '../../base/domain/app_providers.dart';
+import '../data/models/route_info.dart';
+import '../data/models/route_response.dart';
+import '../data/repositories/route_repository.dart';
 
 final routeRepositoryProvider = Provider<RouteRepository>((ref) {
   final dioClient = ref.read(dioClientProvider);

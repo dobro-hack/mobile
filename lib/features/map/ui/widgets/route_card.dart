@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../common/theme/app_colors.dart';
-import '../../data/domain/route_state.dart';
+import '../../domain/route_state.dart';
 import '../../data/models/route_info.dart';
 
 class RouteCard extends ConsumerWidget {

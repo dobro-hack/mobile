@@ -10,7 +10,9 @@ _$ParkImpl _$$ParkImplFromJson(Map<String, dynamic> json) => _$ParkImpl(
       id: (json['ID'] as num).toInt(),
       name: json['Name'] as String,
       description: json['Description'] as String,
-      area: (json['Area'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      area: (json['Area'] as List<dynamic>)
+          .map((e) => Coord.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$ParkImplToJson(_$ParkImpl instance) =>
@@ -18,5 +20,5 @@ Map<String, dynamic> _$$ParkImplToJson(_$ParkImpl instance) =>
       'ID': instance.id,
       'Name': instance.name,
       'Description': instance.description,
-      'Area': instance.area,
+      'Area': instance.area.map((e) => e.toJson()).toList(),
     };

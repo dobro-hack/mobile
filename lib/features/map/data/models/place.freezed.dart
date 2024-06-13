@@ -31,7 +31,7 @@ mixin _$Place {
   @JsonKey(name: 'Icon')
   String get icon => throw _privateConstructorUsedError;
   @JsonKey(name: 'Location')
-  String get location => throw _privateConstructorUsedError;
+  Coord get location => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +49,9 @@ abstract class $PlaceCopyWith<$Res> {
       @JsonKey(name: 'Name') String name,
       @JsonKey(name: 'Description') String description,
       @JsonKey(name: 'Icon') String icon,
-      @JsonKey(name: 'Location') String location});
+      @JsonKey(name: 'Location') Coord location});
+
+  $CoordCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -96,8 +98,16 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Coord,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CoordCopyWith<$Res> get location {
+    return $CoordCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
+    });
   }
 }
 
@@ -114,7 +124,10 @@ abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
       @JsonKey(name: 'Name') String name,
       @JsonKey(name: 'Description') String description,
       @JsonKey(name: 'Icon') String icon,
-      @JsonKey(name: 'Location') String location});
+      @JsonKey(name: 'Location') Coord location});
+
+  @override
+  $CoordCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -159,13 +172,14 @@ class __$$PlaceImplCopyWithImpl<$Res>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Coord,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$PlaceImpl extends _Place {
   const _$PlaceImpl(
       {@JsonKey(name: 'ID') required this.id,
@@ -196,7 +210,7 @@ class _$PlaceImpl extends _Place {
   final String icon;
   @override
   @JsonKey(name: 'Location')
-  final String location;
+  final Coord location;
 
   @override
   String toString() {
@@ -244,7 +258,7 @@ abstract class _Place extends Place {
       @JsonKey(name: 'Name') required final String name,
       @JsonKey(name: 'Description') required final String description,
       @JsonKey(name: 'Icon') required final String icon,
-      @JsonKey(name: 'Location') required final String location}) = _$PlaceImpl;
+      @JsonKey(name: 'Location') required final Coord location}) = _$PlaceImpl;
   const _Place._() : super._();
 
   factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
@@ -266,7 +280,7 @@ abstract class _Place extends Place {
   String get icon;
   @override
   @JsonKey(name: 'Location')
-  String get location;
+  Coord get location;
   @override
   @JsonKey(ignore: true)
   _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>

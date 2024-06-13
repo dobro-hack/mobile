@@ -28,7 +28,9 @@ class MapAppBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(RouteName.menu);
+                },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   padding: EdgeInsets.all(8.w),

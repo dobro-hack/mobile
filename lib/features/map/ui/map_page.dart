@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../data/domain/route_state.dart';
+import '../domain/route_state.dart';
+import 'widgets/map.dart';
 import 'widgets/map_app_bar.dart';
 import 'widgets/scroll_panel_info.dart';
 import 'widgets/scroll_panel_with_list.dart';
@@ -54,7 +56,7 @@ class _MapPageState extends ConsumerState<MapPage> {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
                 parallaxEnabled: true,
                 parallaxOffset: 0.5,
-                body: Container(color: Colors.green),
+                body: RoutesMap(), // Container(color: Colors.green),
                 panelBuilder: (sc) => selectedRoute == null
                     ? ScrollPanelWithList(sc: sc)
                     : ScrollPanelInfo(

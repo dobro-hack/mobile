@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../common/theme/app_colors.dart';
 import '../../../../common/widgets/text_show_more.dart';
 import '../../data/models/route_info.dart';
+import '../../data/utils.dart';
 import 'chart.dart';
 import 'digital_card.dart';
 import 'note_widget.dart';
@@ -22,6 +23,11 @@ class ScrollPanelInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, List<int>> monthlyData = prepareDataForChart(route.load);
+
+    // Получаем список значений и месяцев
+    List<int> data = monthlyData.values.expand((weeks) => weeks).toList();
+    List<String> months = monthlyData.keys.toList();
     return ListView(
       controller: sc,
       children: [
@@ -124,21 +130,8 @@ class ScrollPanelInfo extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: CustomLineChart(
-              data: [
-                5,
-                6,
-                8,
-                7,
-                9,
-                6,
-                4,
-                10,
-                3,
-                5,
-                8,
-                6
-              ], // Пример данных (12 недель)
-              months: ['Май', 'Июнь', 'Июль'], // Пример месяцев (3 месяца)
+              data: data,
+              months: months,
             ),
           ),
         ),

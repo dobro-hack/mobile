@@ -27,7 +27,7 @@ mixin _$Park {
   @JsonKey(name: 'Description')
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'Area')
-  List<String>? get area => throw _privateConstructorUsedError;
+  List<Coord> get area => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +43,7 @@ abstract class $ParkCopyWith<$Res> {
       {@JsonKey(name: 'ID') int id,
       @JsonKey(name: 'Name') String name,
       @JsonKey(name: 'Description') String description,
-      @JsonKey(name: 'Area') List<String>? area});
+      @JsonKey(name: 'Area') List<Coord> area});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$ParkCopyWithImpl<$Res, $Val extends Park>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? area = freezed,
+    Object? area = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -77,10 +77,10 @@ class _$ParkCopyWithImpl<$Res, $Val extends Park>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      area: freezed == area
+      area: null == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Coord>,
     ) as $Val);
   }
 }
@@ -96,7 +96,7 @@ abstract class _$$ParkImplCopyWith<$Res> implements $ParkCopyWith<$Res> {
       {@JsonKey(name: 'ID') int id,
       @JsonKey(name: 'Name') String name,
       @JsonKey(name: 'Description') String description,
-      @JsonKey(name: 'Area') List<String>? area});
+      @JsonKey(name: 'Area') List<Coord> area});
 }
 
 /// @nodoc
@@ -112,7 +112,7 @@ class __$$ParkImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? area = freezed,
+    Object? area = null,
   }) {
     return _then(_$ParkImpl(
       id: null == id
@@ -127,22 +127,23 @@ class __$$ParkImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      area: freezed == area
+      area: null == area
           ? _value._area
           : area // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Coord>,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ParkImpl extends _Park {
   const _$ParkImpl(
       {@JsonKey(name: 'ID') required this.id,
       @JsonKey(name: 'Name') required this.name,
       @JsonKey(name: 'Description') required this.description,
-      @JsonKey(name: 'Area') final List<String>? area})
+      @JsonKey(name: 'Area') required final List<Coord> area})
       : _area = area,
         super._();
 
@@ -158,15 +159,13 @@ class _$ParkImpl extends _Park {
   @override
   @JsonKey(name: 'Description')
   final String description;
-  final List<String>? _area;
+  final List<Coord> _area;
   @override
   @JsonKey(name: 'Area')
-  List<String>? get area {
-    final value = _area;
-    if (value == null) return null;
+  List<Coord> get area {
     if (_area is EqualUnmodifiableListView) return _area;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_area);
   }
 
   @override
@@ -210,7 +209,7 @@ abstract class _Park extends Park {
       {@JsonKey(name: 'ID') required final int id,
       @JsonKey(name: 'Name') required final String name,
       @JsonKey(name: 'Description') required final String description,
-      @JsonKey(name: 'Area') final List<String>? area}) = _$ParkImpl;
+      @JsonKey(name: 'Area') required final List<Coord> area}) = _$ParkImpl;
   const _Park._() : super._();
 
   factory _Park.fromJson(Map<String, dynamic> json) = _$ParkImpl.fromJson;
@@ -226,7 +225,7 @@ abstract class _Park extends Park {
   String get description;
   @override
   @JsonKey(name: 'Area')
-  List<String>? get area;
+  List<Coord> get area;
   @override
   @JsonKey(ignore: true)
   _$$ParkImplCopyWith<_$ParkImpl> get copyWith =>

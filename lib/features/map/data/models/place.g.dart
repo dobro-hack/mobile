@@ -12,7 +12,7 @@ _$PlaceImpl _$$PlaceImplFromJson(Map<String, dynamic> json) => _$PlaceImpl(
       name: json['Name'] as String,
       description: json['Description'] as String,
       icon: json['Icon'] as String,
-      location: json['Location'] as String,
+      location: Coord.fromJson(json['Location'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
@@ -22,5 +22,5 @@ Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
       'Name': instance.name,
       'Description': instance.description,
       'Icon': instance.icon,
-      'Location': instance.location,
+      'Location': instance.location.toJson(),
     };

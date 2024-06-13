@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
@@ -15,7 +16,9 @@ class DioClient {
           BaseOptions(
             baseUrl: baseUrl,
           ),
-        );
+        ) {
+    init();
+  }
 
   Dio get dio => _dio;
 
@@ -33,20 +36,30 @@ class DioClient {
   }
 
   Future<void> addRequestToQueue(
-      String url, Map<String, dynamic> headers, File photo) async {
-    String photoPath = path.join(
-        _appDocDir.path, '${DateTime.now().millisecondsSinceEpoch}.jpg');
-    await photo.copy(photoPath);
+      String url, Map<String, dynamic> headers, XFile? photo,
+      {Map<String, dynamic>? data}) async {
+    try {
+      if (photo != null) {
+        String photoPath = path.join(
+            _appDocDir.path, '${DateTime.now().millisecondsSinceEpoch}.jpg');
+        // Сохранение выбранного изображения
+        await photo.saveTo(photoPath);
+      }
 
-    Map<String, dynamic> request = {
-      'url': url,
-      'headers': headers,
-      'photoPath': photoPath,
-    };
+      Map<String, dynamic> request = {
+        'url': url,
+        'headers': headers,
+        'photoPath': photo?.path, // Используем путь из XFile
+        'data': data,
+      };
 
-    File requestFile = File(path.join(
-        _appDocDir.path, '${DateTime.now().millisecondsSinceEpoch}.json'));
-    await requestFile.writeAsString(jsonEncode(request));
+      File requestFile = File(path.join(
+          _appDocDir.path, '${DateTime.now().millisecondsSinceEpoch}.json'));
+      await requestFile.writeAsString(jsonEncode(request));
+    } catch (e) {
+      logger.e('Failed to add request to queue: $e');
+      throw Exception('Failed to add request to queue: $e');
+    }
   }
 
   Future<void> sendPendingRequests() async {
@@ -73,6 +86,7 @@ class DioClient {
             await file.delete();
             await photoFile.delete();
           }
+          logger.i('Отправлено, код ${response.statusCode}\nformData$formData');
         } catch (e) {
           logger.e('Не удалось отправить запрос: $e');
         }
@@ -81,23 +95,34 @@ class DioClient {
   }
 
   Future<void> sendRequestWithFallback(
-      String url, Map<String, dynamic> headers, File photo) async {
+      String url, Map<String, dynamic> headers, XFile? photo,
+      {Map<String, dynamic>? data}) async {
     try {
-      FormData formData = FormData.fromMap({
-        'photo': await MultipartFile.fromFile(photo.path),
-      });
+      FormData formData = FormData();
+      if (photo != null) {
+        formData.files
+            .add(MapEntry('photo', await MultipartFile.fromFile(photo.path)));
+      }
+      if (data != null) {
+        for (var entry in data.entries) {
+          formData.fields.add(MapEntry(entry.key, entry.value.toString()));
+        }
+      }
 
       Response response = await _dio.post(
         url,
         data: formData,
         options: Options(headers: headers),
       );
+      logger.i(
+          'sendRequestWithFallback response.statusCode ${response.statusCode}');
 
       if (response.statusCode != 200) {
-        await addRequestToQueue(url, headers, photo);
+        await addRequestToQueue(url, headers, photo, data: data);
       }
     } catch (e) {
-      await addRequestToQueue(url, headers, photo);
+      logger.e('sendRequestWithFallback $e');
+      await addRequestToQueue(url, headers, photo, data: data);
     }
   }
 }

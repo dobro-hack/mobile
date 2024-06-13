@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/map/ui/map_page.dart';
-import '../../features/problem/problem_page.dart';
+import '../../features/menu/ui/menu_page.dart';
+import '../../features/problem/ui/location_picker_page.dart';
+import '../../features/problem/ui/problem_page.dart';
 import 'route_name.dart';
 
 final GoRouter router = GoRouter(
@@ -20,6 +22,39 @@ final GoRouter router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             return const ProblemPage();
           },
+          routes: [
+            GoRoute(
+              name: RouteName.selectLocation,
+              path: RouteName.selectLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const LocationPickerPage();
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          name: RouteName.menu,
+          path: RouteName.menu,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: MenuPage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin:
+                        Offset(1.0, 0.0), // Переход начинает с правой стороны
+                    end: Offset.zero, // Переход заканчивается в центре
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+            );
+          },
+          // builder: (BuildContext context, GoRouterState state) {
+          //   return const ProblemPage();
+          // },
         ),
       ],
     ),

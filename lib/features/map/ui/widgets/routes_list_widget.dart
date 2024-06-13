@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/domain/route_state.dart';
+import '../../domain/route_state.dart';
 import '../../data/models/route_response.dart';
 import 'route_card.dart';
 

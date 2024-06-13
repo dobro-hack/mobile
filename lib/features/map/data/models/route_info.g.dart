@@ -24,6 +24,9 @@ _$RouteInfoImpl _$$RouteInfoImplFromJson(Map<String, dynamic> json) =>
       duration: (json['Duration'] as num).toInt(),
       height: (json['Height'] as num).toInt(),
       difficulty: $enumDecode(_$DifficultyEnumMap, json['Difficulty']),
+      load: (json['Load'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
     );
 
 Map<String, dynamic> _$$RouteInfoImplToJson(_$RouteInfoImpl instance) =>
@@ -42,6 +45,7 @@ Map<String, dynamic> _$$RouteInfoImplToJson(_$RouteInfoImpl instance) =>
       'Duration': instance.duration,
       'Height': instance.height,
       'Difficulty': _$DifficultyEnumMap[instance.difficulty]!,
+      'Load': instance.load,
     };
 
 const _$DifficultyEnumMap = {
