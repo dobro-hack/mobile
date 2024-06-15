@@ -1,10 +1,12 @@
 import 'package:eco/common/navigation/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/green_elev_button.dart';
 import '../../../../common/widgets/text_show_more.dart';
+import '../../data/models/cell.dart';
 import '../../data/models/route_info.dart';
 import '../../data/utils.dart';
 import 'chart.dart';
@@ -44,11 +46,9 @@ class ScrollPanelInfo extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               SizedBox(height: 4.h),
-              // Text(route.description),
               TextShowMore(text: route.description),
             ],
           ),
-          // child: FiltersPlace(),
         ),
         Container(
           padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -157,14 +157,23 @@ class ScrollPanelInfo extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
-        Text('тут операторы'),
+        ...cells
+            .map((e) => ListTile(
+                  leading: SvgPicture.asset(e.iconAsset),
+                  title: Text(e.name),
+                  subtitle: Text(
+                    e.description,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ))
+            .toList(),
         Padding(
           padding: EdgeInsets.all(16.h),
           child: NoteWidget(
             title: 'Скачайте маршрут на телефон',
             text: 'Приложение будет работать, даже если интернет пропадёт',
             bottomWidget:
-                TextButton(onPressed: () {}, child: Text('Скачать * 86 мб')),
+                TextButton(onPressed: () {}, child: const Text('Скачать')),
           ),
         ),
         Padding(

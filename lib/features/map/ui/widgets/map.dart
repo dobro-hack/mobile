@@ -1,19 +1,18 @@
+import 'package:eco/features/map/domain/location_provider.dart';
 import 'package:eco/features/map/domain/track_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../../common/theme/app_colors.dart';
-import '../../../../common/widgets/text_show_more.dart';
 import '../../data/models/place.dart';
 import '../../data/models/route_response.dart';
 import '../../domain/map_notifier_provider.dart';
 import '../../domain/routes_provider.dart';
+import 'place_bottom_modal.dart';
 
 class RoutesMap extends ConsumerWidget {
   const RoutesMap({super.key});
@@ -47,7 +46,7 @@ class RoutesMap extends ConsumerWidget {
                 child: GestureDetector(
                   onTap: () {
                     debugPrint('нажали');
-                    _showPlaceModal(context, e);
+                    showPlaceModal(context, e);
                   },
                   child: Container(
                     width: 64.h,
@@ -71,72 +70,6 @@ class RoutesMap extends ConsumerWidget {
         loading: () => []);
   }
 
-  void _showPlaceModal(BuildContext context, Place place) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(12.r))),
-      builder: (BuildContext context) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 12.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/cancel.svg',
-                    ),
-                    onPressed: () {
-                      context.pop();
-                    },
-                  ),
-                  Expanded(
-                    child: Text(
-                      'О месте',
-                      style: Theme.of(context).appBarTheme.titleTextStyle,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // const SizedBox(
-            //   height: 16,
-            // ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Divider(color: AppColors.red),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    place.name,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  SizedBox(height: 4.h),
-                  // Text(route.description),
-                  TextShowMore(text: place.description),
-                ],
-              ),
-              // child: FiltersPlace(),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Divider(color: AppColors.red),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncRoutes = ref.watch(routesProviderProvider);
@@ -157,6 +90,25 @@ class RoutesMap extends ConsumerWidget {
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'dev.fleaflet.flutter_map.example',
         ),
+        MarkerLayer(markers: [
+          if (ref.watch(locationProviderProvider).myPoint != null)
+            Marker(
+              width: 20.0,
+              height: 20.0,
+              point: ref.watch(locationProviderProvider).myPoint!,
+              child: Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 3.w,
+                      color: AppColors.white,
+                    ),
+                    color: AppColors.green),
+              ),
+            ),
+        ]),
         if (ref.watch(mapNotifierProvider).selectedRoute != null)
           PolylineLayer(
             polylines: trackPointsAsync.when(

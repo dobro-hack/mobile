@@ -13,15 +13,13 @@ class ScrollPanelWithList extends StatelessWidget {
     return ListView(
       controller: sc,
       children: const [
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('search'),
-          // child: FiltersPlace(),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.all(16.0),
+        //   child: Text('search'),
+        // ),
         Padding(
           padding: EdgeInsets.all(16.0),
           child: Text('filters'),
-          // child: FiltersPlace(),
         ),
         RoutesListWidget(),
       ],

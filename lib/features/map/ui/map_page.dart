@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../domain/location_provider.dart';
 import '../domain/map_notifier_provider.dart';
 import 'widgets/map.dart';
 import 'widgets/map_app_bar.dart';
@@ -71,12 +72,19 @@ class _MapPageState extends ConsumerState<MapPage> {
                   right: 4.w,
                   bottom: locationHight,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref
+                            .read(locationProviderProvider.notifier)
+                            .getCurrentLocation();
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: EdgeInsets.all(8.w),
                       ),
-                      child: SvgPicture.asset('assets/icons/location.svg')),
+                      child:
+                          ref.watch(locationProviderProvider).isLoading == true
+                              ? CircularProgressIndicator()
+                              : SvgPicture.asset('assets/icons/location.svg')),
                 ),
             ],
           ),

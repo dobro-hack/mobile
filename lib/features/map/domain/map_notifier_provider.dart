@@ -1,9 +1,12 @@
+import 'package:eco/common/logger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/models/route_info.dart';
+import '../data/repositories/location_repository.dart';
 import 'track_provider.dart';
 
 part 'map_notifier_provider.g.dart';
@@ -66,24 +69,39 @@ class MapNotifier extends _$MapNotifier {
       LatLng(maxLat, maxLon),
     );
   }
+
+  // Future<void> getCurrentLocation() async {
+  //   try {
+  //     Position position = await LocationRepository().getCurrentLocation();
+  //     LatLng newPoint = LatLng(position.latitude, position.longitude);
+  //     state = state.copyWith(myPoint: newPoint);
+  //     mapController?.move(newPoint, 13);
+  //   } catch (e) {
+  //     logger.e(e);
+  //   }
+  // }
 }
 
 class MapState {
   final RouteInfo? selectedRoute;
   final MapController? mapController;
+  // LatLng? myPoint;
 
   MapState({
     this.selectedRoute,
     this.mapController,
+    // this.myPoint,
   });
 
   MapState copyWith({
     RouteInfo? selectedRoute,
     MapController? mapController,
+    // LatLng? myPoint,
   }) {
     return MapState(
       selectedRoute: selectedRoute ?? this.selectedRoute,
       mapController: mapController ?? this.mapController,
+      // myPoint: myPoint ?? this.myPoint,
     );
   }
 }

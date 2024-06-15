@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../../../common/theme/app_colors.dart';
 import '../../../common/widgets/green_elev_button.dart';
 import '../../map/data/repositories/location_repository.dart';
+import '../../map/domain/location_provider.dart';
 
-class LocationPickerPage extends StatefulWidget {
+class LocationPickerPage extends ConsumerStatefulWidget {
   const LocationPickerPage({super.key});
 
   @override
-  State<LocationPickerPage> createState() => _LocationPickerPageState();
+  ConsumerState<LocationPickerPage> createState() => _LocationPickerPageState();
 }
 
-class _LocationPickerPageState extends State<LocationPickerPage> {
+class _LocationPickerPageState extends ConsumerState<LocationPickerPage> {
   LatLng _currentPosition = LatLng(53.024263, 158.643504); // Начальная позиция
-  LatLng? _myPoint;
-  final LocationRepository _locationRepository = LocationRepository();
+
   final MapController _mapController = MapController();
 
   void _onMapTapped(LatLng position) {
@@ -31,15 +31,21 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
 
   Future<void> _getCurrentLocation() async {
     try {
-      Position position = await _locationRepository.getCurrentLocation();
-      LatLng newPoint = LatLng(position.latitude, position.longitude);
+      await ref.read(locationProviderProvider.notifier).getCurrentLocation();
 
-      setState(() {
-        _myPoint = newPoint;
-        _currentPosition = newPoint;
-      });
+      LatLng? newPoint = ref.read(locationProviderProvider).myPoint;
+      if (newPoint != null) {
+        setState(() {
+          _currentPosition = newPoint;
+        });
 
-      _mapController.move(newPoint, _mapController.zoom);
+        _mapController.move(newPoint, _mapController.zoom);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Не удалось определить текущее местоположение')),
+        );
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -100,11 +106,11 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                             size: 40,
                           ),
                         ),
-                        if (_myPoint != null)
+                        if (ref.watch(locationProviderProvider).myPoint != null)
                           Marker(
                             width: 20.0,
                             height: 20.0,
-                            point: _myPoint!,
+                            point: ref.watch(locationProviderProvider).myPoint!,
                             child: Container(
                               width: 20,
                               height: 20,
@@ -130,7 +136,9 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                       shape: const CircleBorder(),
                       padding: EdgeInsets.all(8.w),
                     ),
-                    child: SvgPicture.asset('assets/icons/location.svg'),
+                    child: ref.watch(locationProviderProvider).isLoading == true
+                        ? CircularProgressIndicator()
+                        : SvgPicture.asset('assets/icons/location.svg'),
                   ),
                 ),
               ],
