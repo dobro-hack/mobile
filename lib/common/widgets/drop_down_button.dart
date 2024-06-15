@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../theme/app_colors.dart';
+import 'green_elev_button.dart';
 
 class CustomSingleDropdownButton<T> extends StatefulWidget {
   final List<DropdownItem<T>> items;
@@ -229,21 +230,14 @@ class DropdownSheetState<T> extends State<DropdownSheet<T>> {
             ),
           ),
           const SizedBox(height: 4),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.green,
-                foregroundColor: AppColors.white,
-              ),
-              onPressed: selectedValue != null
-                  ? () {
-                      widget.onItemSelected(selectedValue as T);
-                      Navigator.pop(context);
-                    }
-                  : null,
-              child: Text('Выбрать'),
-            ),
+          GreenElevButton(
+            onPressed: selectedValue != null
+                ? () {
+                    widget.onItemSelected(selectedValue as T);
+                    Navigator.pop(context);
+                  }
+                : null,
+            text: 'Выбрать',
           ),
         ],
       ),

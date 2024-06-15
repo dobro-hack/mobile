@@ -10,6 +10,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../../common/theme/app_colors.dart';
 import '../../../common/widgets/drop_down_button.dart';
+import '../../../common/widgets/green_elev_button.dart';
 import '../data/models/problem_type.dart';
 import '../domain/problem_state.dart';
 import 'location_picker_page.dart';
@@ -230,14 +231,9 @@ class ProblemPage extends ConsumerWidget {
               Divider(
                 color: Colors.red,
               ),
-              Container(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.green,
-                    foregroundColor: AppColors.white,
-                  ),
+                child: GreenElevButton(
                   onPressed: () {
                     ref
                         .read(problemStateProvider.notifier)
@@ -250,7 +246,7 @@ class ProblemPage extends ConsumerWidget {
                       print('Failed to send problem: $error');
                     });
                   },
-                  child: Text('Войти через Госуслуги и отправить'),
+                  text: 'Войти через Госуслуги и отправить',
                 ),
               ),
               Container(

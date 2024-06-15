@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/bid/ui/bid_page.dart';
 import '../../features/map/ui/map_page.dart';
 import '../../features/menu/ui/menu_page.dart';
 import '../../features/problem/ui/location_picker_page.dart';
@@ -55,6 +56,13 @@ final GoRouter router = GoRouter(
           // builder: (BuildContext context, GoRouterState state) {
           //   return const ProblemPage();
           // },
+        ),
+        GoRoute(
+          name: RouteName.bid,
+          path: RouteName.bid,
+          builder: (BuildContext context, GoRouterState state) {
+            return const BidPage();
+          },
         ),
       ],
     ),
