@@ -157,25 +157,19 @@ class DropdownSheetState<T> extends State<DropdownSheet<T>> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/cancel.svg',
-                    ),
-                    onPressed: () {
-                      context.pop();
-                    },
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width - 35,
-                    alignment: Alignment.center,
-                    child: Text(
-                      widget.title,
-                      style: Theme.of(context).appBarTheme.titleTextStyle,
-                    ),
-                  )
-                ],
+              IconButton(
+                icon: SvgPicture.asset(
+                  'assets/icons/cancel.svg',
+                ),
+                onPressed: () {
+                  context.pop();
+                },
+              ),
+              Expanded(
+                child: Text(
+                  widget.title,
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                ),
               ),
             ],
           ),

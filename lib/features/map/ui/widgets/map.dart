@@ -4,9 +4,12 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../../common/theme/app_colors.dart';
+import '../../../../common/widgets/text_show_more.dart';
 import '../../data/models/place.dart';
 import '../../data/models/route_response.dart';
 import '../../domain/map_notifier_provider.dart';
@@ -15,7 +18,8 @@ import '../../domain/routes_provider.dart';
 class RoutesMap extends ConsumerWidget {
   const RoutesMap({super.key});
 
-  List<Marker> _buildMarkersOnMap(AsyncValue<RouteResponse> asyncRoutes) {
+  List<Marker> _buildMarkersOnMap(
+      AsyncValue<RouteResponse> asyncRoutes, BuildContext context) {
     return asyncRoutes.when(
         data: (RouteResponse data) {
           List<Place> places = [for (var r in data.routes) ...r.places];
@@ -43,6 +47,7 @@ class RoutesMap extends ConsumerWidget {
                 child: GestureDetector(
                   onTap: () {
                     print('нажали');
+                    _showPlaceModal(context, e);
                   },
                   child: Container(
                     width: 64.h,
@@ -66,6 +71,72 @@ class RoutesMap extends ConsumerWidget {
         loading: () => []);
   }
 
+  void _showPlaceModal(BuildContext context, Place place) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(12.r))),
+      builder: (BuildContext context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 12.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/cancel.svg',
+                    ),
+                    onPressed: () {
+                      context.pop();
+                    },
+                  ),
+                  Expanded(
+                    child: Text(
+                      'О месте',
+                      style: Theme.of(context).appBarTheme.titleTextStyle,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // const SizedBox(
+            //   height: 16,
+            // ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Divider(color: AppColors.red),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    place.name,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  SizedBox(height: 4.h),
+                  // Text(route.description),
+                  TextShowMore(text: place.description),
+                ],
+              ),
+              // child: FiltersPlace(),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Divider(color: AppColors.red),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncRoutes = ref.watch(routesProviderProvider);
@@ -75,10 +146,10 @@ class RoutesMap extends ConsumerWidget {
       mapController: ref.watch(mapNotifierProvider).mapController,
       options: MapOptions(
         initialCenter: LatLng(
-          53.024263,
-          158.643504,
-          // 55.54407582912374,
-          // 37.61409759521485,
+          // 53.024263,
+          // 158.643504,
+          55.54407582912374,
+          37.61409759521485,
         ),
       ),
       children: [
@@ -109,7 +180,7 @@ class RoutesMap extends ConsumerWidget {
             alignment: Alignment.center,
             padding: const EdgeInsets.all(50),
             maxZoom: 15,
-            markers: _buildMarkersOnMap(asyncRoutes),
+            markers: _buildMarkersOnMap(asyncRoutes, context),
             builder: (context, markers) {
               return Container(
                 decoration: BoxDecoration(
