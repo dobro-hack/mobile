@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/route_state.dart';
+import '../../domain/routes_provider.dart';
 import '../../data/models/route_response.dart';
 import 'route_card.dart';
 
@@ -12,7 +12,7 @@ class RoutesListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncRoutes = ref.watch(routesProvider);
+    final asyncRoutes = ref.watch(routesProviderProvider);
     return asyncRoutes.when(
       data: (RouteResponse data) {
         return ListView.separated(

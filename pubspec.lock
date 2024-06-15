@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.4.1"
+  analyzer_plugin:
+    dependency: transitive
+    description:
+      name: analyzer_plugin
+      sha256: "9661b30b13a685efaee9f02e5d01ed9f2b423bd889d28a304d02d704aee69161"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.11.3"
   animated_stack_widget:
     dependency: transitive
     description:
@@ -225,6 +233,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  custom_lint_core:
+    dependency: transitive
+    description:
+      name: custom_lint_core
+      sha256: a85e8f78f4c52f6c63cdaf8c872eb573db0231dcdf3c3a5906d493c1f8bc20e6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.3"
+  dart_earcut:
+    dependency: transitive
+    description:
+      name: dart_earcut
+      sha256: "41b493147e30a051efb2da1e3acb7f38fe0db60afba24ac1ea5684cee272721e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   dart_style:
     dependency: transitive
     description:
@@ -313,6 +337,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  flat_buffers:
+    dependency: transitive
+    description:
+      name: flat_buffers
+      sha256: "380bdcba5664a718bfd4ea20a45d39e13684f5318fcd8883066a55e21f37f4c3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "23.5.26"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -350,6 +382,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.2"
+  flutter_map_tile_caching:
+    dependency: "direct main"
+    description:
+      name: flutter_map_tile_caching
+      sha256: "24412e067317ba6f03d8568c024b400ac37bfe364719033f8048d7bca86b80d3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.1"
   flutter_native_splash:
     dependency: "direct main"
     description:
@@ -784,6 +824,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
+  objectbox:
+    dependency: transitive
+    description:
+      name: objectbox
+      sha256: "9fb2810156e8f78d82ecf672c36a1aba2c1de16d7903675335e00e374bdc3ba8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.1"
+  objectbox_flutter_libs:
+    dependency: transitive
+    description:
+      name: objectbox_flutter_libs
+      sha256: dca86b2d1074110573b69cbd9afb6b67ab9d2c824704c6ac5187e546418baf9c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.1"
   package_config:
     dependency: transitive
     description:
@@ -936,6 +992,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.1"
+  riverpod_analyzer_utils:
+    dependency: transitive
+    description:
+      name: riverpod_analyzer_utils
+      sha256: "8b71f03fc47ae27d13769496a1746332df4cec43918aeba9aff1e232783a780f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
+  riverpod_annotation:
+    dependency: "direct main"
+    description:
+      name: riverpod_annotation
+      sha256: e5e796c0eba4030c704e9dae1b834a6541814963292839dcf9638d53eba84f5c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.5"
+  riverpod_generator:
+    dependency: "direct dev"
+    description:
+      name: riverpod_generator
+      sha256: d451608bf17a372025fc36058863737636625dfdb7e3cbf6142e0dfeb366ab22
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
   shelf:
     dependency: transitive
     description:
@@ -1190,7 +1270,7 @@ packages:
     source: hosted
     version: "1.0.4"
   xml:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: xml
       sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226

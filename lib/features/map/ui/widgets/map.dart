@@ -1,3 +1,4 @@
+import 'package:eco/features/map/domain/track_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -8,7 +9,8 @@ import 'package:latlong2/latlong.dart';
 import '../../../../common/theme/app_colors.dart';
 import '../../data/models/place.dart';
 import '../../data/models/route_response.dart';
-import '../../domain/route_state.dart';
+import '../../domain/map_notifier_provider.dart';
+import '../../domain/routes_provider.dart';
 
 class RoutesMap extends ConsumerWidget {
   const RoutesMap({super.key});
@@ -23,8 +25,8 @@ class RoutesMap extends ConsumerWidget {
                 return Marker(
                   point: LatLng(55.7522, 37.6156),
                   child: Container(
-                    width: 44.h,
-                    height: 44.h,
+                    width: 64.h,
+                    height: 64.h,
                     decoration: BoxDecoration(
                       color: AppColors.blue,
                       shape: BoxShape.circle,
@@ -43,8 +45,8 @@ class RoutesMap extends ConsumerWidget {
                     print('нажали');
                   },
                   child: Container(
-                    width: 44.h,
-                    height: 44.h,
+                    width: 64.h,
+                    height: 64.h,
                     decoration: BoxDecoration(
                       color: AppColors.blue,
                       shape: BoxShape.circle,
@@ -66,15 +68,40 @@ class RoutesMap extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncRoutes = ref.watch(routesProvider);
+    final asyncRoutes = ref.watch(routesProviderProvider);
+    final trackPointsAsync = ref.watch(trackProviderProvider);
 
     return FlutterMap(
-      options: MapOptions(initialCenter: LatLng(53.024263, 158.643504)),
+      mapController: ref.watch(mapNotifierProvider).mapController,
+      options: MapOptions(
+        initialCenter: LatLng(
+          53.024263,
+          158.643504,
+          // 55.54407582912374,
+          // 37.61409759521485,
+        ),
+      ),
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'dev.fleaflet.flutter_map.example',
         ),
+        if (ref.watch(mapNotifierProvider).selectedRoute != null)
+          PolylineLayer(
+            polylines: trackPointsAsync.when(
+              error: (error, stackTrace) => [],
+              loading: () => [],
+              data: (List<LatLng> trackPoints) {
+                return [
+                  Polyline(
+                    points: trackPoints,
+                    strokeWidth: 4.0,
+                    color: Colors.blue,
+                  ),
+                ];
+              },
+            ),
+          ),
         MarkerClusterLayerWidget(
           options: MarkerClusterLayerOptions(
             maxClusterRadius: 45,
