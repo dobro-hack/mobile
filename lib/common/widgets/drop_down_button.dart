@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import 'divider_grey.dart';
 import 'green_elev_button.dart';
 
 class CustomSingleDropdownButton<T> extends StatefulWidget {
@@ -179,7 +180,7 @@ class DropdownSheetState<T> extends State<DropdownSheet<T>> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const Divider(),
+                  const DividerGrey(),
                   ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -215,9 +216,9 @@ class DropdownSheetState<T> extends State<DropdownSheet<T>> {
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
+                        const DividerGrey(),
                   ),
-                  const Divider(),
+                  const DividerGrey(),
                 ],
               ),
             ),

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/theme/app_colors.dart';
+import '../../../../common/widgets/divider_grey.dart';
 import '../../../../common/widgets/text_show_more.dart';
 import '../../data/models/place.dart';
 
@@ -44,7 +44,7 @@ void showPlaceModal(BuildContext context, Place place) {
           // ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Divider(color: AppColors.red),
+            child: const DividerGrey(),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -57,15 +57,13 @@ void showPlaceModal(BuildContext context, Place place) {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 4.h),
-                // Text(route.description),
                 TextShowMore(text: place.description),
               ],
             ),
-            // child: FiltersPlace(),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Divider(color: AppColors.red),
+            child: const DividerGrey(),
           ),
         ],
       );

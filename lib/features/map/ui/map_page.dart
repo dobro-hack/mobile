@@ -54,7 +54,7 @@ class _MapPageState extends ConsumerState<MapPage> {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
                 parallaxEnabled: true,
                 parallaxOffset: 0.5,
-                body: RoutesMap(), // Container(color: Colors.green),
+                body: const RoutesMap(), // Container(color: Colors.green),
                 panelBuilder: (sc) => selectedRoute == null
                     ? ScrollPanelWithList(sc: sc)
                     : ScrollPanelInfo(

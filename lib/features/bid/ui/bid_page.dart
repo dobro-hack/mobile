@@ -3,10 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../../common/widgets/divider_grey.dart';
 import '../../../common/widgets/green_elev_button.dart';
 import '../domain/bid_provider.dart';
 import 'widgets/date_text_field.dart';
 import 'package:intl/intl.dart';
+
+import 'widgets/guesr_details_form.dart';
 
 class BidPage extends ConsumerStatefulWidget {
   const BidPage({super.key});
@@ -17,6 +20,7 @@ class BidPage extends ConsumerStatefulWidget {
 
 class _BidPageState extends ConsumerState<BidPage> {
   late TextEditingController _dateController;
+  late TextEditingController _countController;
   DateTime? _selectedDate;
   bool _isDateAvailable = true;
 
@@ -24,6 +28,8 @@ class _BidPageState extends ConsumerState<BidPage> {
   void initState() {
     super.initState();
     _dateController = TextEditingController();
+    _countController = TextEditingController();
+    _countController.text = "1";
   }
 
   @override
@@ -32,22 +38,22 @@ class _BidPageState extends ConsumerState<BidPage> {
     super.dispose();
   }
 
-  Future<void> _checkDateAvailability(DateTime date) async {
-    // Устанавливаем выбранную дату
+  Future<void> _checkAccess() async {
+    if (_selectedDate != null && ref.read(numberOfGuestsProvider) > 0) {
+      final isAvailable =
+          await ref.read(dateAvailabilityProvider(_selectedDate!).future);
+
+      setState(() {
+        _isDateAvailable = isAvailable;
+      });
+    }
+  }
+
+  Future<void> _setDate(DateTime date) async {
     _selectedDate = date;
-
-    // Обновляем текстовое поле с датой
     _dateController.text = DateFormat('dd.MM.yyyy').format(date);
-
-    // Проверяем доступность даты через провайдер
-    final isAvailable = await ref.read(dateAvailabilityProvider(date).future);
-
-    // Обновляем выбранную дату в провайдере состояния
     ref.read(selectedDateProvider.notifier).setDate(date);
-    // Обновляем состояние
-    setState(() {
-      _isDateAvailable = isAvailable;
-    });
+    _checkAccess();
   }
 
   void _showConfirmationModal(BuildContext context) {
@@ -102,6 +108,13 @@ class _BidPageState extends ConsumerState<BidPage> {
 
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: const DividerGrey(),
+          ),
+        ),
         leading: IconButton(
           icon: SvgPicture.asset(
             'assets/icons/cancel.svg',
@@ -110,7 +123,7 @@ class _BidPageState extends ConsumerState<BidPage> {
             context.pop();
           },
         ),
-        title: Text('Заявка'),
+        title: const Text('Заявка'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -118,9 +131,6 @@ class _BidPageState extends ConsumerState<BidPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Divider(
-                color: Colors.red,
-              ),
               SizedBox(
                 height: 288.h,
                 child: Padding(
@@ -146,20 +156,23 @@ class _BidPageState extends ConsumerState<BidPage> {
                   ),
                 ),
               ),
-              Divider(
-                color: Colors.red,
-              ),
+              const DividerGrey(),
               Text(
                 'Количество посетителей',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               SizedBox(height: 8.h),
               TextField(
+                controller: _countController,
                 keyboardType: TextInputType.number,
+                onTapOutside: (event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
                 onChanged: (value) {
                   ref
                       .read(numberOfGuestsProvider.notifier)
                       .setNumberOfGuests(int.tryParse(value) ?? 0);
+                  _checkAccess();
                 },
               ),
               SizedBox(height: 16.h),
@@ -171,7 +184,7 @@ class _BidPageState extends ConsumerState<BidPage> {
               DateTextField(
                 controller: _dateController,
                 selectedDate: _selectedDate,
-                onDateSelected: _checkDateAvailability,
+                onDateSelected: _setDate,
                 errorText: _isDateAvailable
                     ? null
                     : 'На эту дату все места уже заняты',
@@ -180,9 +193,7 @@ class _BidPageState extends ConsumerState<BidPage> {
               if (_selectedDate != null && _isDateAvailable)
                 Column(
                   children: [
-                    Divider(
-                      color: Colors.red,
-                    ),
+                    const DividerGrey(),
                     for (int i = 0; i < numberOfGuests; i++)
                       GuestDetailsForm(index: i + 1),
                     SizedBox(height: 20),
@@ -227,37 +238,6 @@ class _BidPageState extends ConsumerState<BidPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class GuestDetailsForm extends StatelessWidget {
-  final int index;
-
-  const GuestDetailsForm({required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.h),
-          child: Text(
-            '${'Посетитель'.toUpperCase()} №$index',
-            style: Theme.of(context)
-                .textTheme
-                .labelSmall
-                ?.copyWith(fontWeight: FontWeight.w600),
-          ),
-        ),
-        TextField(decoration: InputDecoration(labelText: 'Фамилия')),
-        TextField(decoration: InputDecoration(labelText: 'Имя')),
-        TextField(decoration: InputDecoration(labelText: 'Отчество')),
-        TextField(decoration: InputDecoration(labelText: 'Дата рождения')),
-        TextField(
-            decoration: InputDecoration(labelText: 'Серия и номер паспорта')),
-      ],
     );
   }
 }

@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../common/theme/app_colors.dart';
+import '../../../common/widgets/divider_grey.dart';
 import '../../../common/widgets/green_elev_button.dart';
-import '../../map/data/repositories/location_repository.dart';
 import '../../map/domain/location_provider.dart';
 
 class LocationPickerPage extends ConsumerStatefulWidget {
@@ -58,13 +58,20 @@ class _LocationPickerPageState extends ConsumerState<LocationPickerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: const DividerGrey(),
+          ),
+        ),
         leading: IconButton(
           icon: SvgPicture.asset('assets/icons/cancel.svg'),
           onPressed: () {
             context.pop();
           },
         ),
-        title: Text('Место на карте'),
+        title: const Text('Место на карте'),
       ),
       body: Column(
         children: [

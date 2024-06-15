@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../common/theme/app_colors.dart';
+import '../../../common/widgets/divider_grey.dart';
 import '../../../common/widgets/drop_down_button.dart';
 import '../../../common/widgets/green_elev_button.dart';
 import '../data/models/problem_type.dart';
@@ -111,6 +112,13 @@ class ProblemPage extends ConsumerWidget {
       },
       child: Scaffold(
         appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: const DividerGrey(),
+            ),
+          ),
           leading: IconButton(
             icon: SvgPicture.asset(
               'assets/icons/cancel.svg',
@@ -120,17 +128,11 @@ class ProblemPage extends ConsumerWidget {
               context.pop();
             },
           ),
-          title: Text('Сообщение о проблеме'),
+          title: const Text('Сообщение о проблеме'),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Divider(
-                  color: Colors.red,
-                ),
-              ),
               SizedBox(
                 height: 288.h,
                 child: Padding(
@@ -158,9 +160,7 @@ class ProblemPage extends ConsumerWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Divider(
-                  color: Colors.red,
-                ),
+                child: const DividerGrey(),
               ),
               Form(
                 child: Column(
@@ -204,9 +204,7 @@ class ProblemPage extends ConsumerWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Divider(
-                        color: Colors.red,
-                      ),
+                      child: const DividerGrey(),
                     ),
                     ListTile(
                       onTap: selectLocation,
@@ -321,9 +319,7 @@ class ProblemPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              Divider(
-                color: Colors.red,
-              ),
+              const DividerGrey(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: GreenElevButton(

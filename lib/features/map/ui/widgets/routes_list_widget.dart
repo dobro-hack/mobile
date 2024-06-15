@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../domain/routes_provider.dart';
 import '../../data/models/route_response.dart';
@@ -26,8 +28,14 @@ class RoutesListWidget extends ConsumerWidget {
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (Object error, StackTrace stackTrace) =>
-          Center(child: Text('Error: $error')),
+      error: (Object error, StackTrace stackTrace) => Center(
+          child: Column(
+        children: [
+          SvgPicture.asset('assets/icons/attention.svg'),
+          SizedBox(height: 12.h),
+          const Text('Соединение отсутствует'),
+        ],
+      )),
     );
   }
 }

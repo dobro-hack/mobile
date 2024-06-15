@@ -9,6 +9,7 @@ ThemeData themeLight = ThemeData(
   scaffoldBackgroundColor: AppColors.white,
   brightness: Brightness.light,
   dividerColor: AppColors.red,
+  textButtonTheme: TextButtonThemeData(style: _textButtonLight),
   elevatedButtonTheme: ElevatedButtonThemeData(style: _elevButtonLight),
   // disabledColor: AppColors.greyLight,
   appBarTheme: _appBarTheme,
@@ -45,19 +46,6 @@ ColorScheme _colorScheme = ColorScheme.fromSwatch().copyWith(
   onError: AppColors.white,
 );
 
-BottomNavigationBarThemeData _bottomNavigationBarThemeData =
-    const BottomNavigationBarThemeData(
-  elevation: 0,
-  showSelectedLabels: false,
-  showUnselectedLabels: false,
-  type: BottomNavigationBarType.fixed,
-  backgroundColor: AppColors.white,
-  selectedItemColor: AppColors.greyDark,
-  selectedIconTheme: IconThemeData(color: AppColors.white),
-  unselectedItemColor: AppColors.white,
-  unselectedIconTheme: IconThemeData(color: AppColors.greyDark),
-);
-
 InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
   filled: true,
   fillColor: AppColors.greyBackgroundDark,
@@ -83,6 +71,7 @@ InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
 );
 
 AppBarTheme _appBarTheme = AppBarTheme(
+  surfaceTintColor: AppColors.white,
   centerTitle: false,
   foregroundColor: AppColors.black,
   backgroundColor: AppColors.white,
@@ -93,9 +82,11 @@ AppBarTheme _appBarTheme = AppBarTheme(
 );
 
 ButtonStyle _elevButtonLight = ElevatedButton.styleFrom(
-  // backgroundColor: AppColors.green,
-  // foregroundColor: AppColors.white,
-  shape:
-      StadiumBorder(), //  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+  shape: const StadiumBorder(),
+  textStyle: Roboto().size16Weihtg500,
+);
+
+ButtonStyle _textButtonLight = ElevatedButton.styleFrom(
+  padding: const EdgeInsets.symmetric(horizontal: 0),
   textStyle: Roboto().size16Weihtg500,
 );
