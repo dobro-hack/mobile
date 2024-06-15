@@ -8,7 +8,7 @@ class CustomLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int weeksPerMonth = data.length ~/ months.length;
+    // int weeksPerMonth = data.length ~/ months.length;
     double smallGap = 4; // Маленький отступ между столбцами одного месяца
     double largeGap = 16; // Большой отступ между месяцами
     double horizontalGap = 50;
@@ -16,7 +16,7 @@ class CustomLineChart extends StatelessWidget {
         (horizontalGap + smallGap) * (data.length - months.length) +
             largeGap * months.length;
     return SizedBox(
-      height: 180, // Увеличим высоту для размещения подписей месяцев
+      height: 180,
       width: chartWidth,
       child: CustomPaint(
         painter: LineChartPainter(data: data, months: months),
@@ -57,7 +57,6 @@ class LineChartPainter extends CustomPainter {
       ..strokeWidth = 3.0
       ..style = PaintingStyle.stroke;
 
-    // Нарисуем фоновые полосы с отступами и скруглением только у крайних столбцов месяца
     double currentX = 0;
     for (int i = 0; i < data.length; i++) {
       Paint paint = data[i] > 7 ? highlightedBackgroundPaint : backgroundPaint;
@@ -82,8 +81,7 @@ class LineChartPainter extends CustomPainter {
 
       canvas.drawRRect(
         RRect.fromRectAndCorners(
-          Rect.fromLTRB(left, 0, right,
-              size.height - 20), // Уменьшим высоту для учета подписей
+          Rect.fromLTRB(left, 0, right, size.height - 20),
           topLeft: topLeftRadius,
           topRight: topRightRadius,
           bottomLeft: bottomLeftRadius,
@@ -96,7 +94,7 @@ class LineChartPainter extends CustomPainter {
           (i % weeksPerMonth == weeksPerMonth - 1 ? largeGap : smallGap);
     }
 
-    // Нарисуем линию графика
+    //  линию графика
     Path path = Path();
     currentX = 0;
     for (int i = 0; i < data.length; i++) {
@@ -112,7 +110,7 @@ class LineChartPainter extends CustomPainter {
     }
     canvas.drawPath(path, linePaint);
 
-    // Нарисуем месяцы под графиком
+    //  месяцы под графиком
     TextPainter textPainter = TextPainter(
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
@@ -124,7 +122,7 @@ class LineChartPainter extends CustomPainter {
           i * largeGap; // Позиция месяца
       textPainter.text = TextSpan(
         text: months[i],
-        style: TextStyle(color: Colors.black, fontSize: 16),
+        style: const TextStyle(color: Colors.black, fontSize: 16),
       );
       textPainter.layout(minWidth: 0, maxWidth: size.width);
       textPainter.paint(

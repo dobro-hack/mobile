@@ -124,7 +124,7 @@ class TextShowMoreState extends State<TextShowMore> {
 //         });
 //       }
 
-//       print('Text height: $textHeight, Full text height: $fullTextHeight');
+//       debugPrint('Text height: $textHeight, Full text height: $fullTextHeight');
 //     }
 //   }
 

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/theme/app_colors.dart';
 import '../../../../common/widgets/green_elev_button.dart';
 import '../../../../common/widgets/text_show_more.dart';
 import '../../data/models/route_info.dart';

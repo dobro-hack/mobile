@@ -56,7 +56,7 @@ class MapAppBar extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        print('callback');
+                        debugPrint('callback');
                         callBack!();
                       },
                       style: ElevatedButton.styleFrom(

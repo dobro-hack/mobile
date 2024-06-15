@@ -12,7 +12,7 @@ import '../../../common/theme/app_colors.dart';
 import '../../../common/widgets/drop_down_button.dart';
 import '../../../common/widgets/green_elev_button.dart';
 import '../data/models/problem_type.dart';
-import '../domain/problem_state.dart';
+import '../domain/problem_provider.dart';
 import 'location_picker_page.dart';
 
 class ProblemPage extends ConsumerWidget {
@@ -333,9 +333,8 @@ class ProblemPage extends ConsumerWidget {
                             await ref
                                 .read(problemStateProvider.notifier)
                                 .sendProblem();
-                            print(ref.read(problemStateProvider).savedLocally);
                             if (ref.read(problemStateProvider).savedLocally) {
-                              print(
+                              debugPrint(
                                   'Failed to send problem: ${ref.read(problemStateProvider).errorMessage}');
                               showConfirmationModal(
                                 context,
@@ -344,7 +343,7 @@ class ProblemPage extends ConsumerWidget {
                                 'Статус сообщения можно отслеживать в разделе “Меню”. Пожалуйста, отправьте его как только появится интернет',
                               );
                             } else {
-                              print('Problem sent successfully');
+                              debugPrint('Problem sent successfully');
                               showConfirmationModal(
                                 context,
                                 true,

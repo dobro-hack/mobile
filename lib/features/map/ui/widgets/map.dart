@@ -46,7 +46,7 @@ class RoutesMap extends ConsumerWidget {
                 point: LatLng(e.location.lat, e.location.lon),
                 child: GestureDetector(
                   onTap: () {
-                    print('нажали');
+                    debugPrint('нажали');
                     _showPlaceModal(context, e);
                   },
                   child: Container(

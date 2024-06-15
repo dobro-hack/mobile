@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../domain/map_notifier_provider.dart';
-import '../domain/routes_provider.dart';
 import 'widgets/map.dart';
 import 'widgets/map_app_bar.dart';
 import 'widgets/scroll_panel_info.dart';
@@ -33,11 +31,9 @@ class _MapPageState extends ConsumerState<MapPage> {
   }
 
   void _onBackPressed() {
-    // Сброс выбора маршрута
     ref.read(mapNotifierProvider.notifier).clearSelectedRoute();
     // Сдвигаем панель до минимальной высоты
     // _panelController.close();
-    print(ref.read(mapNotifierProvider).selectedRoute);
   }
 
   @override

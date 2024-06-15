@@ -3,11 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import '../../../common/widgets/green_elev_button.dart';
 import '../domain/bid_provider.dart';
-import 'confirmation_page.dart';
 import 'widgets/date_text_field.dart';
+import 'package:intl/intl.dart';
 
 class BidPage extends ConsumerStatefulWidget {
   const BidPage({super.key});
@@ -205,7 +204,6 @@ class _BidPageState extends ConsumerState<BidPage> {
                                   .read(bookingStatusProvider.notifier)
                                   .submitBooking();
 
-                              // Показываем подтверждение, если отправка успешна
                               if (ref.read(bookingStatusProvider).value ??
                                   false) {
                                 _showConfirmationModal(context);
@@ -213,7 +211,7 @@ class _BidPageState extends ConsumerState<BidPage> {
                                   .read(bookingStatusProvider)
                                   .hasError) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                       content:
                                           Text('Ошибка при отправке заявки')),
                                 );

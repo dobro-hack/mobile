@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 class DateTextField extends ConsumerWidget {
   final TextEditingController controller;
@@ -8,7 +7,7 @@ class DateTextField extends ConsumerWidget {
   final Function(DateTime) onDateSelected;
   final String? errorText;
 
-  DateTextField({
+  const DateTextField({
     Key? key,
     required this.controller,
     required this.selectedDate,
