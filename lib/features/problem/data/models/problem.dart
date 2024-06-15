@@ -7,6 +7,7 @@ class Problem {
   final double longitude;
   final ProblemType? type;
   final String message;
+  final String phone;
   final XFile? photo;
 
   Problem({
@@ -15,5 +16,6 @@ class Problem {
     required this.type,
     required this.message,
     this.photo,
+    required this.phone,
   });
 }

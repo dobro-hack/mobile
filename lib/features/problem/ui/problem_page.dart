@@ -48,6 +48,62 @@ class ProblemPage extends ConsumerWidget {
       ref.read(problemStateProvider.notifier).resetState();
     }
 
+    Future<void> showConfirmationModal(
+      BuildContext context,
+      bool isSuccess,
+      String title,
+      String subtitle,
+    ) async {
+      await showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  isSuccess
+                      ? 'assets/images/mascot_love.png'
+                      : 'assets/images/mascot_attention.png',
+                  height: 120,
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                Text(
+                  title,
+                  //'Спасибо за бдительность, сообщение отправлено',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(fontSize: 20.sp),
+                ),
+                SizedBox(height: 8.h),
+                Text(
+                  subtitle,
+                  // 'Статус сообщения можно отслеживать в разделе “Меню” приложения',
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                GreenElevButton(
+                  onPressed: () {
+                    context.pop();
+                    resetState();
+                    context.pop();
+                  },
+                  text: 'Понятно',
+                ),
+              ],
+            ),
+          );
+        },
+      );
+      resetState();
+    }
+
     return WillPopScope(
       onWillPop: () async {
         resetState();
@@ -84,7 +140,7 @@ class ProblemPage extends ConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Image.asset(
-                          'assets/images/mascot_note.png',
+                          'assets/images/mascot_attention.png',
                           height: 120,
                         ),
                         SizedBox(
@@ -133,13 +189,18 @@ class ProblemPage extends ConsumerWidget {
                                 fit: BoxFit.cover,
                               ),
                       ),
-                      title: Text(
-                        'Загрузить фото или видео',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: AppColors.textBlue),
-                      ),
+                      title: problemState.imageFile == null
+                          ? Text(
+                              'Загрузить фото или видео',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(color: AppColors.textBlue),
+                            )
+                          : Text(
+                              problemState.imageFile!.name,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -194,6 +255,14 @@ class ProblemPage extends ConsumerWidget {
                           SizedBox(height: 8.h),
                           TextFormField(
                             maxLines: 3,
+                            onTapOutside: (event) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            onChanged: (value) {
+                              ref
+                                  .read(problemStateProvider.notifier)
+                                  .updateDescription(value);
+                            },
                           ),
                         ],
                       ),
@@ -225,6 +294,30 @@ class ProblemPage extends ConsumerWidget {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 12.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Телефон для связи',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          SizedBox(height: 8.h),
+                          TextFormField(
+                            onTapOutside: (event) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            onChanged: (value) {
+                              ref
+                                  .read(problemStateProvider.notifier)
+                                  .updatePhone(value);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -234,20 +327,35 @@ class ProblemPage extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: GreenElevButton(
-                  onPressed: () {
-                    ref
-                        .read(problemStateProvider.notifier)
-                        .sendProblem()
-                        .then((_) {
-                      // Обработка успешной отправки
-                      print('Problem sent successfully');
-                    }).catchError((error) {
-                      // Обработка ошибки при отправке
-                      print('Failed to send problem: $error');
-                    });
-                  },
-                  text: 'Войти через Госуслуги и отправить',
-                ),
+                    onPressed: ref.watch(problemStateProvider).isSending
+                        ? null
+                        : () async {
+                            await ref
+                                .read(problemStateProvider.notifier)
+                                .sendProblem();
+                            print(ref.read(problemStateProvider).savedLocally);
+                            if (ref.read(problemStateProvider).savedLocally) {
+                              print(
+                                  'Failed to send problem: ${ref.read(problemStateProvider).errorMessage}');
+                              showConfirmationModal(
+                                context,
+                                false,
+                                'Не получилось отправить сообщение',
+                                'Статус сообщения можно отслеживать в разделе “Меню”. Пожалуйста, отправьте его как только появится интернет',
+                              );
+                            } else {
+                              print('Problem sent successfully');
+                              showConfirmationModal(
+                                context,
+                                true,
+                                'Спасибо за бдительность, сообщение отправлено',
+                                'Статус сообщения можно отслеживать в разделе “Меню” приложения',
+                              );
+                            }
+                          },
+                    child: ref.watch(problemStateProvider).isSending
+                        ? CircularProgressIndicator(color: Colors.white)
+                        : Text('Войти через Госуслуги и отправить')),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -256,8 +364,18 @@ class ProblemPage extends ConsumerWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.greyBackgroundLight,
                   ),
-                  onPressed: () {},
-                  child: Text('Сохранить черновик без интернета'),
+                  onPressed: () async {
+                    await ref.read(problemStateProvider.notifier).sendProblem();
+                    showConfirmationModal(
+                      context,
+                      false,
+                      'Пожалуйста, отправьте сообщение как только появится интернет',
+                      ' Статус сообщения можно отслеживать в разделе “Меню” приложения',
+                    );
+                  },
+                  child: ref.watch(problemStateProvider).isSaving
+                      ? CircularProgressIndicator(color: Colors.white)
+                      : Text('Сохранить черновик без интернета'),
                 ),
               ),
             ],
