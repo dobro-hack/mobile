@@ -21,6 +21,8 @@ class GreenElevButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.green,
           foregroundColor: AppColors.white,
+          disabledBackgroundColor: AppColors.green.withOpacity(0.64),
+          disabledForegroundColor: AppColors.white.withOpacity(0.64),
         ),
         onPressed: onPressed != null
             ? () {

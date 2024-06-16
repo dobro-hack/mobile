@@ -107,49 +107,6 @@ class DioClient {
     }
   }
 
-  Future<void> sendPendingRequests() async {
-    List<FileSystemEntity> files = _appDocDir.listSync();
-    for (var file in files) {
-      if (file is File && file.path.endsWith('.json')) {
-        String content = await file.readAsString();
-        Map<String, dynamic> request = jsonDecode(content);
-
-        // try {
-        //   FormData formData = FormData();
-        //   if (request['photoPath'] != null) {
-        //     File photoFile = File(request['photoPath']);
-        //     formData.files.add(
-        //         MapEntry('file', await MultipartFile.fromFile(photoFile.path)));
-        //   }
-        //   if (request['data'] != null) {
-        //     for (var entry
-        //         in Map<String, dynamic>.from(request['data']).entries) {
-        //       formData.fields.add(MapEntry(entry.key, entry.value.toString()));
-        //     }
-        //   }
-
-        //   Response response = await _dio.post(
-        //     request['url'],
-        //     data: formData,
-        //     options:
-        //         Options(headers: Map<String, dynamic>.from(request['headers'])),
-        //   );
-
-        //   if (response.statusCode == 200) {
-        //     await file.delete();
-        //     if (request['photoPath'] != null) {
-        //       File photoFile = File(request['photoPath']);
-        //       await photoFile.delete();
-        //     }
-        //   }
-        //   logger.i('Отправлено $request, код ${response.statusCode}\nformData$formData');
-        // } catch (e) {
-        //   logger.e('Не удалось отправить запрос: $e');
-        // }
-      }
-    }
-  }
-
   Future<bool> sendRequestWithFallback(
       String url, Map<String, dynamic> headers, XFile? photo,
       {Map<String, dynamic>? data}) async {

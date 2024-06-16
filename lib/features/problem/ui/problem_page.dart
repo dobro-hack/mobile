@@ -29,6 +29,13 @@ class ProblemPage extends ConsumerWidget {
       ref.read(problemStateProvider.notifier).updateImage(image);
     }
 
+    bool checkAllValues() =>
+        ref.read(problemStateProvider).imageFile != null &&
+        ref.read(problemStateProvider).coordinates != null &&
+        ref.read(problemStateProvider).description.isNotEmpty &&
+        ref.read(problemStateProvider).phone.isNotEmpty &&
+        ref.read(problemStateProvider).category != null;
+
     Future<void> selectLocation() async {
       final selectedCoordinates = await Navigator.push(
         context,
@@ -320,55 +327,70 @@ class ProblemPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              const DividerGrey(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: GreenElevButton(
-                    onPressed: ref.watch(problemStateProvider).isSending
-                        ? null
-                        : () async {
-                            await ref
-                                .read(problemStateProvider.notifier)
-                                .sendProblem();
-                            if (ref.read(problemStateProvider).savedLocally) {
-                              debugPrint(
-                                  'Failed to send problem: ${ref.read(problemStateProvider).errorMessage}');
-                              showConfirmationModal(
-                                context,
-                                false,
-                                'Не получилось отправить сообщение',
-                                'Статус сообщения можно отслеживать в разделе “Меню”. Пожалуйста, отправьте его как только появится интернет',
-                              );
-                            } else {
-                              debugPrint('Problem sent successfully');
-                              showConfirmationModal(
-                                context,
-                                true,
-                                'Спасибо за бдительность, сообщение отправлено',
-                                'Статус сообщения можно отслеживать в разделе “Меню” приложения',
-                              );
-                            }
-                          },
-                    child: ref.watch(problemStateProvider).isSending
-                        ? CircularProgressIndicator(color: Colors.white)
-                        : Text('Войти через Госуслуги и отправить')),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
+              // const DividerGrey(),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Container(
+          height: 124.h,
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.w,
+            vertical: 12.h,
+          ),
+          decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: AppColors.greyLight))),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GreenElevButton(
+                  onPressed: ref.watch(problemStateProvider).isSending ||
+                          !checkAllValues()
+                      ? null
+                      : () async {
+                          await ref
+                              .read(problemStateProvider.notifier)
+                              .sendProblem();
+                          if (ref.read(problemStateProvider).savedLocally) {
+                            debugPrint(
+                                'Failed to send problem: ${ref.read(problemStateProvider).errorMessage}');
+                            showConfirmationModal(
+                              context,
+                              false,
+                              'Не получилось отправить сообщение',
+                              'Статус сообщения можно отслеживать в разделе “Меню”. Пожалуйста, отправьте его как только появится интернет',
+                            );
+                          } else {
+                            debugPrint('Problem sent successfully');
+                            showConfirmationModal(
+                              context,
+                              true,
+                              'Спасибо за бдительность, сообщение отправлено',
+                              'Статус сообщения можно отслеживать в разделе “Меню” приложения',
+                            );
+                          }
+                        },
+                  child: ref.watch(problemStateProvider).isSending
+                      ? CircularProgressIndicator(color: Colors.white)
+                      : Text('Войти через Госуслуги и отправить')),
+              SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.greyBackgroundLight,
                   ),
-                  onPressed: () async {
-                    await ref.read(problemStateProvider.notifier).sendProblem();
-                    showConfirmationModal(
-                      context,
-                      false,
-                      'Пожалуйста, отправьте сообщение как только появится интернет',
-                      ' Статус сообщения можно отслеживать в разделе “Меню” приложения',
-                    );
-                  },
+                  onPressed: !checkAllValues()
+                      ? null
+                      : () async {
+                          await ref
+                              .read(problemStateProvider.notifier)
+                              .sendProblem();
+                          showConfirmationModal(
+                            context,
+                            false,
+                            'Пожалуйста, отправьте сообщение как только появится интернет',
+                            ' Статус сообщения можно отслеживать в разделе “Меню” приложения',
+                          );
+                        },
                   child: ref.watch(problemStateProvider).isSaving
                       ? CircularProgressIndicator(color: Colors.white)
                       : Text('Сохранить черновик без интернета'),

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/theme/app_colors.dart';
-import '../../../problem/data/models/problem_data.dart';
 import '../../../problem/data/models/problem_local.dart';
 
 class NoSendedProblem extends ConsumerWidget {
@@ -40,8 +39,9 @@ class NoSendedProblem extends ConsumerWidget {
             ),
       ),
       trailing: IconButton(
-        onPressed: () {
-          ref.read(problemStateProvider.notifier).resentProblem(problem);
+        onPressed: () async {
+          await ref.read(problemStateProvider.notifier).resentProblem(problem);
+          ref.refresh(allProblemsProvider);
         },
         icon: const Icon(
           Icons.repeat,
