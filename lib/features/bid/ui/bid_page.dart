@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
+import '../../../common/theme/app_colors.dart';
 import '../../../common/widgets/divider_grey.dart';
 import '../../../common/widgets/green_elev_button.dart';
 import '../domain/bid_provider.dart';
@@ -23,6 +25,8 @@ class _BidPageState extends ConsumerState<BidPage> {
   late TextEditingController _countController;
   DateTime? _selectedDate;
   bool _isDateAvailable = true;
+  List<GlobalKey<FormState>> keys = [];
+  List<GlobalKey<GuestDetailsFormState>> keysWidget = [];
 
   @override
   void initState() {
@@ -42,7 +46,10 @@ class _BidPageState extends ConsumerState<BidPage> {
     if (_selectedDate != null && ref.read(numberOfGuestsProvider) > 0) {
       final isAvailable =
           await ref.read(dateAvailabilityProvider(_selectedDate!).future);
-
+      keys = List.generate(ref.read(numberOfGuestsProvider),
+          (index) => GlobalKey<FormState>()).toList();
+      keysWidget = List.generate(ref.read(numberOfGuestsProvider),
+          (index) => GlobalKey<GuestDetailsFormState>()).toList();
       setState(() {
         _isDateAvailable = isAvailable;
       });
@@ -189,55 +196,78 @@ class _BidPageState extends ConsumerState<BidPage> {
                     ? null
                     : 'На эту дату все места уже заняты',
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               if (_selectedDate != null && _isDateAvailable)
                 Column(
                   children: [
                     const DividerGrey(),
                     for (int i = 0; i < numberOfGuests; i++)
-                      GuestDetailsForm(index: i + 1),
-                    SizedBox(height: 20),
-                    GreenElevButton(
-                      onPressed: bookingStatus.isLoading
-                          ? null
-                          : () async {
-                              // Проверяем, что дата выбрана
-                              if (_selectedDate == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content:
-                                          Text('Пожалуйста, выберите дату')),
-                                );
-                                return;
-                              }
-
-                              await ref
-                                  .read(bookingStatusProvider.notifier)
-                                  .submitBooking();
-
-                              if (ref.read(bookingStatusProvider).value ??
-                                  false) {
-                                _showConfirmationModal(context);
-                              } else if (ref
-                                  .read(bookingStatusProvider)
-                                  .hasError) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Ошибка при отправке заявки')),
-                                );
-                              }
-                            },
-                      child: bookingStatus.isLoading
-                          ? CircularProgressIndicator(color: Colors.white)
-                          : Text('Отправить заявку'),
-                    ),
+                      GuestDetailsForm(
+                        key: keysWidget[i],
+                        index: i + 1,
+                        formKey: keys[i],
+                      ),
                   ],
                 ),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: (_selectedDate != null && _isDateAvailable)
+          ? Container(
+              height: 68.h,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 12.h,
+              ),
+              decoration: BoxDecoration(
+                  border: Border(top: BorderSide(color: AppColors.greyLight))),
+              child: GreenElevButton(
+                onPressed: bookingStatus.isLoading
+                    ? null
+                    : () async {
+                        if (_selectedDate == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('Пожалуйста, выберите дату')),
+                          );
+                          return;
+                        }
+
+                        if (keys
+                            .map((k) {
+                              return k.currentState!.validate();
+                            })
+                            .toSet()
+                            .contains(false)) return;
+                        final uuid = const Uuid().v1();
+
+                        List<Map<String, dynamic>> persons = [];
+                        for (int i = 0; i < keys.length; i++) {
+                          Map<String, dynamic> formData =
+                              keysWidget[i].currentState!.getFormData();
+                          persons.add(formData);
+                        }
+
+                        await ref
+                            .read(bookingStatusProvider.notifier)
+                            .submitBooking(uuid, persons);
+
+                        if (ref.read(bookingStatusProvider).value ?? false) {
+                          _showConfirmationModal(context);
+                        } else if (ref.read(bookingStatusProvider).hasError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Ошибка при отправке заявки')),
+                          );
+                        }
+                      },
+                child: bookingStatus.isLoading
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : Text('Отправить заявку'),
+              ),
+            )
+          : null,
     );
   }
 }

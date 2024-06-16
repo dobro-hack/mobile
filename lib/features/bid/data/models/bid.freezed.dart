@@ -20,13 +20,13 @@ Bid _$BidFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Bid {
-  @JsonKey(name: 'RouteId')
+  @JsonKey(name: 'route_id')
   int get routeId => throw _privateConstructorUsedError;
   @JsonKey(name: 'Quantity')
   int get quantity => throw _privateConstructorUsedError;
-  @JsonKey(name: 'RequestId')
+  @JsonKey(name: 'request_id')
   String get requestId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'DateStart')
+  @JsonKey(name: 'date_start')
   DateTime get dateStart => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,10 +40,10 @@ abstract class $BidCopyWith<$Res> {
       _$BidCopyWithImpl<$Res, Bid>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'RouteId') int routeId,
+      {@JsonKey(name: 'route_id') int routeId,
       @JsonKey(name: 'Quantity') int quantity,
-      @JsonKey(name: 'RequestId') String requestId,
-      @JsonKey(name: 'DateStart') DateTime dateStart});
+      @JsonKey(name: 'request_id') String requestId,
+      @JsonKey(name: 'date_start') DateTime dateStart});
 }
 
 /// @nodoc
@@ -91,10 +91,10 @@ abstract class _$$BidImplCopyWith<$Res> implements $BidCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'RouteId') int routeId,
+      {@JsonKey(name: 'route_id') int routeId,
       @JsonKey(name: 'Quantity') int quantity,
-      @JsonKey(name: 'RequestId') String requestId,
-      @JsonKey(name: 'DateStart') DateTime dateStart});
+      @JsonKey(name: 'request_id') String requestId,
+      @JsonKey(name: 'date_start') DateTime dateStart});
 }
 
 /// @nodoc
@@ -137,26 +137,26 @@ class __$$BidImplCopyWithImpl<$Res> extends _$BidCopyWithImpl<$Res, _$BidImpl>
 @JsonSerializable(explicitToJson: true)
 class _$BidImpl extends _Bid {
   const _$BidImpl(
-      {@JsonKey(name: 'RouteId') required this.routeId,
+      {@JsonKey(name: 'route_id') required this.routeId,
       @JsonKey(name: 'Quantity') required this.quantity,
-      @JsonKey(name: 'RequestId') required this.requestId,
-      @JsonKey(name: 'DateStart') required this.dateStart})
+      @JsonKey(name: 'request_id') required this.requestId,
+      @JsonKey(name: 'date_start') required this.dateStart})
       : super._();
 
   factory _$BidImpl.fromJson(Map<String, dynamic> json) =>
       _$$BidImplFromJson(json);
 
   @override
-  @JsonKey(name: 'RouteId')
+  @JsonKey(name: 'route_id')
   final int routeId;
   @override
   @JsonKey(name: 'Quantity')
   final int quantity;
   @override
-  @JsonKey(name: 'RequestId')
+  @JsonKey(name: 'request_id')
   final String requestId;
   @override
-  @JsonKey(name: 'DateStart')
+  @JsonKey(name: 'date_start')
   final DateTime dateStart;
 
   @override
@@ -199,26 +199,26 @@ class _$BidImpl extends _Bid {
 
 abstract class _Bid extends Bid {
   const factory _Bid(
-          {@JsonKey(name: 'RouteId') required final int routeId,
+          {@JsonKey(name: 'route_id') required final int routeId,
           @JsonKey(name: 'Quantity') required final int quantity,
-          @JsonKey(name: 'RequestId') required final String requestId,
-          @JsonKey(name: 'DateStart') required final DateTime dateStart}) =
+          @JsonKey(name: 'request_id') required final String requestId,
+          @JsonKey(name: 'date_start') required final DateTime dateStart}) =
       _$BidImpl;
   const _Bid._() : super._();
 
   factory _Bid.fromJson(Map<String, dynamic> json) = _$BidImpl.fromJson;
 
   @override
-  @JsonKey(name: 'RouteId')
+  @JsonKey(name: 'route_id')
   int get routeId;
   @override
   @JsonKey(name: 'Quantity')
   int get quantity;
   @override
-  @JsonKey(name: 'RequestId')
+  @JsonKey(name: 'request_id')
   String get requestId;
   @override
-  @JsonKey(name: 'DateStart')
+  @JsonKey(name: 'date_start')
   DateTime get dateStart;
   @override
   @JsonKey(ignore: true)

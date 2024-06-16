@@ -5,6 +5,7 @@ import '../models/bid_response.dart';
 class BidRepository {
   final DioClient dioClient;
   static const bidUrl = '/request';
+  static const personUrl = '/person';
 
   BidRepository(
     this.dioClient,
@@ -28,6 +29,15 @@ class BidRepository {
   Future<void> postBit(Map<String, dynamic> data) async {
     try {
       await dioClient.dio.post(bidUrl, data: data);
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<void> postPerson(Map<String, dynamic> data) async {
+    try {
+      await dioClient.dio.post(personUrl, data: data);
     } catch (e) {
       logger.e(e);
       rethrow;

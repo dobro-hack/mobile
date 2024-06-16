@@ -12,8 +12,8 @@ part 'bid_response.g.dart';
 class BidResponse with _$BidResponse {
   @JsonSerializable(explicitToJson: true)
   const factory BidResponse({
-    @JsonKey(name: 'TotalItemsCount') required int totalRoutesCount,
-    @JsonKey(name: 'Items') required List<Bid> routes,
+    @JsonKey(name: 'TotalItemsCount') required int totalBidsCount,
+    @JsonKey(name: 'Items') required List<Bid> bids,
   }) = _BidResponse;
 
   const BidResponse._();

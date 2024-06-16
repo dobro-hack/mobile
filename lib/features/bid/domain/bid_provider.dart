@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:eco/features/base/domain/app_providers.dart';
+import 'package:eco/features/bid/data/models/bid.dart';
 import 'package:eco/features/map/domain/map_notifier_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +45,7 @@ Future<bool> dateAvailability(DateAvailabilityRef ref, DateTime date) async {
   // обращение к серверу
   print('CHECK DATA');
   await Future.delayed(const Duration(milliseconds: 600));
-  return Random().nextBool();
+  return ref.read(numberOfGuestsProvider) < 7;
   // return true;
   // return false;
 }
@@ -54,7 +55,24 @@ class BookingStatus extends _$BookingStatus {
   @override
   AsyncValue<bool> build() => const AsyncValue.data(false);
 
-  Future<void> submitBooking() async {
+  Future<void> sendPerson(String uuid, Map<String, dynamic> data) async {
+    final resData = data;
+    resData.addAll({
+      'request_id': uuid,
+      "last_name": "Иванов",
+      "Sitizen": "РФ",
+      "Region": "Москва",
+      "Gender": "man",
+      "Phone": "79131313",
+      "Email": "ru@ru.ru",
+      "is_leader": false,
+    });
+    final bidRepository = BidRepository(ref.read(dioClientProvider));
+    await bidRepository.postPerson(resData);
+  }
+
+  Future<void> submitBooking(
+      String uuid, List<Map<String, dynamic>> persons) async {
     state = const AsyncValue.loading();
     try {
       // final dio = ref.read(dioProvider);
@@ -68,10 +86,14 @@ class BookingStatus extends _$BookingStatus {
         'route_id': ref.read(mapNotifierProvider).selectedRoute?.id,
         'quantity': ref.read(numberOfGuestsProvider),
         'date_start': ref.read(selectedDateProvider).toString(),
-        'request_id': const Uuid().v1(),
+        'request_id': uuid,
       };
       final bidRepository = BidRepository(ref.read(dioClientProvider));
       await bidRepository.postBit(data);
+      for (var person in persons) {
+        await sendPerson(uuid, person);
+      }
+
       await Future.delayed(const Duration(milliseconds: 600));
       state = const AsyncValue.data(true);
     } catch (e) {
@@ -80,26 +102,8 @@ class BookingStatus extends _$BookingStatus {
   }
 }
 
-// @riverpod
-// class PostBidStatus extends _$PostBidStatus {
-//   @override
-//   AsyncValue<void> build() => const AsyncValue.data(null);
-
-//   Future<void> submitBid() async {
-//     state = const AsyncValue.loading();
-//     try {
-//       Map<String, dynamic> data = {
-//         'route_id': ref.read(mapNotifierProvider).selectedRoute?.id,
-//         'quantity': ref.read(numberOfGuestsProvider),
-//         'date_start': ref.read(selectedDateProvider),
-//         'request_id': Uuid(),
-//       };
-//       final bidRepository = BidRepository(ref.read(dioClientProvider));
-//       await bidRepository.postBit(data);
-//       state = const AsyncValue.data(null); // Indicating success
-//     } catch (e, stackTrace) {
-//       state = AsyncValue.error(e, stackTrace);
-//       logger.e('Failed to submit bid: $e');
-//     }
-//   }
-// }
+final allBidsProvider = FutureProvider<List<Bid>>((ref) async {
+  final repository = BidRepository(ref.read(dioClientProvider));
+  final data = await repository.getBids();
+  return data.bids;
+});

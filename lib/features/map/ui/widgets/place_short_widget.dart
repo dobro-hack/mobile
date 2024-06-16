@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../common/theme/app_colors.dart';
 import '../../data/models/place.dart';
 import 'place_bottom_modal.dart';
 
@@ -27,6 +28,8 @@ class PlaceShortWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 32.r,
+              backgroundColor: AppColors.greyBackgroundLight,
+              backgroundImage: NetworkImage(place.icon),
             ),
             SizedBox(height: 4.h),
             Text(

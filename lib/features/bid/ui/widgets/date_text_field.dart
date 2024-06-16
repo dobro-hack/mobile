@@ -6,14 +6,16 @@ class DateTextField extends ConsumerWidget {
   final DateTime? selectedDate;
   final Function(DateTime) onDateSelected;
   final String? errorText;
+  final bool needLastDates;
 
   const DateTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.selectedDate,
     required this.onDateSelected,
     this.errorText,
-  }) : super(key: key);
+    this.needLastDates = false,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +30,7 @@ class DateTextField extends ConsumerWidget {
         final pickedDate = await showDatePicker(
           context: context,
           initialDate: selectedDate ?? DateTime.now(),
-          firstDate: DateTime.now(),
+          firstDate: needLastDates ? DateTime(1900) : DateTime.now(),
           lastDate: DateTime.now().add(Duration(days: 365)),
         );
         if (pickedDate != null) {

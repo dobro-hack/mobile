@@ -58,64 +58,68 @@ class RouteCard extends ConsumerWidget {
                 ),
               ),
               SizedBox(width: 12.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    route.name,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  SizedBox(height: 4.h),
-                  Row(
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/distance.svg',
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            '${route.length} км',
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 8.w),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/clock.svg',
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            '${route.duration} ч',
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 8.w),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/info.svg',
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            route.difficulty.name,
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      route.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    SizedBox(height: 4.h),
+                    Row(
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/distance.svg',
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                            SizedBox(width: 4.w),
+                            Text(
+                              '${route.length} км',
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 8.w),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/clock.svg',
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                            SizedBox(width: 4.w),
+                            Text(
+                              '${route.duration} ч',
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 8.w),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/info.svg',
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                            SizedBox(width: 4.w),
+                            Text(
+                              route.difficulty.name,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

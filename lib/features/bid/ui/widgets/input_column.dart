@@ -5,8 +5,10 @@ class InputColumn extends StatelessWidget {
   const InputColumn({
     super.key,
     required this.title,
+    required this.controller,
   });
   final String title;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,19 @@ class InputColumn extends StatelessWidget {
             style: Theme.of(context).textTheme.labelSmall,
           ),
           SizedBox(height: 8.h),
-          TextField(
+          TextFormField(
+            controller: controller,
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
             },
+            validator: title == 'Отчество'
+                ? null
+                : (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Обязательное поле';
+                    }
+                    return null;
+                  },
           ),
         ],
       ),

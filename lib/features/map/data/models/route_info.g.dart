@@ -27,7 +27,9 @@ _$RouteInfoImpl _$$RouteInfoImplFromJson(Map<String, dynamic> json) =>
       load: (json['Load'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
-      maxLoad: (json['MaxLoad'] as num?)?.toInt(),
+      maxLoad: (json['MaxLoad'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       photo:
           (json['Photo'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );

@@ -51,7 +51,7 @@ mixin _$RouteInfo {
   @JsonKey(name: 'Load')
   List<int>? get load => throw _privateConstructorUsedError;
   @JsonKey(name: 'MaxLoad')
-  int? get maxLoad => throw _privateConstructorUsedError;
+  List<int>? get maxLoad => throw _privateConstructorUsedError;
   @JsonKey(name: 'Photo')
   List<String>? get photo => throw _privateConstructorUsedError;
 
@@ -82,7 +82,7 @@ abstract class $RouteInfoCopyWith<$Res> {
       @JsonKey(name: 'Height') int height,
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
       @JsonKey(name: 'Load') List<int>? load,
-      @JsonKey(name: 'MaxLoad') int? maxLoad,
+      @JsonKey(name: 'MaxLoad') List<int>? maxLoad,
       @JsonKey(name: 'Photo') List<String>? photo});
 
   $ParkCopyWith<$Res> get park;
@@ -183,7 +183,7 @@ class _$RouteInfoCopyWithImpl<$Res, $Val extends RouteInfo>
       maxLoad: freezed == maxLoad
           ? _value.maxLoad
           : maxLoad // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as List<int>?,
       photo: freezed == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -224,7 +224,7 @@ abstract class _$$RouteInfoImplCopyWith<$Res>
       @JsonKey(name: 'Height') int height,
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
       @JsonKey(name: 'Load') List<int>? load,
-      @JsonKey(name: 'MaxLoad') int? maxLoad,
+      @JsonKey(name: 'MaxLoad') List<int>? maxLoad,
       @JsonKey(name: 'Photo') List<String>? photo});
 
   @override
@@ -322,9 +322,9 @@ class __$$RouteInfoImplCopyWithImpl<$Res>
           : load // ignore: cast_nullable_to_non_nullable
               as List<int>?,
       maxLoad: freezed == maxLoad
-          ? _value.maxLoad
+          ? _value._maxLoad
           : maxLoad // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as List<int>?,
       photo: freezed == photo
           ? _value._photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -353,10 +353,11 @@ class _$RouteInfoImpl extends _RouteInfo {
       @JsonKey(name: 'Height') required this.height,
       @JsonKey(name: 'Difficulty') required this.difficulty,
       @JsonKey(name: 'Load') required final List<int>? load,
-      @JsonKey(name: 'MaxLoad') required this.maxLoad,
+      @JsonKey(name: 'MaxLoad') required final List<int>? maxLoad,
       @JsonKey(name: 'Photo') required final List<String>? photo})
       : _places = places,
         _load = load,
+        _maxLoad = maxLoad,
         _photo = photo,
         super._();
 
@@ -424,9 +425,17 @@ class _$RouteInfoImpl extends _RouteInfo {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<int>? _maxLoad;
   @override
   @JsonKey(name: 'MaxLoad')
-  final int? maxLoad;
+  List<int>? get maxLoad {
+    final value = _maxLoad;
+    if (value == null) return null;
+    if (_maxLoad is EqualUnmodifiableListView) return _maxLoad;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _photo;
   @override
   @JsonKey(name: 'Photo')
@@ -470,7 +479,7 @@ class _$RouteInfoImpl extends _RouteInfo {
             (identical(other.difficulty, difficulty) ||
                 other.difficulty == difficulty) &&
             const DeepCollectionEquality().equals(other._load, _load) &&
-            (identical(other.maxLoad, maxLoad) || other.maxLoad == maxLoad) &&
+            const DeepCollectionEquality().equals(other._maxLoad, _maxLoad) &&
             const DeepCollectionEquality().equals(other._photo, _photo));
   }
 
@@ -493,7 +502,7 @@ class _$RouteInfoImpl extends _RouteInfo {
       height,
       difficulty,
       const DeepCollectionEquality().hash(_load),
-      maxLoad,
+      const DeepCollectionEquality().hash(_maxLoad),
       const DeepCollectionEquality().hash(_photo));
 
   @JsonKey(ignore: true)
@@ -527,7 +536,7 @@ abstract class _RouteInfo extends RouteInfo {
       @JsonKey(name: 'Height') required final int height,
       @JsonKey(name: 'Difficulty') required final Difficulty difficulty,
       @JsonKey(name: 'Load') required final List<int>? load,
-      @JsonKey(name: 'MaxLoad') required final int? maxLoad,
+      @JsonKey(name: 'MaxLoad') required final List<int>? maxLoad,
       @JsonKey(name: 'Photo')
       required final List<String>? photo}) = _$RouteInfoImpl;
   const _RouteInfo._() : super._();
@@ -582,7 +591,7 @@ abstract class _RouteInfo extends RouteInfo {
   List<int>? get load;
   @override
   @JsonKey(name: 'MaxLoad')
-  int? get maxLoad;
+  List<int>? get maxLoad;
   @override
   @JsonKey(name: 'Photo')
   List<String>? get photo;

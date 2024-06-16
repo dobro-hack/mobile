@@ -8,6 +8,8 @@ import '../../domain/routes_provider.dart';
 import '../../data/models/route_response.dart';
 import 'route_card.dart';
 
+List<RouteInfo> routesGlobal = [];
+
 class RoutesListWidget extends ConsumerWidget {
   const RoutesListWidget({
     super.key,
@@ -18,6 +20,7 @@ class RoutesListWidget extends ConsumerWidget {
     final asyncRoutes = ref.watch(routesProviderProvider);
     return asyncRoutes.when(
       data: (RouteResponse data) {
+        routesGlobal = data.routes;
         return ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -42,9 +45,11 @@ class RoutesListWidget extends ConsumerWidget {
             const Text('Соединение отсутствует'),
             SizedBox(height: 16.h),
             ref.watch(routesLocalProviderProvider).when(
-                  loading: () => SizedBox(),
-                  error: (Object error, StackTrace stackTrace) => SizedBox(),
-                  data: (List<RouteInfo> data) => data.isEmpty
+                loading: () => SizedBox(),
+                error: (Object error, StackTrace stackTrace) => SizedBox(),
+                data: (List<RouteInfo> data) {
+                  routesGlobal = data;
+                  return data.isEmpty
                       ? SizedBox()
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,8 +76,8 @@ class RoutesListWidget extends ConsumerWidget {
                               itemCount: data.length,
                             ),
                           ],
-                        ),
-                ),
+                        );
+                }),
           ],
         ));
       },

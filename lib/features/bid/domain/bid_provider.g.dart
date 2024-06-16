@@ -6,7 +6,7 @@ part of 'bid_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dateAvailabilityHash() => r'846acc6b62cd504442c337402cc32c82e6eeb153';
+String _$dateAvailabilityHash() => r'403cfdf6858febe58a3ca3f888f6ce0b3417208a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -171,7 +171,7 @@ final numberOfGuestsProvider =
 );
 
 typedef _$NumberOfGuests = AutoDisposeNotifier<int>;
-String _$bookingStatusHash() => r'd7243c054e8ef20bf3d9950bffb17e40167ae221';
+String _$bookingStatusHash() => r'599ce7bc28e091cc8538c55a1f10906bb5bfebe7';
 
 /// See also [BookingStatus].
 @ProviderFor(BookingStatus)

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,10 +17,6 @@ class LoadBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<int>> monthlyData = prepareDataForChart(load);
-
-    List<int> data = monthlyData.values.expand((weeks) => weeks).toList();
-    List<String> months = monthlyData.keys.toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,8 +37,8 @@ class LoadBlock extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: CustomLineChart(
-              data: data,
-              months: months,
+              data: List.generate(365, (index) => Random().nextInt(50)),
+              maxData: List.generate(365, (index) => Random().nextInt(10) + 50),
             ),
           ),
         ),

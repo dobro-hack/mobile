@@ -7,15 +7,15 @@ part of 'bid.dart';
 // **************************************************************************
 
 _$BidImpl _$$BidImplFromJson(Map<String, dynamic> json) => _$BidImpl(
-      routeId: (json['RouteId'] as num).toInt(),
+      routeId: (json['route_id'] as num).toInt(),
       quantity: (json['Quantity'] as num).toInt(),
-      requestId: json['RequestId'] as String,
-      dateStart: DateTime.parse(json['DateStart'] as String),
+      requestId: json['request_id'] as String,
+      dateStart: DateTime.parse(json['date_start'] as String),
     );
 
 Map<String, dynamic> _$$BidImplToJson(_$BidImpl instance) => <String, dynamic>{
-      'RouteId': instance.routeId,
+      'route_id': instance.routeId,
       'Quantity': instance.quantity,
-      'RequestId': instance.requestId,
-      'DateStart': instance.dateStart.toIso8601String(),
+      'request_id': instance.requestId,
+      'date_start': instance.dateStart.toIso8601String(),
     };

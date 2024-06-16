@@ -21,9 +21,9 @@ BidResponse _$BidResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BidResponse {
   @JsonKey(name: 'TotalItemsCount')
-  int get totalRoutesCount => throw _privateConstructorUsedError;
+  int get totalBidsCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'Items')
-  List<Bid> get routes => throw _privateConstructorUsedError;
+  List<Bid> get bids => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,8 +38,8 @@ abstract class $BidResponseCopyWith<$Res> {
       _$BidResponseCopyWithImpl<$Res, BidResponse>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'TotalItemsCount') int totalRoutesCount,
-      @JsonKey(name: 'Items') List<Bid> routes});
+      {@JsonKey(name: 'TotalItemsCount') int totalBidsCount,
+      @JsonKey(name: 'Items') List<Bid> bids});
 }
 
 /// @nodoc
@@ -55,17 +55,17 @@ class _$BidResponseCopyWithImpl<$Res, $Val extends BidResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalRoutesCount = null,
-    Object? routes = null,
+    Object? totalBidsCount = null,
+    Object? bids = null,
   }) {
     return _then(_value.copyWith(
-      totalRoutesCount: null == totalRoutesCount
-          ? _value.totalRoutesCount
-          : totalRoutesCount // ignore: cast_nullable_to_non_nullable
+      totalBidsCount: null == totalBidsCount
+          ? _value.totalBidsCount
+          : totalBidsCount // ignore: cast_nullable_to_non_nullable
               as int,
-      routes: null == routes
-          ? _value.routes
-          : routes // ignore: cast_nullable_to_non_nullable
+      bids: null == bids
+          ? _value.bids
+          : bids // ignore: cast_nullable_to_non_nullable
               as List<Bid>,
     ) as $Val);
   }
@@ -80,8 +80,8 @@ abstract class _$$BidResponseImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'TotalItemsCount') int totalRoutesCount,
-      @JsonKey(name: 'Items') List<Bid> routes});
+      {@JsonKey(name: 'TotalItemsCount') int totalBidsCount,
+      @JsonKey(name: 'Items') List<Bid> bids});
 }
 
 /// @nodoc
@@ -95,17 +95,17 @@ class __$$BidResponseImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalRoutesCount = null,
-    Object? routes = null,
+    Object? totalBidsCount = null,
+    Object? bids = null,
   }) {
     return _then(_$BidResponseImpl(
-      totalRoutesCount: null == totalRoutesCount
-          ? _value.totalRoutesCount
-          : totalRoutesCount // ignore: cast_nullable_to_non_nullable
+      totalBidsCount: null == totalBidsCount
+          ? _value.totalBidsCount
+          : totalBidsCount // ignore: cast_nullable_to_non_nullable
               as int,
-      routes: null == routes
-          ? _value._routes
-          : routes // ignore: cast_nullable_to_non_nullable
+      bids: null == bids
+          ? _value._bids
+          : bids // ignore: cast_nullable_to_non_nullable
               as List<Bid>,
     ));
   }
@@ -116,9 +116,9 @@ class __$$BidResponseImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$BidResponseImpl extends _BidResponse {
   const _$BidResponseImpl(
-      {@JsonKey(name: 'TotalItemsCount') required this.totalRoutesCount,
-      @JsonKey(name: 'Items') required final List<Bid> routes})
-      : _routes = routes,
+      {@JsonKey(name: 'TotalItemsCount') required this.totalBidsCount,
+      @JsonKey(name: 'Items') required final List<Bid> bids})
+      : _bids = bids,
         super._();
 
   factory _$BidResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -126,19 +126,19 @@ class _$BidResponseImpl extends _BidResponse {
 
   @override
   @JsonKey(name: 'TotalItemsCount')
-  final int totalRoutesCount;
-  final List<Bid> _routes;
+  final int totalBidsCount;
+  final List<Bid> _bids;
   @override
   @JsonKey(name: 'Items')
-  List<Bid> get routes {
-    if (_routes is EqualUnmodifiableListView) return _routes;
+  List<Bid> get bids {
+    if (_bids is EqualUnmodifiableListView) return _bids;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_routes);
+    return EqualUnmodifiableListView(_bids);
   }
 
   @override
   String toString() {
-    return 'BidResponse(totalRoutesCount: $totalRoutesCount, routes: $routes)';
+    return 'BidResponse(totalBidsCount: $totalBidsCount, bids: $bids)';
   }
 
   @override
@@ -146,15 +146,15 @@ class _$BidResponseImpl extends _BidResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BidResponseImpl &&
-            (identical(other.totalRoutesCount, totalRoutesCount) ||
-                other.totalRoutesCount == totalRoutesCount) &&
-            const DeepCollectionEquality().equals(other._routes, _routes));
+            (identical(other.totalBidsCount, totalBidsCount) ||
+                other.totalBidsCount == totalBidsCount) &&
+            const DeepCollectionEquality().equals(other._bids, _bids));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, totalRoutesCount,
-      const DeepCollectionEquality().hash(_routes));
+  int get hashCode => Object.hash(
+      runtimeType, totalBidsCount, const DeepCollectionEquality().hash(_bids));
 
   @JsonKey(ignore: true)
   @override
@@ -172,9 +172,9 @@ class _$BidResponseImpl extends _BidResponse {
 
 abstract class _BidResponse extends BidResponse {
   const factory _BidResponse(
-      {@JsonKey(name: 'TotalItemsCount') required final int totalRoutesCount,
-      @JsonKey(name: 'Items')
-      required final List<Bid> routes}) = _$BidResponseImpl;
+          {@JsonKey(name: 'TotalItemsCount') required final int totalBidsCount,
+          @JsonKey(name: 'Items') required final List<Bid> bids}) =
+      _$BidResponseImpl;
   const _BidResponse._() : super._();
 
   factory _BidResponse.fromJson(Map<String, dynamic> json) =
@@ -182,10 +182,10 @@ abstract class _BidResponse extends BidResponse {
 
   @override
   @JsonKey(name: 'TotalItemsCount')
-  int get totalRoutesCount;
+  int get totalBidsCount;
   @override
   @JsonKey(name: 'Items')
-  List<Bid> get routes;
+  List<Bid> get bids;
   @override
   @JsonKey(ignore: true)
   _$$BidResponseImplCopyWith<_$BidResponseImpl> get copyWith =>

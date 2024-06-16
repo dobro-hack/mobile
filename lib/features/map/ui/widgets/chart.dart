@@ -2,24 +2,47 @@ import 'package:flutter/material.dart';
 
 class CustomLineChart extends StatelessWidget {
   final List<int> data;
+  final List<int> maxData;
   final List<String> months;
 
-  CustomLineChart({required this.data, required this.months});
+  const CustomLineChart({
+    super.key,
+    required this.data,
+    required this.maxData,
+    this.months = const [
+      'Январь',
+      'Февраль',
+      'Март',
+      'Апрель',
+      'Май',
+      'Июнь',
+      'Июль',
+      'Август',
+      'Сентябрь',
+      'Октябрь',
+      'Ноябрь',
+      'Декабрь'
+    ],
+  });
 
   @override
   Widget build(BuildContext context) {
-    // int weeksPerMonth = data.length ~/ months.length;
-    double smallGap = 4; // Маленький отступ между столбцами одного месяца
-    double largeGap = 16; // Большой отступ между месяцами
-    double horizontalGap = 50;
+    // print(datas
+    double smallGap = 2; // Small gap between days
+    double largeGap = 16; // Large gap between months
+    double horizontalGap = 6; // Space for each day bar
     double chartWidth =
-        (horizontalGap + smallGap) * (data.length - months.length) +
-            largeGap * months.length;
-    return SizedBox(
-      height: 180,
-      width: chartWidth,
-      child: CustomPaint(
-        painter: LineChartPainter(data: data, months: months),
+        horizontalGap * (data.length) + largeGap * (months.length - 1);
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: SizedBox(
+        height: 200,
+        width: chartWidth,
+        child: CustomPaint(
+          painter:
+              LineChartPainter(data: data, maxData: maxData, months: months),
+        ),
       ),
     );
   }
@@ -27,22 +50,27 @@ class CustomLineChart extends StatelessWidget {
 
 class LineChartPainter extends CustomPainter {
   final List<int> data;
+  final List<int> maxData;
   final List<String> months;
 
-  LineChartPainter({required this.data, required this.months});
+  LineChartPainter({
+    required this.data,
+    required this.maxData,
+    required this.months,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    double maxDataValue =
-        10.0; // Максимальное значение в данных (для нормализации)
-    int weeksPerMonth = data.length ~/ months.length;
-    double smallGap = 4; // Маленький отступ между столбцами одного месяца
-    double largeGap = 16; // Большой отступ между месяцами
+    double smallGap = 2; // Small gap between days
+    double largeGap = 16; // Large gap between months
+    double barRadius = 10; // Radius for rounding corners
+    double verticalPadding =
+        30.0; // Padding for the vertical axis to leave space for labels
+    int daysPerMonth = data.length ~/ months.length;
+
+    // Calculate the horizontal gap dynamically to fit all data points
     double horizontalGap =
         (size.width - (months.length - 1) * largeGap) / data.length;
-    double verticalScale =
-        (size.height - 20) / maxDataValue; // Учтем место для подписей
-    double barRadius = 10; // Радиус скругления углов
 
     Paint backgroundPaint = Paint()
       ..color = Colors.grey.withOpacity(0.2)
@@ -54,34 +82,47 @@ class LineChartPainter extends CustomPainter {
 
     Paint linePaint = Paint()
       ..color = Colors.black
-      ..strokeWidth = 3.0
+      ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 
+    // Paint maxLinePaint = Paint()
+    //   ..color = Colors.redAccent
+    //   ..strokeWidth = 2.0
+    //   ..style = PaintingStyle.stroke;
+
     double currentX = 0;
+
+    // Draw bars for each day
     for (int i = 0; i < data.length; i++) {
-      Paint paint = data[i] > 7 ? highlightedBackgroundPaint : backgroundPaint;
+      // Calculate the height of the bar to fill the available height
+      double normalizedDataHeight =
+          (data[i] / maxData[i].toDouble()) * (size.height - verticalPadding);
 
-      double left =
-          currentX + (i % weeksPerMonth == 0 ? largeGap / 2 : smallGap / 2);
-      double right = currentX +
-          horizontalGap -
-          (i % weeksPerMonth == weeksPerMonth - 1
-              ? largeGap / 2
-              : smallGap / 2);
+      Paint paint = data[i] > maxData[i] * 0.7
+          ? highlightedBackgroundPaint
+          : backgroundPaint;
 
-      // Скругления только с одной стороны
+      double left = currentX;
+      double right = currentX + horizontalGap;
+
+      // Determine rounded corners only for the first and last day of each month
       Radius topLeftRadius =
-          Radius.circular(i % weeksPerMonth == 0 ? barRadius : 0);
-      Radius topRightRadius = Radius.circular(
-          i % weeksPerMonth == weeksPerMonth - 1 ? barRadius : 0);
+          Radius.circular(i % daysPerMonth == 0 ? barRadius : 0);
+      Radius topRightRadius =
+          Radius.circular((i + 1) % daysPerMonth == 0 ? barRadius : 0);
       Radius bottomLeftRadius =
-          Radius.circular(i % weeksPerMonth == 0 ? barRadius : 0);
-      Radius bottomRightRadius = Radius.circular(
-          i % weeksPerMonth == weeksPerMonth - 1 ? barRadius : 0);
+          Radius.circular(i % daysPerMonth == 0 ? barRadius : 0);
+      Radius bottomRightRadius =
+          Radius.circular((i + 1) % daysPerMonth == 0 ? barRadius : 0);
 
+      // Draw the bar for the day, ensuring it fills to the top of the chart area
       canvas.drawRRect(
         RRect.fromRectAndCorners(
-          Rect.fromLTRB(left, 0, right, size.height - 20),
+          Rect.fromLTRB(
+              left,
+              0, // Start from the top of the chart area
+              right,
+              size.height - verticalPadding), // End at the bottom minus padding
           topLeft: topLeftRadius,
           topRight: topRightRadius,
           bottomLeft: bottomLeftRadius,
@@ -90,36 +131,62 @@ class LineChartPainter extends CustomPainter {
         paint,
       );
 
-      currentX += horizontalGap +
-          (i % weeksPerMonth == weeksPerMonth - 1 ? largeGap : smallGap);
+      // Increment X position
+      currentX +=
+          horizontalGap + ((i + 1) % daysPerMonth == 0 ? largeGap : smallGap);
     }
 
-    //  линию графика
-    Path path = Path();
+    // Draw line for actual data
+    Path dataPath = Path();
     currentX = 0;
     for (int i = 0; i < data.length; i++) {
       double x = currentX + horizontalGap / 2;
-      double y = size.height - 20 - (data[i] * verticalScale);
-      if (i == 0) {
-        path.moveTo(x, y);
-      } else {
-        path.lineTo(x, y);
-      }
-      currentX += horizontalGap +
-          (i % weeksPerMonth == weeksPerMonth - 1 ? largeGap : smallGap);
-    }
-    canvas.drawPath(path, linePaint);
+      double normalizedDataHeight =
+          (data[i] / maxData[i].toDouble()) * (size.height - verticalPadding);
+      double y = size.height - normalizedDataHeight - verticalPadding;
 
-    //  месяцы под графиком
+      if (i == 0) {
+        dataPath.moveTo(x, y);
+      } else {
+        dataPath.lineTo(x, y);
+      }
+
+      currentX +=
+          horizontalGap + ((i + 1) % daysPerMonth == 0 ? largeGap : smallGap);
+    }
+    canvas.drawPath(dataPath, linePaint);
+
+    // Draw line for max data
+    Path maxDataPath = Path();
+    currentX = 0;
+    for (int i = 0; i < maxData.length; i++) {
+      double x = currentX + horizontalGap / 2;
+      double y = size.height -
+          verticalPadding -
+          (maxData[i].toDouble() / maxData[i].toDouble()) *
+              (size.height - verticalPadding);
+
+      if (i == 0) {
+        maxDataPath.moveTo(x, y);
+      } else {
+        maxDataPath.lineTo(x, y);
+      }
+
+      currentX +=
+          horizontalGap + ((i + 1) % daysPerMonth == 0 ? largeGap : smallGap);
+    }
+
+    // Draw month labels
     TextPainter textPainter = TextPainter(
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     );
 
     for (int i = 0; i < months.length; i++) {
-      double x = (i * weeksPerMonth + (weeksPerMonth - 1) / 2) *
-              (horizontalGap + smallGap) +
-          i * largeGap; // Позиция месяца
+      double x =
+          (i * daysPerMonth + daysPerMonth / 2.0) * (horizontalGap + smallGap) +
+              i * largeGap;
+
       textPainter.text = TextSpan(
         text: months[i],
         style: const TextStyle(color: Colors.black, fontSize: 16),

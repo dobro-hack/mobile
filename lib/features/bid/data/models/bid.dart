@@ -10,10 +10,10 @@ part 'bid.g.dart';
 class Bid with _$Bid {
   @JsonSerializable(explicitToJson: true)
   const factory Bid({
-    @JsonKey(name: 'RouteId') required int routeId,
+    @JsonKey(name: 'route_id') required int routeId,
     @JsonKey(name: 'Quantity') required int quantity,
-    @JsonKey(name: 'RequestId') required String requestId,
-    @JsonKey(name: 'DateStart') required DateTime dateStart,
+    @JsonKey(name: 'request_id') required String requestId,
+    @JsonKey(name: 'date_start') required DateTime dateStart,
   }) = _Bid;
 
   const Bid._();
