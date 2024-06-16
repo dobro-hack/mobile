@@ -29,7 +29,7 @@ class NoteWidget extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 24.r,
-            backgroundImage: AssetImage('assets/images/note.png'),
+            backgroundImage: AssetImage('assets/images/mascot_avatar.png'),
           ),
           SizedBox(width: 12.w),
           Expanded(

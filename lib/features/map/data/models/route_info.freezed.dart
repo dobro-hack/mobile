@@ -52,6 +52,8 @@ mixin _$RouteInfo {
   List<int>? get load => throw _privateConstructorUsedError;
   @JsonKey(name: 'MaxLoad')
   int? get maxLoad => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Photo')
+  List<String>? get photo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -80,7 +82,8 @@ abstract class $RouteInfoCopyWith<$Res> {
       @JsonKey(name: 'Height') int height,
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
       @JsonKey(name: 'Load') List<int>? load,
-      @JsonKey(name: 'MaxLoad') int? maxLoad});
+      @JsonKey(name: 'MaxLoad') int? maxLoad,
+      @JsonKey(name: 'Photo') List<String>? photo});
 
   $ParkCopyWith<$Res> get park;
 }
@@ -114,6 +117,7 @@ class _$RouteInfoCopyWithImpl<$Res, $Val extends RouteInfo>
     Object? difficulty = null,
     Object? load = freezed,
     Object? maxLoad = freezed,
+    Object? photo = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -180,6 +184,10 @@ class _$RouteInfoCopyWithImpl<$Res, $Val extends RouteInfo>
           ? _value.maxLoad
           : maxLoad // ignore: cast_nullable_to_non_nullable
               as int?,
+      photo: freezed == photo
+          ? _value.photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 
@@ -216,7 +224,8 @@ abstract class _$$RouteInfoImplCopyWith<$Res>
       @JsonKey(name: 'Height') int height,
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
       @JsonKey(name: 'Load') List<int>? load,
-      @JsonKey(name: 'MaxLoad') int? maxLoad});
+      @JsonKey(name: 'MaxLoad') int? maxLoad,
+      @JsonKey(name: 'Photo') List<String>? photo});
 
   @override
   $ParkCopyWith<$Res> get park;
@@ -249,6 +258,7 @@ class __$$RouteInfoImplCopyWithImpl<$Res>
     Object? difficulty = null,
     Object? load = freezed,
     Object? maxLoad = freezed,
+    Object? photo = freezed,
   }) {
     return _then(_$RouteInfoImpl(
       id: null == id
@@ -315,6 +325,10 @@ class __$$RouteInfoImplCopyWithImpl<$Res>
           ? _value.maxLoad
           : maxLoad // ignore: cast_nullable_to_non_nullable
               as int?,
+      photo: freezed == photo
+          ? _value._photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -339,9 +353,11 @@ class _$RouteInfoImpl extends _RouteInfo {
       @JsonKey(name: 'Height') required this.height,
       @JsonKey(name: 'Difficulty') required this.difficulty,
       @JsonKey(name: 'Load') required final List<int>? load,
-      @JsonKey(name: 'MaxLoad') required this.maxLoad})
+      @JsonKey(name: 'MaxLoad') required this.maxLoad,
+      @JsonKey(name: 'Photo') required final List<String>? photo})
       : _places = places,
         _load = load,
+        _photo = photo,
         super._();
 
   factory _$RouteInfoImpl.fromJson(Map<String, dynamic> json) =>
@@ -411,10 +427,20 @@ class _$RouteInfoImpl extends _RouteInfo {
   @override
   @JsonKey(name: 'MaxLoad')
   final int? maxLoad;
+  final List<String>? _photo;
+  @override
+  @JsonKey(name: 'Photo')
+  List<String>? get photo {
+    final value = _photo;
+    if (value == null) return null;
+    if (_photo is EqualUnmodifiableListView) return _photo;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'RouteInfo(id: $id, parkId: $parkId, park: $park, places: $places, name: $name, description: $description, howToGet: $howToGet, whatToTake: $whatToTake, inEmergency: $inEmergency, recommendations: $recommendations, length: $length, duration: $duration, height: $height, difficulty: $difficulty, load: $load, maxLoad: $maxLoad)';
+    return 'RouteInfo(id: $id, parkId: $parkId, park: $park, places: $places, name: $name, description: $description, howToGet: $howToGet, whatToTake: $whatToTake, inEmergency: $inEmergency, recommendations: $recommendations, length: $length, duration: $duration, height: $height, difficulty: $difficulty, load: $load, maxLoad: $maxLoad, photo: $photo)';
   }
 
   @override
@@ -444,7 +470,8 @@ class _$RouteInfoImpl extends _RouteInfo {
             (identical(other.difficulty, difficulty) ||
                 other.difficulty == difficulty) &&
             const DeepCollectionEquality().equals(other._load, _load) &&
-            (identical(other.maxLoad, maxLoad) || other.maxLoad == maxLoad));
+            (identical(other.maxLoad, maxLoad) || other.maxLoad == maxLoad) &&
+            const DeepCollectionEquality().equals(other._photo, _photo));
   }
 
   @JsonKey(ignore: true)
@@ -466,7 +493,8 @@ class _$RouteInfoImpl extends _RouteInfo {
       height,
       difficulty,
       const DeepCollectionEquality().hash(_load),
-      maxLoad);
+      maxLoad,
+      const DeepCollectionEquality().hash(_photo));
 
   @JsonKey(ignore: true)
   @override
@@ -499,7 +527,9 @@ abstract class _RouteInfo extends RouteInfo {
       @JsonKey(name: 'Height') required final int height,
       @JsonKey(name: 'Difficulty') required final Difficulty difficulty,
       @JsonKey(name: 'Load') required final List<int>? load,
-      @JsonKey(name: 'MaxLoad') required final int? maxLoad}) = _$RouteInfoImpl;
+      @JsonKey(name: 'MaxLoad') required final int? maxLoad,
+      @JsonKey(name: 'Photo')
+      required final List<String>? photo}) = _$RouteInfoImpl;
   const _RouteInfo._() : super._();
 
   factory _RouteInfo.fromJson(Map<String, dynamic> json) =
@@ -553,6 +583,9 @@ abstract class _RouteInfo extends RouteInfo {
   @override
   @JsonKey(name: 'MaxLoad')
   int? get maxLoad;
+  @override
+  @JsonKey(name: 'Photo')
+  List<String>? get photo;
   @override
   @JsonKey(ignore: true)
   _$$RouteInfoImplCopyWith<_$RouteInfoImpl> get copyWith =>

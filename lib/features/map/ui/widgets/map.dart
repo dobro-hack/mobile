@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:eco/features/map/domain/location_provider.dart';
 import 'package:eco/features/map/domain/track_provider.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,22 @@ class RoutesMap extends ConsumerWidget {
     final asyncRoutes = ref.watch(routesProviderProvider);
     final trackPointsAsync = ref.watch(trackProviderProvider);
 
+    // Определяем TileLayerOptions в зависимости от наличия интернета
+    TileLayer tileLayerOptions =
+        ref.watch(mapNotifierProvider).isConnect ?? true
+            ? TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+              )
+            : TileLayer(
+                tileProvider: FileTileProvider(),
+                urlTemplate:
+                    '${ref.read(mapNotifierProvider).directory}/{z}/{x}/{y}.png',
+                // urlTemplate: 'assets/tiles/{z}/{x}/{y}.png',
+                maxZoom: 13,
+                minZoom: 14,
+              );
+
     return FlutterMap(
       mapController: ref.watch(mapNotifierProvider).mapController,
       options: MapOptions(
@@ -86,10 +103,11 @@ class RoutesMap extends ConsumerWidget {
         ),
       ),
       children: [
-        TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-        ),
+        // TileLayer(
+        //   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        //   userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+        // ),
+        tileLayerOptions,
         MarkerLayer(markers: [
           if (ref.watch(locationProviderProvider).myPoint != null)
             Marker(

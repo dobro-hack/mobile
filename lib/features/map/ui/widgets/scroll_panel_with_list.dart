@@ -17,10 +17,10 @@ class ScrollPanelWithList extends StatelessWidget {
         //   padding: EdgeInsets.all(16.0),
         //   child: Text('search'),
         // ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('filters'),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.all(16.0),
+        //   child: Text('filters'),
+        // ),
         RoutesListWidget(),
       ],
     );

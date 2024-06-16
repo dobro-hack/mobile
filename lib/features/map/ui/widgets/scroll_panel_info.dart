@@ -10,6 +10,7 @@ import '../../../../common/widgets/green_elev_button.dart';
 import '../../../../common/widgets/text_show_more.dart';
 import '../../data/models/cell.dart';
 import '../../data/models/route_info.dart';
+import 'cell_block.dart';
 import 'digital_card.dart';
 import 'load_block.dart';
 import 'note_widget.dart';
@@ -31,10 +32,16 @@ class ScrollPanelInfo extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ListView(
+        padding: EdgeInsets.zero,
         controller: sc,
         children: [
           Padding(
-            padding: EdgeInsets.all(16.h),
+            padding: EdgeInsets.only(
+              right: 16.w,
+              left: 16.w,
+              bottom: 8.h,
+              top: 16.h,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -84,41 +91,11 @@ class ScrollPanelInfo extends StatelessWidget {
             child: const DividerGrey(),
           ),
           if (route.load != null) LoadBlock(load: route.load!),
+          const CellBlock(),
           Padding(
             padding: EdgeInsets.only(
               top: 16.h,
-              bottom: 8.h,
-              left: 16.w,
-              right: 16.w,
-            ),
-            child: Text(
-              'Качество связи',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
-          ...cells
-              .map((e) => ListTile(
-                    leading: SvgPicture.asset(e.iconAsset),
-                    title: Text(e.name),
-                    subtitle: Text(
-                      e.description,
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ))
-              .toList(),
-          Padding(
-            padding: EdgeInsets.all(16.h),
-            child: NoteWidget(
-              title: 'Скачайте маршрут на телефон',
-              text: 'Приложение будет работать, даже если интернет пропадёт',
-              bottomWidget:
-                  TextButton(onPressed: () {}, child: const Text('Скачать')),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 16.h,
-              bottom: 8.h,
+              bottom: 4.h,
               left: 16.w,
               right: 16.w,
             ),
@@ -129,7 +106,7 @@ class ScrollPanelInfo extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: 16.h,
+              // top: 16.h,
               bottom: 8.h,
               left: 16.w,
               right: 16.w,
@@ -143,7 +120,7 @@ class ScrollPanelInfo extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
               top: 16.h,
-              bottom: 8.h,
+              bottom: 4.h,
               left: 16.w,
               right: 16.w,
             ),
@@ -154,7 +131,7 @@ class ScrollPanelInfo extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: 16.h,
+              // top: 16.h,
               bottom: 8.h,
               left: 16.w,
               right: 16.w,
@@ -168,7 +145,7 @@ class ScrollPanelInfo extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
               top: 16.h,
-              bottom: 8.h,
+              bottom: 4.h,
               left: 16.w,
               right: 16.w,
             ),
@@ -179,7 +156,7 @@ class ScrollPanelInfo extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: 16.h,
+              // top: 16.h,
               bottom: 8.h,
               left: 16.w,
               right: 16.w,

@@ -31,7 +31,7 @@ class ContactBlock extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Text(
-                  'site.ru',
+                  'eco.kamgov.ru',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
@@ -44,11 +44,11 @@ class ContactBlock extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Главый по чему-то',
+                  'Телефон',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Text(
-                  '+7 (909) 135 222-2',
+                  '+7 (4152) 42-01-74',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
@@ -61,11 +61,11 @@ class ContactBlock extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Эмайл главного по чему-то там',
+                  'Email',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Text(
-                  'priroda@mail.ru',
+                  'priroda@kamgov.ru',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],

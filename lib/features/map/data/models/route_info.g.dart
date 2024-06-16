@@ -28,6 +28,8 @@ _$RouteInfoImpl _$$RouteInfoImplFromJson(Map<String, dynamic> json) =>
           ?.map((e) => (e as num).toInt())
           .toList(),
       maxLoad: (json['MaxLoad'] as num?)?.toInt(),
+      photo:
+          (json['Photo'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$RouteInfoImplToJson(_$RouteInfoImpl instance) =>
@@ -48,6 +50,7 @@ Map<String, dynamic> _$$RouteInfoImplToJson(_$RouteInfoImpl instance) =>
       'Difficulty': _$DifficultyEnumMap[instance.difficulty]!,
       'Load': instance.load,
       'MaxLoad': instance.maxLoad,
+      'Photo': instance.photo,
     };
 
 const _$DifficultyEnumMap = {

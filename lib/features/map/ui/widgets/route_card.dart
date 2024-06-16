@@ -49,6 +49,12 @@ class RouteCard extends ConsumerWidget {
                   width: 114.w,
                   height: 80.h,
                   color: AppColors.green,
+                  child: (route.photo != null && route.photo!.isNotEmpty)
+                      ? Image.network(
+                          route.photo![0],
+                          fit: BoxFit.cover,
+                        )
+                      : null,
                 ),
               ),
               SizedBox(width: 12.w),

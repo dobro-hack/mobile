@@ -29,6 +29,7 @@ class RouteInfo with _$RouteInfo {
     @JsonKey(name: 'Difficulty') required Difficulty difficulty,
     @JsonKey(name: 'Load') required List<int>? load,
     @JsonKey(name: 'MaxLoad') required int? maxLoad,
+    @JsonKey(name: 'Photo') required List<String>? photo,
   }) = _RouteInfo;
 
   const RouteInfo._();
