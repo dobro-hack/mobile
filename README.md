@@ -11,8 +11,8 @@
 - Отправка сообщения о проблеме
 
 ### [Ссылка на макеты](https://www.figma.com/design/SsEjtjUZqTO20gIk3BJ4Hj/HaHaTon?node-id=0-1&t=ck9KUY1JK977kxls-0)
-### [Ссылка на презентацию]()
-### [Файл для установки]()
+### [Ссылка на презентацию](https://drive.google.com/file/d/1KclJuWJ21K83E1UzRucDkfwb7PhBFWYJ/view?usp=sharing)
+### [Файл для установки](https://github.com/dobro-hack/mobile/releases/tag/v1)
 
 ## Сборка приложения
 
