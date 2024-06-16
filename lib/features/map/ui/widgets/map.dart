@@ -25,23 +25,23 @@ class RoutesMap extends ConsumerWidget {
           List<Place> places = [for (var r in data.routes) ...r.places ?? []];
           List<Marker> markers = places.map(
             (e) {
-              if (e.location.lat > 90 || e.location.lon > 90) {
-                return Marker(
-                  point: LatLng(55.7522, 37.6156),
-                  child: Container(
-                    width: 64.h,
-                    height: 64.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.blue,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 3.h,
-                        color: AppColors.white,
-                      ),
-                    ),
-                  ),
-                );
-              }
+              // if (e.location.lat > 90 || e.location.lon > 90) {
+              //   return Marker(
+              //     point: LatLng(55.7522, 37.6156),
+              //     child: Container(
+              //       width: 64.h,
+              //       height: 64.h,
+              //       decoration: BoxDecoration(
+              //         color: AppColors.blue,
+              //         shape: BoxShape.circle,
+              //         border: Border.all(
+              //           width: 3.h,
+              //           color: AppColors.white,
+              //         ),
+              //       ),
+              //     ),
+              //   );
+              // }
               return Marker(
                 point: LatLng(e.location.lat, e.location.lon),
                 child: GestureDetector(
@@ -96,10 +96,10 @@ class RoutesMap extends ConsumerWidget {
       mapController: ref.watch(mapNotifierProvider).mapController,
       options: MapOptions(
         initialCenter: LatLng(
-          // 53.024263,
-          // 158.643504,
-          55.54407582912374,
-          37.61409759521485,
+          55.97016203217208,
+          158.59236700460315,
+          // 55.54407582912374,
+          // 37.61409759521485,
         ),
       ),
       children: [

@@ -32,6 +32,7 @@ dependencies:
   uuid: ^4.4.0
   connectivity_plus: ^6.0.3
   shared_preferences: ^2.2.3
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +42,14 @@ dev_dependencies:
   json_serializable: ^6.0.0
   freezed:
   riverpod_generator: ^2.4.0
+  flutter_launcher_icons:
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icons/app_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 
 flutter_native_splash:

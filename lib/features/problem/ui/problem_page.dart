@@ -383,7 +383,7 @@ class ProblemPage extends ConsumerWidget {
                       : () async {
                           await ref
                               .read(problemStateProvider.notifier)
-                              .sendProblem();
+                              .saveProblem();
                           showConfirmationModal(
                             context,
                             false,

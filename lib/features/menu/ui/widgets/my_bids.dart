@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../common/logger.dart';
 import '../../../../common/theme/app_colors.dart';
 import '../../../../common/widgets/grey_elev_button.dart';
 import '../../../map/ui/widgets/routes_list_widget.dart';
@@ -25,9 +26,29 @@ class _MyBidsState extends ConsumerState<MyBids> {
     ref.refresh(allBidsProvider);
   }
 
-  String name(int id) => routesGlobal.firstWhere((e) => e.id == id).name;
-  String? image(int id) =>
-      routesGlobal.firstWhere((e) => e.id == id).photo?.first;
+  String name(int id) {
+    String res = 'Маршрут';
+    if (routesGlobal.isNotEmpty) {
+      try {
+        res = routesGlobal.firstWhere((e) => e.id == id).name;
+      } catch (e) {
+        logger.e(e);
+      }
+    }
+    return res;
+  }
+
+  String? image(int id) {
+    String? res;
+    if (routesGlobal.isNotEmpty) {
+      try {
+        res = routesGlobal.firstWhere((e) => e.id == id).photo?.first;
+      } catch (e) {
+        logger.e(e);
+      }
+    }
+    return res;
+  }
 
   @override
   Widget build(BuildContext context) {

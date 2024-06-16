@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../common/theme/app_colors.dart';
 
 class ContactBlock extends StatelessWidget {
   const ContactBlock({
@@ -22,19 +25,30 @@ class ContactBlock extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Сайт',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Text(
-                  'eco.kamgov.ru',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
+            child: GestureDetector(
+              onTap: () async {
+                Uri url = Uri.parse("https://eco.kamgov.ru/");
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                }
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Сайт',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text(
+                    'eco.kamgov.ru',
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: AppColors.textBlue),
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -56,19 +70,30 @@ class ContactBlock extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Email',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Text(
-                  'priroda@kamgov.ru',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
+            child: GestureDetector(
+              onTap: () async {
+                Uri url = Uri.parse("mailto:priroda@kamgov.ru");
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                }
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Email',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text(
+                    'priroda@kamgov.ru',
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: AppColors.textBlue),
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
