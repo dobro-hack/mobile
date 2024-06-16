@@ -1,3 +1,4 @@
+import 'package:eco/features/problem/data/models/problem_local.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
@@ -61,6 +62,10 @@ class ProblemStateNotifier extends StateNotifier<ProblemState> {
         savedLocally: true,
       );
     }
+  }
+
+  Future<void> resentProblem(LocalProblem problem) async {
+    await problemRepository.repostProblem(problem);
   }
 
   Future<void> sendProblem() async {

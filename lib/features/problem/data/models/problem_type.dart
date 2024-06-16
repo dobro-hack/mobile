@@ -58,3 +58,8 @@ enum ProblemType {
   final String name;
   final String jsonName;
 }
+
+ProblemType problemTypeFromString(String? value) {
+  if (value == null) return ProblemType.other;
+  return ProblemType.values.firstWhere((e) => e.jsonName == value);
+}

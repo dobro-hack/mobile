@@ -21,7 +21,7 @@ class RoutesMap extends ConsumerWidget {
       AsyncValue<RouteResponse> asyncRoutes, BuildContext context) {
     return asyncRoutes.when(
         data: (RouteResponse data) {
-          List<Place> places = [for (var r in data.routes) ...r.places];
+          List<Place> places = [for (var r in data.routes) ...r.places ?? []];
           List<Marker> markers = places.map(
             (e) {
               if (e.location.lat > 90 || e.location.lon > 90) {

@@ -11,8 +11,8 @@ _$RouteInfoImpl _$$RouteInfoImplFromJson(Map<String, dynamic> json) =>
       id: (json['ID'] as num).toInt(),
       parkId: (json['ParkID'] as num).toInt(),
       park: Park.fromJson(json['Park'] as Map<String, dynamic>),
-      places: (json['Places'] as List<dynamic>)
-          .map((e) => Place.fromJson(e as Map<String, dynamic>))
+      places: (json['Places'] as List<dynamic>?)
+          ?.map((e) => Place.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['Name'] as String,
       description: json['Description'] as String,
@@ -24,9 +24,10 @@ _$RouteInfoImpl _$$RouteInfoImplFromJson(Map<String, dynamic> json) =>
       duration: (json['Duration'] as num).toInt(),
       height: (json['Height'] as num).toInt(),
       difficulty: $enumDecode(_$DifficultyEnumMap, json['Difficulty']),
-      load: (json['Load'] as List<dynamic>)
-          .map((e) => (e as num).toInt())
+      load: (json['Load'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
           .toList(),
+      maxLoad: (json['MaxLoad'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$RouteInfoImplToJson(_$RouteInfoImpl instance) =>
@@ -34,7 +35,7 @@ Map<String, dynamic> _$$RouteInfoImplToJson(_$RouteInfoImpl instance) =>
       'ID': instance.id,
       'ParkID': instance.parkId,
       'Park': instance.park.toJson(),
-      'Places': instance.places.map((e) => e.toJson()).toList(),
+      'Places': instance.places?.map((e) => e.toJson()).toList(),
       'Name': instance.name,
       'Description': instance.description,
       'HowToGet': instance.howToGet,
@@ -46,6 +47,7 @@ Map<String, dynamic> _$$RouteInfoImplToJson(_$RouteInfoImpl instance) =>
       'Height': instance.height,
       'Difficulty': _$DifficultyEnumMap[instance.difficulty]!,
       'Load': instance.load,
+      'MaxLoad': instance.maxLoad,
     };
 
 const _$DifficultyEnumMap = {

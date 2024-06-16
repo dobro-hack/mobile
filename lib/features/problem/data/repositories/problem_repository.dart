@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 
 import '../../../../common/logger.dart';
@@ -18,38 +20,47 @@ class ProblemRepository {
   );
 
   Future<bool> saveLocal(Problem problem) async {
+    final data = {
+      'lat': problem.latitude.toString(),
+      'lon': problem.longitude.toString(),
+      'type': problem.type?.jsonName,
+      'message': problem.message,
+      'phone': problem.phone,
+    };
+    debugPrint('saveLocal /n$data');
     await dioClient.addRequestToQueue(
       problemUrl,
       {
         //  заголовки, если требуется
       },
       problem.photo,
-      data: {
-        'lat': problem.latitude.toString(),
-        'lon': problem.longitude.toString(),
-        'type': problem.type?.name, //jsonName ?? 'other',
-        'message': problem.message,
-        'phone': problem.phone,
-      },
+      data: data,
     );
     return true;
   }
 
+  Future<void> repostProblem(LocalProblem problem) async {
+    await dioClient.sendPendingProblem(problem.localId);
+  }
+
   Future<bool> postProblem(Problem problem) async {
     try {
+      final data = {
+        'lat': problem.latitude.toString(),
+        'lon': problem.longitude.toString(),
+        'type': problem.type?.jsonName,
+        'message': problem.message,
+        'phone': problem.phone,
+      };
+
+      debugPrint('postProblem\n$data');
       return await dioClient.sendRequestWithFallback(
         problemUrl,
         {
           //  заголовки, если требуется
         },
         problem.photo,
-        data: {
-          'lat': problem.latitude.toString(),
-          'lon': problem.longitude.toString(),
-          'type': problem.type?.name,
-          'message': problem.message,
-          'phone': problem.phone,
-        },
+        data: data,
       );
     } catch (e) {
       debugPrint('Не удалось отправить обращение: $e');
@@ -78,22 +89,23 @@ class ProblemRepository {
 
     for (var request in pendingRequests) {
       debugPrint(request.toString());
-      // Создание объекта LocalProblem из данных в неотправленном запросе
-      pendingProblems.add(
-        LocalProblem(
-          message: request.data?['message'] ?? '',
-          location: LocationProblem(
-            lat: double.tryParse(request.data?['lat']) ?? 0.0,
-            lon: double.tryParse(request.data?['lon']) ?? 0.0,
-          ),
-          type: ProblemType.other, // замените на реальное значение
-          phone: request.data?['phone'] ?? '',
-          fileUrl: request.photo?.path,
-          localId:
-              DateTime.now().millisecondsSinceEpoch.toString(), // уникальный ID
-          savedAt: DateTime.now(), // текущее время или время сохранения запроса
+
+      final problem = LocalProblem(
+        message: request.data?['message'] ?? '',
+        location: LocationProblem(
+          lat: double.tryParse(request.data?['lat']) ?? 0.0,
+          lon: double.tryParse(request.data?['lon']) ?? 0.0,
         ),
+        type: problemTypeFromString(request.data?['type']),
+        phone: request.data?['phone'] ?? '',
+        fileUrl: request.photo?.path,
+        localId: request.data?['localId'] ??
+            DateTime.now().millisecondsSinceEpoch.toString(),
+        savedAt: request.data?['saveAt'] ?? DateTime.now(),
       );
+      print(problem.type);
+
+      pendingProblems.add(problem);
     }
 
     return pendingProblems;

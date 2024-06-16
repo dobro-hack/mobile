@@ -14,6 +14,7 @@ class RouteRepository {
     try {
       final response = await dioClient.getData(routesUrl);
       if (response.statusCode == 200) {
+        print(response.statusCode);
         return RouteResponse.fromJson(response.data);
       } else {
         logger.e('${response.statusCode} Не удалось получить маршруты');

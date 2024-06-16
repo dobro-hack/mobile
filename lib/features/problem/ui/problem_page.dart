@@ -304,6 +304,7 @@ class ProblemPage extends ConsumerWidget {
                           ),
                           SizedBox(height: 8.h),
                           TextFormField(
+                            keyboardType: TextInputType.phone,
                             onTapOutside: (event) {
                               FocusManager.instance.primaryFocus?.unfocus();
                             },

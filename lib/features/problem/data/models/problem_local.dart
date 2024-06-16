@@ -3,7 +3,7 @@ import 'problem_status.dart';
 
 class LocalProblem extends ProblemData {
   final String localId;
-  final DateTime savedAt; // Время сохранения
+  final DateTime savedAt;
 
   LocalProblem({
     required super.message,

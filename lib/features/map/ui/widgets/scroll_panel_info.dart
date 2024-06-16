@@ -10,11 +10,10 @@ import '../../../../common/widgets/green_elev_button.dart';
 import '../../../../common/widgets/text_show_more.dart';
 import '../../data/models/cell.dart';
 import '../../data/models/route_info.dart';
-import '../../data/utils.dart';
-import 'chart.dart';
 import 'digital_card.dart';
+import 'load_block.dart';
 import 'note_widget.dart';
-import 'place_short_widget.dart';
+import 'places_block.dart';
 
 class ScrollPanelInfo extends StatelessWidget {
   final ScrollController sc;
@@ -29,11 +28,6 @@ class ScrollPanelInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<int>> monthlyData = prepareDataForChart(route.load);
-
-    // Получаем список значений и месяцев
-    List<int> data = monthlyData.values.expand((weeks) => weeks).toList();
-    List<String> months = monthlyData.keys.toList();
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ListView(
@@ -84,69 +78,12 @@ class ScrollPanelInfo extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 16.h,
-              bottom: 8.h,
-              left: 16.w,
-              right: 16.w,
-            ),
-            child: Text(
-              'На маршруте',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
-            height: 124.h,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                SizedBox(width: 12.w),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: route.places
-                      .map((pl) => PlaceShortWidget(place: pl))
-                      .toList(),
-                ),
-                SizedBox(width: 12.w),
-              ],
-            ),
-          ),
+          if (route.places != null) PlacesBlock(places: route.places!),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: const DividerGrey(),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 16.h,
-              bottom: 8.h,
-              left: 16.w,
-              right: 16.w,
-            ),
-            child: Text(
-              'Загруженность',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: CustomLineChart(
-                data: data,
-                months: months,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.h),
-            child: const NoteWidget(
-              title: 'Как выбрать даты?',
-              text:
-                  'Лучше выбирать дни с наименьшей загрузкой. Если параметр максимальной вместимости превышен - мы не сможем разрешить посещение.',
-            ),
-          ),
+          if (route.load != null) LoadBlock(load: route.load!),
           Padding(
             padding: EdgeInsets.only(
               top: 16.h,
