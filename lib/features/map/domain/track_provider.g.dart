@@ -6,7 +6,7 @@ part of 'track_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trackProviderHash() => r'fb2e8b49652ae5a1c9a7c3e6653bfd97ca60d807';
+String _$trackProviderHash() => r'86f45e3a7b281ec6bd4b2c6c126b09ad30f6870b';
 
 /// See also [TrackProvider].
 @ProviderFor(TrackProvider)

@@ -4,10 +4,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:xml/xml.dart' as xml;
 
 class GpxService {
-  // Функция для парсинга GPX файла
-  Future<List<LatLng>> parseGpxFile(String assetPath) async {
-    final xmlString = await rootBundle.loadString(assetPath);
-    final xmlDoc = xml.XmlDocument.parse(xmlString);
+// Функция для парсинга GPX строки
+  List<LatLng> parseGpxString(String gpxString) {
+    final xmlDoc = xml.XmlDocument.parse(gpxString);
     final coordinates = <LatLng>[];
 
     for (final trackPoint in xmlDoc.findAllElements('trkpt')) {
@@ -16,6 +15,12 @@ class GpxService {
       coordinates.add(LatLng(lat, lon));
     }
     return coordinates;
+  }
+
+  // Функция для парсинга GPX файла
+  Future<List<LatLng>> parseGpxFile(String assetPath) async {
+    final xmlString = await rootBundle.loadString(assetPath);
+    return parseGpxString(xmlString);
   }
 
   // Функция для определения границ по GPX файлу

@@ -12,7 +12,16 @@ class TrackProvider extends _$TrackProvider {
     return [];
   }
 
-  Future<void> loadTrackPoints(String gpxAssetPath) async {
+  void loadTrackPointsFromString(String gpxString) {
+    try {
+      final trackPoints = GpxService().parseGpxString(gpxString);
+      state = AsyncData(trackPoints);
+    } catch (e, stackTrace) {
+      state = AsyncError(e, stackTrace);
+    }
+  }
+
+  Future<void> loadTrackPointsFromAsset(String gpxAssetPath) async {
     try {
       final trackPoints = await GpxService().parseGpxFile(gpxAssetPath);
       state = AsyncData(trackPoints);

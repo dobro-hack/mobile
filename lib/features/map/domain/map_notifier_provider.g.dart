@@ -6,7 +6,7 @@ part of 'map_notifier_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mapNotifierHash() => r'fabd0e8c915897e3e52f64ebc8ca792e5f05bb9f';
+String _$mapNotifierHash() => r'ed34c061eaecf933fc132b5aeae0759ab60579ad';
 
 /// See also [MapNotifier].
 @ProviderFor(MapNotifier)

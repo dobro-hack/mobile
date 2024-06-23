@@ -54,6 +54,8 @@ mixin _$RouteInfo {
   List<int>? get maxLoad => throw _privateConstructorUsedError;
   @JsonKey(name: 'Photo')
   List<String>? get photo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'GpxData')
+  String get gpxData => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -83,7 +85,8 @@ abstract class $RouteInfoCopyWith<$Res> {
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
       @JsonKey(name: 'Load') List<int>? load,
       @JsonKey(name: 'MaxLoad') List<int>? maxLoad,
-      @JsonKey(name: 'Photo') List<String>? photo});
+      @JsonKey(name: 'Photo') List<String>? photo,
+      @JsonKey(name: 'GpxData') String gpxData});
 
   $ParkCopyWith<$Res> get park;
 }
@@ -118,6 +121,7 @@ class _$RouteInfoCopyWithImpl<$Res, $Val extends RouteInfo>
     Object? load = freezed,
     Object? maxLoad = freezed,
     Object? photo = freezed,
+    Object? gpxData = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -188,6 +192,10 @@ class _$RouteInfoCopyWithImpl<$Res, $Val extends RouteInfo>
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      gpxData: null == gpxData
+          ? _value.gpxData
+          : gpxData // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -225,7 +233,8 @@ abstract class _$$RouteInfoImplCopyWith<$Res>
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
       @JsonKey(name: 'Load') List<int>? load,
       @JsonKey(name: 'MaxLoad') List<int>? maxLoad,
-      @JsonKey(name: 'Photo') List<String>? photo});
+      @JsonKey(name: 'Photo') List<String>? photo,
+      @JsonKey(name: 'GpxData') String gpxData});
 
   @override
   $ParkCopyWith<$Res> get park;
@@ -259,6 +268,7 @@ class __$$RouteInfoImplCopyWithImpl<$Res>
     Object? load = freezed,
     Object? maxLoad = freezed,
     Object? photo = freezed,
+    Object? gpxData = null,
   }) {
     return _then(_$RouteInfoImpl(
       id: null == id
@@ -329,6 +339,10 @@ class __$$RouteInfoImplCopyWithImpl<$Res>
           ? _value._photo
           : photo // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      gpxData: null == gpxData
+          ? _value.gpxData
+          : gpxData // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -354,7 +368,8 @@ class _$RouteInfoImpl extends _RouteInfo {
       @JsonKey(name: 'Difficulty') required this.difficulty,
       @JsonKey(name: 'Load') required final List<int>? load,
       @JsonKey(name: 'MaxLoad') required final List<int>? maxLoad,
-      @JsonKey(name: 'Photo') required final List<String>? photo})
+      @JsonKey(name: 'Photo') required final List<String>? photo,
+      @JsonKey(name: 'GpxData') required this.gpxData})
       : _places = places,
         _load = load,
         _maxLoad = maxLoad,
@@ -448,8 +463,12 @@ class _$RouteInfoImpl extends _RouteInfo {
   }
 
   @override
+  @JsonKey(name: 'GpxData')
+  final String gpxData;
+
+  @override
   String toString() {
-    return 'RouteInfo(id: $id, parkId: $parkId, park: $park, places: $places, name: $name, description: $description, howToGet: $howToGet, whatToTake: $whatToTake, inEmergency: $inEmergency, recommendations: $recommendations, length: $length, duration: $duration, height: $height, difficulty: $difficulty, load: $load, maxLoad: $maxLoad, photo: $photo)';
+    return 'RouteInfo(id: $id, parkId: $parkId, park: $park, places: $places, name: $name, description: $description, howToGet: $howToGet, whatToTake: $whatToTake, inEmergency: $inEmergency, recommendations: $recommendations, length: $length, duration: $duration, height: $height, difficulty: $difficulty, load: $load, maxLoad: $maxLoad, photo: $photo, gpxData: $gpxData)';
   }
 
   @override
@@ -480,7 +499,8 @@ class _$RouteInfoImpl extends _RouteInfo {
                 other.difficulty == difficulty) &&
             const DeepCollectionEquality().equals(other._load, _load) &&
             const DeepCollectionEquality().equals(other._maxLoad, _maxLoad) &&
-            const DeepCollectionEquality().equals(other._photo, _photo));
+            const DeepCollectionEquality().equals(other._photo, _photo) &&
+            (identical(other.gpxData, gpxData) || other.gpxData == gpxData));
   }
 
   @JsonKey(ignore: true)
@@ -503,7 +523,8 @@ class _$RouteInfoImpl extends _RouteInfo {
       difficulty,
       const DeepCollectionEquality().hash(_load),
       const DeepCollectionEquality().hash(_maxLoad),
-      const DeepCollectionEquality().hash(_photo));
+      const DeepCollectionEquality().hash(_photo),
+      gpxData);
 
   @JsonKey(ignore: true)
   @override
@@ -537,8 +558,9 @@ abstract class _RouteInfo extends RouteInfo {
       @JsonKey(name: 'Difficulty') required final Difficulty difficulty,
       @JsonKey(name: 'Load') required final List<int>? load,
       @JsonKey(name: 'MaxLoad') required final List<int>? maxLoad,
-      @JsonKey(name: 'Photo')
-      required final List<String>? photo}) = _$RouteInfoImpl;
+      @JsonKey(name: 'Photo') required final List<String>? photo,
+      @JsonKey(name: 'GpxData')
+      required final String gpxData}) = _$RouteInfoImpl;
   const _RouteInfo._() : super._();
 
   factory _RouteInfo.fromJson(Map<String, dynamic> json) =
@@ -595,6 +617,9 @@ abstract class _RouteInfo extends RouteInfo {
   @override
   @JsonKey(name: 'Photo')
   List<String>? get photo;
+  @override
+  @JsonKey(name: 'GpxData')
+  String get gpxData;
   @override
   @JsonKey(ignore: true)
   _$$RouteInfoImplCopyWith<_$RouteInfoImpl> get copyWith =>

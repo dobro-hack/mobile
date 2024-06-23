@@ -30,6 +30,7 @@ class RouteInfo with _$RouteInfo {
     @JsonKey(name: 'Load') required List<int>? load,
     @JsonKey(name: 'MaxLoad') required List<int>? maxLoad,
     @JsonKey(name: 'Photo') required List<String>? photo,
+    @JsonKey(name: 'GpxData') required String gpxData,
   }) = _RouteInfo;
 
   const RouteInfo._();

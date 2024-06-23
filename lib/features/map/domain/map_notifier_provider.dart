@@ -43,9 +43,9 @@ class MapNotifier extends _$MapNotifier {
       downloadStatus: isSaved ? DownloadStatus.success : DownloadStatus.initial,
     );
 
-    await ref
+    ref
         .read(trackProviderProvider.notifier)
-        .loadTrackPoints('assets/tracks/track.gpx');
+        .loadTrackPointsFromString(route.gpxData);
     final trackPoints = ref.read(trackProviderProvider).value ?? [];
     _animateCameraToTrack(trackPoints);
     // Проверяем состояние интернет-соединения
