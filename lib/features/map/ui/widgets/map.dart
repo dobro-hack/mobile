@@ -6,9 +6,11 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../../common/theme/app_colors.dart';
+import '../../../../common/utils/asset_type.dart';
 import '../../data/models/place.dart';
 import '../../data/models/route_response.dart';
 import '../../domain/map_notifier_provider.dart';
@@ -52,13 +54,28 @@ class RoutesMap extends ConsumerWidget {
                   child: Container(
                     width: 64.h,
                     height: 64.h,
+                    clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
-                      color: AppColors.blue,
+                      // color: AppColors.blue,
                       shape: BoxShape.circle,
                       border: Border.all(
+                        strokeAlign: BorderSide.strokeAlignOutside,
                         width: 3.h,
                         color: AppColors.white,
                       ),
+                    ),
+                    child: ColoredBox(
+                      color: AppColors.greyBackgroundDarker,
+                      child: ImageTypeDetector.isSvg(e.icon)
+                          ? SvgPicture.network(
+                              e.icon,
+                              color: AppColors.black,
+                            )
+                          : Image.network(
+                              e.icon,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const ColoredBox(color: AppColors.greyDark),
+                            ),
                     ),
                   ),
                 ),
@@ -137,7 +154,7 @@ class RoutesMap extends ConsumerWidget {
                   Polyline(
                     points: trackPoints,
                     strokeWidth: 4.0,
-                    color: Colors.blue,
+                    color: Colors.black,
                   ),
                 ];
               },
@@ -154,12 +171,14 @@ class RoutesMap extends ConsumerWidget {
             builder: (context, markers) {
               return Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue),
+                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.greyLight,
+                  border: Border.all(color: AppColors.white, width: 3),
+                ),
                 child: Center(
                   child: Text(
                     markers.length.toString(),
-                    style: const TextStyle(color: Colors.white),
+                    // style: const TextStyle(color: Colors.white),
                   ),
                 ),
               );

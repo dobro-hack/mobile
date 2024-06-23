@@ -82,6 +82,8 @@ AppBarTheme _appBarTheme = AppBarTheme(
 );
 
 ButtonStyle _elevButtonLight = ElevatedButton.styleFrom(
+  fixedSize: Size.fromHeight(44.h),
+  elevation: 0,
   shape: const StadiumBorder(),
   textStyle: Roboto().size16Weihtg500,
 );

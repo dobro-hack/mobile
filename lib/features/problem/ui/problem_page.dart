@@ -372,8 +372,10 @@ class ProblemPage extends ConsumerWidget {
                   child: ref.watch(problemStateProvider).isSending
                       ? CircularProgressIndicator(color: Colors.white)
                       : Text('Войти через Госуслуги и отправить')),
+              SizedBox(height: 8.h),
               SizedBox(
                 width: double.infinity,
+                height: 44.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.greyBackgroundLight,

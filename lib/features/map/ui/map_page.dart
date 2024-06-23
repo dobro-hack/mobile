@@ -51,6 +51,7 @@ class _MapPageState extends ConsumerState<MapPage> {
               SlidingUpPanel(
                 maxHeight: maxH,
                 minHeight: minH,
+                boxShadow: [],
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
                 parallaxEnabled: true,
                 parallaxOffset: 0.5,
