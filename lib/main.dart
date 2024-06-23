@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'common/app.dart';
+import 'features/base/data/base_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,12 +28,13 @@ void main() async {
     ),
   );
 
-  final notificationSettings =
-      await FirebaseMessaging.instance.requestPermission(provisional: true);
+  FirebaseMessaging.instance.requestPermission(provisional: true);
 
   final fbToken = await FirebaseMessaging.instance.getToken();
-
-  log(fbToken.toString());
+  if (fbToken != null) {
+    log(fbToken.toString());
+    BaseRepository().sendFBToken(fbToken);
+  }
 
   runApp(
     const ProviderScope(
