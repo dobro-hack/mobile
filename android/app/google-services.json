@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "323241183056",
+    "project_id": "eco-hack-22325",
+    "storage_bucket": "eco-hack-22325.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323241183056:android:6c3b258eb8cf56b5e84e55",
+        "android_client_info": {
+          "package_name": "com.eco.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFHZUDScjQcCfPNiBKK5siptdn3ug4QdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
