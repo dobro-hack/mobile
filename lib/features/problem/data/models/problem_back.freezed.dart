@@ -25,7 +25,7 @@ mixin _$ProblemBack {
   @JsonKey(name: 'UserID')
   int get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'SentAt')
-  DateTime get sentAt => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
   @JsonKey(name: 'Type')
   ProblemType get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'Message')
@@ -54,7 +54,7 @@ abstract class $ProblemBackCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'ID') int id,
       @JsonKey(name: 'UserID') int userId,
-      @JsonKey(name: 'SentAt') DateTime sentAt,
+      @JsonKey(name: 'SentAt') DateTime date,
       @JsonKey(name: 'Type') ProblemType type,
       @JsonKey(name: 'Message') String message,
       @JsonKey(name: 'Location') LocationProblem location,
@@ -78,7 +78,7 @@ class _$ProblemBackCopyWithImpl<$Res, $Val extends ProblemBack>
   $Res call({
     Object? id = null,
     Object? userId = null,
-    Object? sentAt = null,
+    Object? date = null,
     Object? type = null,
     Object? message = null,
     Object? location = null,
@@ -95,9 +95,9 @@ class _$ProblemBackCopyWithImpl<$Res, $Val extends ProblemBack>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
-      sentAt: null == sentAt
-          ? _value.sentAt
-          : sentAt // ignore: cast_nullable_to_non_nullable
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
       type: null == type
           ? _value.type
@@ -138,7 +138,7 @@ abstract class _$$ProblemBackImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'ID') int id,
       @JsonKey(name: 'UserID') int userId,
-      @JsonKey(name: 'SentAt') DateTime sentAt,
+      @JsonKey(name: 'SentAt') DateTime date,
       @JsonKey(name: 'Type') ProblemType type,
       @JsonKey(name: 'Message') String message,
       @JsonKey(name: 'Location') LocationProblem location,
@@ -160,7 +160,7 @@ class __$$ProblemBackImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? userId = null,
-    Object? sentAt = null,
+    Object? date = null,
     Object? type = null,
     Object? message = null,
     Object? location = null,
@@ -177,9 +177,9 @@ class __$$ProblemBackImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
-      sentAt: null == sentAt
-          ? _value.sentAt
-          : sentAt // ignore: cast_nullable_to_non_nullable
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
       type: null == type
           ? _value.type
@@ -216,7 +216,7 @@ class _$ProblemBackImpl extends _ProblemBack {
   const _$ProblemBackImpl(
       {@JsonKey(name: 'ID') required this.id,
       @JsonKey(name: 'UserID') required this.userId,
-      @JsonKey(name: 'SentAt') required this.sentAt,
+      @JsonKey(name: 'SentAt') required this.date,
       @JsonKey(name: 'Type') required this.type,
       @JsonKey(name: 'Message') required this.message,
       @JsonKey(name: 'Location') required this.location,
@@ -236,7 +236,7 @@ class _$ProblemBackImpl extends _ProblemBack {
   final int userId;
   @override
   @JsonKey(name: 'SentAt')
-  final DateTime sentAt;
+  final DateTime date;
   @override
   @JsonKey(name: 'Type')
   final ProblemType type;
@@ -258,7 +258,7 @@ class _$ProblemBackImpl extends _ProblemBack {
 
   @override
   String toString() {
-    return 'ProblemBack(id: $id, userId: $userId, sentAt: $sentAt, type: $type, message: $message, location: $location, status: $status, fileUrl: $fileUrl, phone: $phone)';
+    return 'ProblemBack(id: $id, userId: $userId, date: $date, type: $type, message: $message, location: $location, status: $status, fileUrl: $fileUrl, phone: $phone)';
   }
 
   @override
@@ -268,7 +268,7 @@ class _$ProblemBackImpl extends _ProblemBack {
             other is _$ProblemBackImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.sentAt, sentAt) || other.sentAt == sentAt) &&
+            (identical(other.date, date) || other.date == date) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.location, location) ||
@@ -280,8 +280,8 @@ class _$ProblemBackImpl extends _ProblemBack {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, sentAt, type,
-      message, location, status, fileUrl, phone);
+  int get hashCode => Object.hash(runtimeType, id, userId, date, type, message,
+      location, status, fileUrl, phone);
 
   @JsonKey(ignore: true)
   @override
@@ -301,7 +301,7 @@ abstract class _ProblemBack extends ProblemBack {
   const factory _ProblemBack(
       {@JsonKey(name: 'ID') required final int id,
       @JsonKey(name: 'UserID') required final int userId,
-      @JsonKey(name: 'SentAt') required final DateTime sentAt,
+      @JsonKey(name: 'SentAt') required final DateTime date,
       @JsonKey(name: 'Type') required final ProblemType type,
       @JsonKey(name: 'Message') required final String message,
       @JsonKey(name: 'Location') required final LocationProblem location,
@@ -321,7 +321,7 @@ abstract class _ProblemBack extends ProblemBack {
   int get userId;
   @override
   @JsonKey(name: 'SentAt')
-  DateTime get sentAt;
+  DateTime get date;
   @override
   @JsonKey(name: 'Type')
   ProblemType get type;

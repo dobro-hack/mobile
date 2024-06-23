@@ -17,7 +17,7 @@ class ProblemBack with _$ProblemBack implements ProblemData {
   const factory ProblemBack({
     @JsonKey(name: 'ID') required int id,
     @JsonKey(name: 'UserID') required int userId,
-    @JsonKey(name: 'SentAt') required DateTime sentAt,
+    @JsonKey(name: 'SentAt') required DateTime date,
     @JsonKey(name: 'Type') required ProblemType type,
     @JsonKey(name: 'Message') required String message,
     @JsonKey(name: 'Location') required LocationProblem location,

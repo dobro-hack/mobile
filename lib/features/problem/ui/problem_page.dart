@@ -198,7 +198,7 @@ class ProblemPage extends ConsumerWidget {
                       ),
                       title: problemState.imageFile == null
                           ? Text(
-                              'Загрузить фото или видео',
+                              'Загрузить фото',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge

@@ -16,10 +16,16 @@ class Place with _$Place {
     @JsonKey(name: 'Name') required String name,
     @JsonKey(name: 'Description') required String description,
     @JsonKey(name: 'Icon') required String icon,
-    @JsonKey(name: 'Location') required Coord location,
+    @JsonKey(name: 'Location', fromJson: _locationFromJson)
+    required Coord? location,
   }) = _Place;
 
   const Place._();
 
   factory Place.fromJson(Map<String, Object?> json) => _$PlaceFromJson(json);
+}
+
+Coord? _locationFromJson(dynamic json) {
+  if (json is String) return null;
+  return Coord.fromJson(json as Map<String, dynamic>);
 }

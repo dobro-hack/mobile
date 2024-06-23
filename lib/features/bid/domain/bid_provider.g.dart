@@ -171,7 +171,7 @@ final numberOfGuestsProvider =
 );
 
 typedef _$NumberOfGuests = AutoDisposeNotifier<int>;
-String _$bookingStatusHash() => r'599ce7bc28e091cc8538c55a1f10906bb5bfebe7';
+String _$bookingStatusHash() => r'61093daf2d1b2497fe869606c0df6708ac96901a';
 
 /// See also [BookingStatus].
 @ProviderFor(BookingStatus)

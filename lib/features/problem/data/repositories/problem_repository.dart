@@ -4,6 +4,7 @@ import '../../../../common/logger.dart';
 import '../../../../common/utils/dio_client.dart';
 import '../models/location_problem.dart';
 import '../models/problem.dart';
+import '../models/problem_back.dart';
 import '../models/problem_local.dart';
 import '../models/problem_response.dart';
 import '../models/problem_data.dart';
@@ -76,8 +77,8 @@ class ProblemRepository {
         throw Exception('Не удалось получить сообщения');
       }
     } catch (e) {
-      logger.e('Не удалось получить сообщения: $e');
-      throw Exception('Не удалось получить сообщения');
+      logger.e('Не удалось получить сообщения с сервера: $e');
+      return const ProblemResponse(totalCount: 0, problems: []);
     }
   }
 
@@ -99,7 +100,7 @@ class ProblemRepository {
         fileUrl: request.photo?.path,
         localId: request.data?['localId'] ??
             DateTime.now().millisecondsSinceEpoch.toString(),
-        savedAt: request.data?['saveAt'] ?? DateTime.now(),
+        date: request.data?['saveAt'] ?? DateTime.now(),
       );
       print(problem.type);
 
@@ -113,13 +114,14 @@ class ProblemRepository {
     try {
       // Получаем данные с сервера
       final response = await fetchProblemsFromBack();
-      final serverProblems = response.problems;
-
+      List<ProblemBack> serverProblems = List.from(response.problems);
+      serverProblems.sort((a, b) => b.date.compareTo(a.date));
       // Получаем неотправленные запросы
-      final pendingProblems = await getPendingRequests();
+      List<ProblemData> pendingProblems = List.from(await getPendingRequests());
 
+      pendingProblems.sort((a, b) => b.date.compareTo(a.date));
       // Объединяем оба списка, приводя все к типу ProblemData
-      final allProblems = <ProblemData>[...serverProblems, ...pendingProblems];
+      final allProblems = <ProblemData>[...pendingProblems, ...serverProblems];
 
       return allProblems;
     } catch (e) {

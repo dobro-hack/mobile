@@ -25,10 +25,10 @@ _$RouteInfoImpl _$$RouteInfoImplFromJson(Map<String, dynamic> json) =>
       height: (json['Height'] as num).toInt(),
       difficulty: $enumDecode(_$DifficultyEnumMap, json['Difficulty']),
       load: (json['Load'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
+          ?.map((e) => (e as num?)?.toInt())
           .toList(),
       maxLoad: (json['MaxLoad'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
+          ?.map((e) => (e as num?)?.toInt())
           .toList(),
       photo:
           (json['Photo'] as List<dynamic>?)?.map((e) => e as String).toList(),

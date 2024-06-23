@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 import 'package:eco/features/base/domain/app_providers.dart';
 import 'package:eco/features/bid/data/models/bid.dart';
@@ -68,7 +69,13 @@ class BookingStatus extends _$BookingStatus {
       "is_leader": false,
     });
     final bidRepository = BidRepository(ref.read(dioClientProvider));
-    await bidRepository.postPerson(resData);
+
+    try {
+      await bidRepository.postPerson(resData);
+    } catch (e) {
+      print('nen');
+      rethrow;
+    }
   }
 
   Future<void> submitBooking(
@@ -82,11 +89,13 @@ class BookingStatus extends _$BookingStatus {
       if (selectedDate == null) {
         throw Exception('Дата не выбрана');
       }
+      var date = ref.read(selectedDateProvider);
       Map<String, dynamic> data = {
         'route_id': ref.read(mapNotifierProvider).selectedRoute?.id,
         'quantity': ref.read(numberOfGuestsProvider),
-        'date_start': ref.read(selectedDateProvider).toString(),
+        'date_start': DateFormat('yyyy-MM-dd').format(date ?? DateTime(1970)),
         'request_id': uuid,
+        'status': 'pending',
       };
       final bidRepository = BidRepository(ref.read(dioClientProvider));
       await bidRepository.postBit(data);
@@ -105,5 +114,7 @@ class BookingStatus extends _$BookingStatus {
 final allBidsProvider = FutureProvider<List<Bid>>((ref) async {
   final repository = BidRepository(ref.read(dioClientProvider));
   final data = await repository.getBids();
-  return data.bids;
+  List<Bid> result = List.from(data.bids);
+  result.sort((a, b) => b.dateStart.compareTo(a.dateStart));
+  return result;
 });

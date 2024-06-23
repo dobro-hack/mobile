@@ -7,6 +7,7 @@ abstract class ProblemData {
   final LocationProblem location;
   final ProblemType type;
   final String phone;
+  final DateTime date;
   final String? fileUrl; // Локальный путь или URL файла
 
   ProblemData({
@@ -14,6 +15,7 @@ abstract class ProblemData {
     required this.location,
     required this.type,
     required this.phone,
+    required this.date,
     this.fileUrl,
   });
 

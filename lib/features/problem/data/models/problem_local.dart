@@ -3,7 +3,6 @@ import 'problem_status.dart';
 
 class LocalProblem extends ProblemData {
   final String localId;
-  final DateTime savedAt;
 
   LocalProblem({
     required super.message,
@@ -12,7 +11,7 @@ class LocalProblem extends ProblemData {
     required super.phone,
     super.fileUrl,
     required this.localId,
-    required this.savedAt,
+    required super.date,
   });
 
   @override

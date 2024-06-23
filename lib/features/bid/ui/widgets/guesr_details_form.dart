@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../common/widgets/divider_grey.dart';
 import 'date_text_field.dart';
@@ -86,11 +87,13 @@ class GuestDetailsFormState extends State<GuestDetailsForm> {
                     ),
                     SizedBox(height: 8.h),
                     DateTextField(
+                      isRequired: true,
                       needLastDates: true,
                       controller: _bdayController,
                       selectedDate: null,
                       onDateSelected: (DateTime date) {
                         _bdayController.text = date.toString();
+                        // DateFormat('dd.MM.yyyy').format(date);
                       },
                     ),
                   ],

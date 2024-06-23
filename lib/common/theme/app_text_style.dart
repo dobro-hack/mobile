@@ -10,21 +10,25 @@ class Roboto {
   TextStyle size15Weihtg400 = TextStyle(
     fontSize: 15.sp,
     height: 20 / 15,
+    fontWeight: FontWeight.w400,
     fontFamily: FontFamily.roboto,
   );
   TextStyle size13Weihtg400 = TextStyle(
     fontSize: 13.sp,
     height: 16 / 13,
+    fontWeight: FontWeight.w400,
     fontFamily: FontFamily.roboto,
   );
   TextStyle size16Weihtg400 = TextStyle(
     fontSize: 16.sp,
     height: 20 / 16,
+    fontWeight: FontWeight.w400,
     fontFamily: FontFamily.roboto,
   );
   TextStyle size14Weihtg400 = TextStyle(
     fontSize: 14.sp,
     height: 18 / 14,
+    fontWeight: FontWeight.w400,
     fontFamily: FontFamily.roboto,
   );
   TextStyle size16Weihtg500 = TextStyle(

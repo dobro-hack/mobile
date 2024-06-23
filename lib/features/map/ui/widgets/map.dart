@@ -44,8 +44,11 @@ class RoutesMap extends ConsumerWidget {
               //     ),
               //   );
               // }
+              if (e.location == null) {
+                return const Marker(point: LatLng(0, 0), child: SizedBox());
+              }
               return Marker(
-                point: LatLng(e.location.lat, e.location.lon),
+                point: LatLng(e.location!.lat, e.location!.lon),
                 child: GestureDetector(
                   onTap: () {
                     debugPrint('нажали');
@@ -112,6 +115,7 @@ class RoutesMap extends ConsumerWidget {
     return FlutterMap(
       mapController: ref.watch(mapNotifierProvider).mapController,
       options: MapOptions(
+        initialZoom: 6,
         initialCenter: LatLng(
           55.97016203217208,
           158.59236700460315,

@@ -24,7 +24,7 @@ class NoSendedProblem extends ConsumerWidget {
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.black.withOpacity(0.08)),
           borderRadius: BorderRadius.circular(12.r),
-          color: AppColors.green,
+          color: AppColors.greyBackgroundDark,
         ),
       ),
       title: Text(

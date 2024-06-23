@@ -30,8 +30,8 @@ mixin _$Place {
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'Icon')
   String get icon => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Location')
-  Coord get location => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Location', fromJson: _locationFromJson)
+  Coord? get location => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,9 +49,9 @@ abstract class $PlaceCopyWith<$Res> {
       @JsonKey(name: 'Name') String name,
       @JsonKey(name: 'Description') String description,
       @JsonKey(name: 'Icon') String icon,
-      @JsonKey(name: 'Location') Coord location});
+      @JsonKey(name: 'Location', fromJson: _locationFromJson) Coord? location});
 
-  $CoordCopyWith<$Res> get location;
+  $CoordCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
     Object? name = null,
     Object? description = null,
     Object? icon = null,
-    Object? location = null,
+    Object? location = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -95,17 +95,21 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as Coord,
+              as Coord?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CoordCopyWith<$Res> get location {
-    return $CoordCopyWith<$Res>(_value.location, (value) {
+  $CoordCopyWith<$Res>? get location {
+    if (_value.location == null) {
+      return null;
+    }
+
+    return $CoordCopyWith<$Res>(_value.location!, (value) {
       return _then(_value.copyWith(location: value) as $Val);
     });
   }
@@ -124,10 +128,10 @@ abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
       @JsonKey(name: 'Name') String name,
       @JsonKey(name: 'Description') String description,
       @JsonKey(name: 'Icon') String icon,
-      @JsonKey(name: 'Location') Coord location});
+      @JsonKey(name: 'Location', fromJson: _locationFromJson) Coord? location});
 
   @override
-  $CoordCopyWith<$Res> get location;
+  $CoordCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -146,7 +150,7 @@ class __$$PlaceImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? icon = null,
-    Object? location = null,
+    Object? location = freezed,
   }) {
     return _then(_$PlaceImpl(
       id: null == id
@@ -169,10 +173,10 @@ class __$$PlaceImplCopyWithImpl<$Res>
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as Coord,
+              as Coord?,
     ));
   }
 }
@@ -187,7 +191,8 @@ class _$PlaceImpl extends _Place {
       @JsonKey(name: 'Name') required this.name,
       @JsonKey(name: 'Description') required this.description,
       @JsonKey(name: 'Icon') required this.icon,
-      @JsonKey(name: 'Location') required this.location})
+      @JsonKey(name: 'Location', fromJson: _locationFromJson)
+      required this.location})
       : super._();
 
   factory _$PlaceImpl.fromJson(Map<String, dynamic> json) =>
@@ -209,8 +214,8 @@ class _$PlaceImpl extends _Place {
   @JsonKey(name: 'Icon')
   final String icon;
   @override
-  @JsonKey(name: 'Location')
-  final Coord location;
+  @JsonKey(name: 'Location', fromJson: _locationFromJson)
+  final Coord? location;
 
   @override
   String toString() {
@@ -258,7 +263,8 @@ abstract class _Place extends Place {
       @JsonKey(name: 'Name') required final String name,
       @JsonKey(name: 'Description') required final String description,
       @JsonKey(name: 'Icon') required final String icon,
-      @JsonKey(name: 'Location') required final Coord location}) = _$PlaceImpl;
+      @JsonKey(name: 'Location', fromJson: _locationFromJson)
+      required final Coord? location}) = _$PlaceImpl;
   const _Place._() : super._();
 
   factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
@@ -279,8 +285,8 @@ abstract class _Place extends Place {
   @JsonKey(name: 'Icon')
   String get icon;
   @override
-  @JsonKey(name: 'Location')
-  Coord get location;
+  @JsonKey(name: 'Location', fromJson: _locationFromJson)
+  Coord? get location;
   @override
   @JsonKey(ignore: true)
   _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>

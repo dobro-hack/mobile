@@ -16,13 +16,17 @@ class SendedProblem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Container(
-        padding: EdgeInsets.all(8.w),
+        clipBehavior: Clip.hardEdge,
         width: 48.h,
         height: 48.h,
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.black.withOpacity(0.08)),
           borderRadius: BorderRadius.circular(12.r),
-          color: AppColors.green,
+          color: AppColors.greyBackgroundDark,
+        ),
+        child: Image.network(
+          'https://syomka.tech/${problemBack.fileUrl}',
+          fit: BoxFit.cover,
         ),
       ),
       title: Text(
@@ -31,7 +35,7 @@ class SendedProblem extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        '${DateFormat('dd.MM.yyyy').format(problemBack.sentAt)} • ${problemBack.status.name}',
+        '${DateFormat('dd.MM.yyyy').format(problemBack.date)} • ${problemBack.status.name}',
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: AppColors.textGreySecondary,
             ),

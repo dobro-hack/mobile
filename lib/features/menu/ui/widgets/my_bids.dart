@@ -1,6 +1,5 @@
 import 'package:eco/features/bid/data/models/bid.dart';
 import 'package:eco/features/bid/domain/bid_provider.dart';
-import 'package:eco/features/map/domain/routes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +19,7 @@ class MyBids extends ConsumerStatefulWidget {
 }
 
 class _MyBidsState extends ConsumerState<MyBids> {
+  bool showAll = false;
   @override
   void initState() {
     super.initState();
@@ -101,42 +101,69 @@ class _MyBidsState extends ConsumerState<MyBids> {
                       ),
                     )
                   : Column(
-                      children: data
-                          .map((e) => ListTile(
-                                leading: Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  width: 48.h,
-                                  height: 48.h,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color:
-                                            AppColors.black.withOpacity(0.08)),
-                                    borderRadius: BorderRadius.circular(12.r),
-                                    color: AppColors.green,
+                      children: [
+                        ListView.builder(
+                          itemBuilder: (context, index) => ListTile(
+                            leading: Container(
+                              clipBehavior: Clip.hardEdge,
+                              width: 48.h,
+                              height: 48.h,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: AppColors.black.withOpacity(0.08)),
+                                borderRadius: BorderRadius.circular(12.r),
+                                color: AppColors.greyBackgroundDark,
+                              ),
+                              child: image(data[index].routeId) != null
+                                  ? Image.network(
+                                      image(data[index].routeId)!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null,
+                            ),
+                            title: Text(
+                              name(data[index].routeId),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            subtitle: Text(
+                              DateFormat('dd.MM.yyyy')
+                                  .format(data[index].dateStart),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                    color: AppColors.textGreySecondary,
                                   ),
-                                  child: image(e.routeId) != null
-                                      ? Image.network(
-                                          image(e.routeId)!,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : null,
+                            ),
+                          ),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: showAll
+                              ? data.length
+                              : (data.length > 3 ? 3 : data.length),
+                        ),
+                        if (data.length > 3)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      AppColors.greyBackgroundLight,
                                 ),
-                                title: Text(
-                                  name(e.routeId),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                subtitle: Text(
-                                  DateFormat('dd.MM.yyyy').format(e.dateStart),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
-                                        color: AppColors.textGreySecondary,
-                                      ),
-                                ),
-                              ))
-                          .toList(),
+                                onPressed: () {
+                                  setState(() {
+                                    showAll = !showAll;
+                                  });
+                                },
+                                child:
+                                    Text(showAll ? 'Свернуть' : 'Показать ещё'),
+                              ),
+                            ),
+                          ),
+                      ],
                     );
             }),
       ],

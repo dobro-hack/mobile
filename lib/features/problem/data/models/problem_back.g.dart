@@ -10,7 +10,7 @@ _$ProblemBackImpl _$$ProblemBackImplFromJson(Map<String, dynamic> json) =>
     _$ProblemBackImpl(
       id: (json['ID'] as num).toInt(),
       userId: (json['UserID'] as num).toInt(),
-      sentAt: DateTime.parse(json['SentAt'] as String),
+      date: DateTime.parse(json['SentAt'] as String),
       type: $enumDecode(_$ProblemTypeEnumMap, json['Type']),
       message: json['Message'] as String,
       location:
@@ -24,7 +24,7 @@ Map<String, dynamic> _$$ProblemBackImplToJson(_$ProblemBackImpl instance) =>
     <String, dynamic>{
       'ID': instance.id,
       'UserID': instance.userId,
-      'SentAt': instance.sentAt.toIso8601String(),
+      'SentAt': instance.date.toIso8601String(),
       'Type': _$ProblemTypeEnumMap[instance.type]!,
       'Message': instance.message,
       'Location': instance.location.toJson(),

@@ -7,6 +7,7 @@ class DateTextField extends ConsumerWidget {
   final Function(DateTime) onDateSelected;
   final String? errorText;
   final bool needLastDates;
+  final bool isRequired;
 
   const DateTextField({
     super.key,
@@ -15,15 +16,16 @@ class DateTextField extends ConsumerWidget {
     required this.onDateSelected,
     this.errorText,
     this.needLastDates = false,
+    this.isRequired = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       readOnly: true,
       decoration: InputDecoration(
-        suffixIcon: Icon(Icons.calendar_today),
+        suffixIcon: const Icon(Icons.calendar_today),
         errorText: errorText,
       ),
       onTap: () async {
@@ -37,6 +39,14 @@ class DateTextField extends ConsumerWidget {
           onDateSelected(pickedDate);
         }
       },
+      validator: !isRequired
+          ? null
+          : (value) {
+              if (value == null || value.isEmpty) {
+                return 'Обязательное поле';
+              }
+              return null;
+            },
     );
   }
 }

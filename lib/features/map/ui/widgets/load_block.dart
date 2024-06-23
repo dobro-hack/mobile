@@ -13,7 +13,7 @@ class LoadBlock extends StatelessWidget {
     required this.load,
   });
 
-  final List<int> load;
+  final List<int?> load;
 
   @override
   Widget build(BuildContext context) {

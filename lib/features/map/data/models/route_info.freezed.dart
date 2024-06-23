@@ -49,9 +49,9 @@ mixin _$RouteInfo {
   @JsonKey(name: 'Difficulty')
   Difficulty get difficulty => throw _privateConstructorUsedError;
   @JsonKey(name: 'Load')
-  List<int>? get load => throw _privateConstructorUsedError;
+  List<int?>? get load => throw _privateConstructorUsedError;
   @JsonKey(name: 'MaxLoad')
-  List<int>? get maxLoad => throw _privateConstructorUsedError;
+  List<int?>? get maxLoad => throw _privateConstructorUsedError;
   @JsonKey(name: 'Photo')
   List<String>? get photo => throw _privateConstructorUsedError;
   @JsonKey(name: 'GpxData')
@@ -83,8 +83,8 @@ abstract class $RouteInfoCopyWith<$Res> {
       @JsonKey(name: 'Duration') int duration,
       @JsonKey(name: 'Height') int height,
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
-      @JsonKey(name: 'Load') List<int>? load,
-      @JsonKey(name: 'MaxLoad') List<int>? maxLoad,
+      @JsonKey(name: 'Load') List<int?>? load,
+      @JsonKey(name: 'MaxLoad') List<int?>? maxLoad,
       @JsonKey(name: 'Photo') List<String>? photo,
       @JsonKey(name: 'GpxData') String gpxData});
 
@@ -183,11 +183,11 @@ class _$RouteInfoCopyWithImpl<$Res, $Val extends RouteInfo>
       load: freezed == load
           ? _value.load
           : load // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<int?>?,
       maxLoad: freezed == maxLoad
           ? _value.maxLoad
           : maxLoad // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<int?>?,
       photo: freezed == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -231,8 +231,8 @@ abstract class _$$RouteInfoImplCopyWith<$Res>
       @JsonKey(name: 'Duration') int duration,
       @JsonKey(name: 'Height') int height,
       @JsonKey(name: 'Difficulty') Difficulty difficulty,
-      @JsonKey(name: 'Load') List<int>? load,
-      @JsonKey(name: 'MaxLoad') List<int>? maxLoad,
+      @JsonKey(name: 'Load') List<int?>? load,
+      @JsonKey(name: 'MaxLoad') List<int?>? maxLoad,
       @JsonKey(name: 'Photo') List<String>? photo,
       @JsonKey(name: 'GpxData') String gpxData});
 
@@ -330,11 +330,11 @@ class __$$RouteInfoImplCopyWithImpl<$Res>
       load: freezed == load
           ? _value._load
           : load // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<int?>?,
       maxLoad: freezed == maxLoad
           ? _value._maxLoad
           : maxLoad // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<int?>?,
       photo: freezed == photo
           ? _value._photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -366,8 +366,8 @@ class _$RouteInfoImpl extends _RouteInfo {
       @JsonKey(name: 'Duration') required this.duration,
       @JsonKey(name: 'Height') required this.height,
       @JsonKey(name: 'Difficulty') required this.difficulty,
-      @JsonKey(name: 'Load') required final List<int>? load,
-      @JsonKey(name: 'MaxLoad') required final List<int>? maxLoad,
+      @JsonKey(name: 'Load') required final List<int?>? load,
+      @JsonKey(name: 'MaxLoad') required final List<int?>? maxLoad,
       @JsonKey(name: 'Photo') required final List<String>? photo,
       @JsonKey(name: 'GpxData') required this.gpxData})
       : _places = places,
@@ -429,10 +429,10 @@ class _$RouteInfoImpl extends _RouteInfo {
   @override
   @JsonKey(name: 'Difficulty')
   final Difficulty difficulty;
-  final List<int>? _load;
+  final List<int?>? _load;
   @override
   @JsonKey(name: 'Load')
-  List<int>? get load {
+  List<int?>? get load {
     final value = _load;
     if (value == null) return null;
     if (_load is EqualUnmodifiableListView) return _load;
@@ -440,10 +440,10 @@ class _$RouteInfoImpl extends _RouteInfo {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<int>? _maxLoad;
+  final List<int?>? _maxLoad;
   @override
   @JsonKey(name: 'MaxLoad')
-  List<int>? get maxLoad {
+  List<int?>? get maxLoad {
     final value = _maxLoad;
     if (value == null) return null;
     if (_maxLoad is EqualUnmodifiableListView) return _maxLoad;
@@ -556,8 +556,8 @@ abstract class _RouteInfo extends RouteInfo {
       @JsonKey(name: 'Duration') required final int duration,
       @JsonKey(name: 'Height') required final int height,
       @JsonKey(name: 'Difficulty') required final Difficulty difficulty,
-      @JsonKey(name: 'Load') required final List<int>? load,
-      @JsonKey(name: 'MaxLoad') required final List<int>? maxLoad,
+      @JsonKey(name: 'Load') required final List<int?>? load,
+      @JsonKey(name: 'MaxLoad') required final List<int?>? maxLoad,
       @JsonKey(name: 'Photo') required final List<String>? photo,
       @JsonKey(name: 'GpxData')
       required final String gpxData}) = _$RouteInfoImpl;
@@ -610,10 +610,10 @@ abstract class _RouteInfo extends RouteInfo {
   Difficulty get difficulty;
   @override
   @JsonKey(name: 'Load')
-  List<int>? get load;
+  List<int?>? get load;
   @override
   @JsonKey(name: 'MaxLoad')
-  List<int>? get maxLoad;
+  List<int?>? get maxLoad;
   @override
   @JsonKey(name: 'Photo')
   List<String>? get photo;

@@ -27,8 +27,8 @@ class RouteInfo with _$RouteInfo {
     @JsonKey(name: 'Duration') required int duration,
     @JsonKey(name: 'Height') required int height,
     @JsonKey(name: 'Difficulty') required Difficulty difficulty,
-    @JsonKey(name: 'Load') required List<int>? load,
-    @JsonKey(name: 'MaxLoad') required List<int>? maxLoad,
+    @JsonKey(name: 'Load') required List<int?>? load,
+    @JsonKey(name: 'MaxLoad') required List<int?>? maxLoad,
     @JsonKey(name: 'Photo') required List<String>? photo,
     @JsonKey(name: 'GpxData') required String gpxData,
   }) = _RouteInfo;
