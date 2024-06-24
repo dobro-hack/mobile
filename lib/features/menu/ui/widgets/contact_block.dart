@@ -53,19 +53,33 @@ class ContactBlock extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Телефон',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Text(
-                  '+7 (4152) 42-01-74',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
+            child: GestureDetector(
+              onTap: () async {
+                final Uri call = Uri(
+                  scheme: 'tel',
+                  path: '+7(4152)42-01-74',
+                );
+                if (await canLaunchUrl(call)) {
+                  await launchUrl(call);
+                }
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Телефон',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text(
+                    '+7 (4152) 42-01-74',
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: AppColors.textBlue),
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(

@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:eco/features/map/domain/location_provider.dart';
 import 'package:eco/features/map/domain/track_provider.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../../common/theme/app_colors.dart';
 import '../../../../common/utils/asset_type.dart';
 import '../../data/models/place.dart';
+import '../../data/models/route_info.dart';
 import '../../data/models/route_response.dart';
 import '../../domain/map_notifier_provider.dart';
 import '../../domain/routes_provider.dart';
@@ -20,30 +20,13 @@ import 'place_bottom_modal.dart';
 class RoutesMap extends ConsumerWidget {
   const RoutesMap({super.key});
 
-  List<Marker> _buildMarkersOnMap(
-      AsyncValue<RouteResponse> asyncRoutes, BuildContext context) {
+  List<Marker> _buildMarkersOnMap(AsyncValue<RouteResponse> asyncRoutes,
+      BuildContext context, WidgetRef ref) {
     return asyncRoutes.when(
         data: (RouteResponse data) {
           List<Place> places = [for (var r in data.routes) ...r.places ?? []];
           List<Marker> markers = places.map(
             (e) {
-              // if (e.location.lat > 90 || e.location.lon > 90) {
-              //   return Marker(
-              //     point: LatLng(55.7522, 37.6156),
-              //     child: Container(
-              //       width: 64.h,
-              //       height: 64.h,
-              //       decoration: BoxDecoration(
-              //         color: AppColors.blue,
-              //         shape: BoxShape.circle,
-              //         border: Border.all(
-              //           width: 3.h,
-              //           color: AppColors.white,
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // }
               if (e.location == null) {
                 return const Marker(point: LatLng(0, 0), child: SizedBox());
               }
@@ -87,7 +70,61 @@ class RoutesMap extends ConsumerWidget {
           ).toList();
           return markers;
         },
-        error: (Object error, StackTrace stackTrace) => [],
+        error: (Object error, StackTrace stackTrace) {
+          return ref.watch(routesLocalProviderProvider).when(
+              loading: () => [],
+              error: (Object error, StackTrace stackTrace) => [],
+              data: (List<RouteInfo> data) {
+                List<Place> places = [for (var r in data) ...r.places ?? []];
+                List<Marker> markers = places.map(
+                  (e) {
+                    if (e.location == null) {
+                      return const Marker(
+                          point: LatLng(0, 0), child: SizedBox());
+                    }
+                    return Marker(
+                      point: LatLng(e.location!.lat, e.location!.lon),
+                      child: GestureDetector(
+                        onTap: () {
+                          debugPrint('нажали');
+                          showPlaceModal(context, e);
+                        },
+                        child: Container(
+                          width: 64.h,
+                          height: 64.h,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            // color: AppColors.blue,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              strokeAlign: BorderSide.strokeAlignOutside,
+                              width: 3.h,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          child: ColoredBox(
+                            color: AppColors.greyBackgroundDarker,
+                            child: ImageTypeDetector.isSvg(e.icon)
+                                ? SvgPicture.network(
+                                    e.icon,
+                                    color: AppColors.black,
+                                  )
+                                : Image.network(
+                                    e.icon,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const ColoredBox(
+                                                color: AppColors.greyDark),
+                                  ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ).toList();
+                return markers;
+              });
+        },
         loading: () => []);
   }
 
@@ -171,7 +208,7 @@ class RoutesMap extends ConsumerWidget {
             alignment: Alignment.center,
             padding: const EdgeInsets.all(50),
             maxZoom: 15,
-            markers: _buildMarkersOnMap(asyncRoutes, context),
+            markers: _buildMarkersOnMap(asyncRoutes, context, ref),
             builder: (context, markers) {
               return Container(
                 decoration: BoxDecoration(

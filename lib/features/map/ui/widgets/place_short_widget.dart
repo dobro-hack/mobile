@@ -38,6 +38,7 @@ class PlaceShortWidget extends StatelessWidget {
             ),
             SizedBox(height: 4.h),
             Text(
+              // place.location?.lat.toString() ?? '',
               place.name,
               style: Theme.of(context).textTheme.bodySmall,
               maxLines: 2,
