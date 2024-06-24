@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eco/features/problem/domain/problem_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +20,7 @@ class NoSendedProblem extends ConsumerWidget {
     debugPrint(problem.localId);
     return ListTile(
       leading: Container(
-        padding: EdgeInsets.all(8.w),
+        clipBehavior: Clip.hardEdge,
         width: 48.h,
         height: 48.h,
         decoration: BoxDecoration(
@@ -26,6 +28,12 @@ class NoSendedProblem extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12.r),
           color: AppColors.greyBackgroundDark,
         ),
+        child: problem.fileUrl != null
+            ? Image.file(
+                File(problem.fileUrl!),
+                fit: BoxFit.cover,
+              )
+            : null,
       ),
       title: Text(
         problem.message,

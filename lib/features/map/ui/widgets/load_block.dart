@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../data/utils.dart';
 import 'chart.dart';
 import 'note_widget.dart';
 
@@ -39,8 +38,10 @@ class LoadBlock extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: CustomLineChart(
-              data: List.generate(365, (index) => Random().nextInt(50)),
-              maxData: List.generate(365, (index) => Random().nextInt(10) + 50),
+              data:
+                  load, // List.generate(365, (index) => Random().nextInt(50)),
+              maxData:
+                  maxLoad, // List.generate(365, (index) => Random().nextInt(10) + 50),
             ),
           ),
         ),

@@ -1,14 +1,12 @@
 import 'package:eco/common/navigation/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/theme/app_colors.dart';
 import '../../../../common/widgets/divider_grey.dart';
 import '../../../../common/widgets/green_elev_button.dart';
 import '../../../../common/widgets/text_show_more.dart';
-import '../../data/models/cell.dart';
 import '../../data/models/route_info.dart';
 import 'cell_block.dart';
 import 'digital_card.dart';

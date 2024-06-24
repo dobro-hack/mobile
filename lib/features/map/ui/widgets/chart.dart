@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomLineChart extends StatelessWidget {
-  final List<int> data;
-  final List<int> maxData;
+  final List<int?> data;
+  final List<int?> maxData;
   final List<String> months;
 
   const CustomLineChart({
@@ -27,8 +27,6 @@ class CustomLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(datas
-    double smallGap = 2; // Small gap between days
     double largeGap = 16; // Large gap between months
     double horizontalGap = 6; // Space for each day bar
     double chartWidth =
@@ -49,8 +47,8 @@ class CustomLineChart extends StatelessWidget {
 }
 
 class LineChartPainter extends CustomPainter {
-  final List<int> data;
-  final List<int> maxData;
+  final List<int?> data;
+  final List<int?> maxData;
   final List<String> months;
 
   LineChartPainter({
@@ -94,13 +92,18 @@ class LineChartPainter extends CustomPainter {
 
     // Draw bars for each day
     for (int i = 0; i < data.length; i++) {
-      // Calculate the height of the bar to fill the available height
-      double normalizedDataHeight =
-          (data[i] / maxData[i].toDouble()) * (size.height - verticalPadding);
+      late Paint paint;
+      if (data[i] == null || maxData[i] == null) {
+        paint = backgroundPaint;
+      } else {
+        paint = data[i]! > maxData[i]! * 0.7
+            ? highlightedBackgroundPaint
+            : backgroundPaint;
+      }
 
-      Paint paint = data[i] > maxData[i] * 0.7
-          ? highlightedBackgroundPaint
-          : backgroundPaint;
+      // Calculate the height of the bar to fill the available height
+      // double normalizedDataHeight =
+      //     (data[i] / maxData[i].toDouble()) * (size.height - verticalPadding);
 
       double left = currentX;
       double right = currentX + horizontalGap;
@@ -141,9 +144,16 @@ class LineChartPainter extends CustomPainter {
     currentX = 0;
     for (int i = 0; i < data.length; i++) {
       double x = currentX + horizontalGap / 2;
-      double normalizedDataHeight =
-          (data[i] / maxData[i].toDouble()) * (size.height - verticalPadding);
-      double y = size.height - normalizedDataHeight - verticalPadding;
+      late double y;
+      if (data[i] == null || maxData[i] == null) {
+        y = size.height - verticalPadding;
+      } else if (data[i]! > maxData[i]!) {
+        y = 0;
+      } else {
+        double normalizedDataHeight = (data[i]! / maxData[i]!.toDouble()) *
+            (size.height - verticalPadding);
+        y = size.height - normalizedDataHeight - verticalPadding;
+      }
 
       if (i == 0) {
         dataPath.moveTo(x, y);
@@ -160,10 +170,11 @@ class LineChartPainter extends CustomPainter {
     Path maxDataPath = Path();
     currentX = 0;
     for (int i = 0; i < maxData.length; i++) {
+      if (data[i] == null || maxData[i] == null) continue;
       double x = currentX + horizontalGap / 2;
       double y = size.height -
           verticalPadding -
-          (maxData[i].toDouble() / maxData[i].toDouble()) *
+          (maxData[i]!.toDouble() / maxData[i]!.toDouble()) *
               (size.height - verticalPadding);
 
       if (i == 0) {

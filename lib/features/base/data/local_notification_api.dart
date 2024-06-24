@@ -1,23 +1,9 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:rxdart/rxdart.dart';
-// import 'package:html/parser.dart';
-
-// String _parseHtmlString(String? htmlString) {
-//   var document = parse(htmlString);
-//   String parsedString = document.documentElement?.text ?? '';
-//   return parsedString;
-// }
 
 class NotifitionAPI {
   static final _notif = FlutterLocalNotificationsPlugin();
-  // static final onNotif = BehaviorSubject<NotificationResponse?>();
 
   static Future _notifDetails() async {
-    // const largeIconPath = 'assets/images/univ.png';
-    // const bigPicturePath = 'assets/images/nature.png';
-    // const styleInformation = BigPictureStyleInformation(
-    //     FilePathAndroidBitmap(bigPicturePath),
-    //     largeIcon: FilePathAndroidBitmap(largeIconPath));
     return const NotificationDetails(
         android: AndroidNotificationDetails(
       "channelId", "channelName",
@@ -31,7 +17,6 @@ class NotifitionAPI {
   static Future init({bool initSch = false}) async {
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
-      // onDidReceiveLocalNotification: onDidReceiveLocalNotification,
       notificationCategories: [
         DarwinNotificationCategory(
           'demoCategory',
@@ -65,9 +50,6 @@ class NotifitionAPI {
         iOS: initializationSettingsDarwin);
     await _notif.initialize(
       settings,
-      // onDidReceiveNotificationResponse: (details) async {
-      //   onNotif.add(details);
-      // },
     );
   }
 
@@ -80,7 +62,7 @@ class NotifitionAPI {
       _notif.show(
         id,
         title,
-        body, // _parseHtmlString(body),
+        body,
         await _notifDetails(),
         payload: showedText,
       );
