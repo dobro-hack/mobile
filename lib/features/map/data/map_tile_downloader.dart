@@ -24,20 +24,18 @@ class MapTileDownloader {
   Future<void> downloadMapTiles(LatLngBounds bounds, String saveName) async {
     debugPrint('downloadMapTiles, ${bounds.center}');
     final directory = await getApplicationDocumentsDirectory();
-    // debugPrint(filePath);
+
     for (int zoom = minZoom; zoom <= maxZoom; zoom++) {
       await _downloadTilesForZoom(bounds, zoom, directory.path);
     }
   }
 
-  // Функция для загрузки тайлов карты для конкретного уровня зума
   Future<void> _downloadTilesForZoom(
       LatLngBounds bounds, int zoom, String directory) async {
     debugPrint('_downloadTilesForZoom');
     final nw = _latLngToTile(bounds.northWest, zoom);
     final se = _latLngToTile(bounds.southEast, zoom);
 
-    // Создаем пустое изображение, в которое будем копировать тайлы
     final width = (se[0] - nw[0] + 1) * 256;
     final height = (se[1] - nw[1] + 1) * 256;
     final mergedImage = img.Image(
@@ -54,7 +52,6 @@ class MapTileDownloader {
 
         final tileBytes = await _downloadTile(tileUrl);
         if (tileBytes != null) {
-          // Декодируем изображение тайла
           final tileImage = img.decodeImage(tileBytes);
           if (tileImage != null) {
             final tileUrl = '$directory/{z}/{x}/{y}.png'
@@ -86,7 +83,6 @@ class MapTileDownloader {
     // await file.writeAsBytes(img.encodePng(mergedImage));
   }
 
-  // Преобразование координат LatLng в координаты тайла (x, y) для указанного зума
   List<int> _latLngToTile(LatLng latLng, int zoom) {
     debugPrint('_latLngToTile');
     final latRad = latLng.latitude * (pi / 180);

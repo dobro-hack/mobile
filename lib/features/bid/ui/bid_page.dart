@@ -68,8 +68,8 @@ class _BidPageState extends ConsumerState<BidPage> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
+        return const Padding(
+          padding: EdgeInsets.all(16.0),
           child: _SendSuccess(),
         );
       },
@@ -188,7 +188,7 @@ class _BidPageState extends ConsumerState<BidPage> {
                 horizontal: 16.w,
                 vertical: 12.h,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(top: BorderSide(color: AppColors.greyLight))),
               child: GreenElevButton(
                 onPressed: bookingStatus.isLoading
@@ -196,7 +196,7 @@ class _BidPageState extends ConsumerState<BidPage> {
                     : () async {
                         if (_selectedDate == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                                 content: Text('Пожалуйста, выберите дату')),
                           );
                           return;
@@ -231,8 +231,8 @@ class _BidPageState extends ConsumerState<BidPage> {
                         }
                       },
                 child: bookingStatus.isLoading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text('Отправить заявку'),
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text('Отправить заявку'),
               ),
             )
           : null,
@@ -270,7 +270,7 @@ class _SendSuccess extends ConsumerWidget {
           style: Theme.of(context).textTheme.labelMedium,
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         status == DownloadStatus.success
             ? const GreenElevButton(onPressed: null, child: Text('Скачено'))
             : status == DownloadStatus.loading
@@ -289,7 +289,8 @@ class _SendSuccess extends ConsumerWidget {
                           );
                       if (!res) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Не удалось скачать маршрут')),
+                          const SnackBar(
+                              content: Text('Не удалось скачать маршрут')),
                         );
                       }
                     },
@@ -304,7 +305,7 @@ class _SendSuccess extends ConsumerWidget {
               context.pop();
               context.pop();
             },
-            child: Text('Продолжить'),
+            child: const Text('Продолжить'),
           ),
         ),
       ],

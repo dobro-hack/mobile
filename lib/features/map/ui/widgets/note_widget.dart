@@ -32,7 +32,8 @@ class NoteWidget extends StatelessWidget {
           if (needAvatar)
             CircleAvatar(
               radius: 24.r,
-              backgroundImage: AssetImage('assets/images/mascot_avatar.png'),
+              backgroundImage:
+                  const AssetImage('assets/images/mascot_avatar.png'),
             ),
           SizedBox(width: 12.w),
           Expanded(
@@ -49,7 +50,7 @@ class NoteWidget extends StatelessWidget {
                   Text(
                     text,
                   ),
-                  bottomWidget ?? SizedBox(),
+                  bottomWidget ?? const SizedBox(),
                 ],
               ),
             ),

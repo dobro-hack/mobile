@@ -5,16 +5,12 @@ import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:eco/common/logger.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../data/map_tile_downloader.dart';
 import '../data/models/route_info.dart';
-import '../data/repositories/location_repository.dart';
 import '../data/repositories/route_manager.dart';
 import 'track_provider.dart';
 
@@ -55,22 +51,18 @@ class MapNotifier extends _$MapNotifier {
 
     if (!isConnected) {
       final directory = await getApplicationDocumentsDirectory();
-      void _listDirectoryContents(Directory dir) {
+      void listDirectoryContents(Directory dir) {
         try {
-          dir.list(recursive: true).listen((FileSystemEntity entity) {
-            print(entity.path);
-          });
+          dir.list(recursive: true).listen((FileSystemEntity entity) {});
         } catch (e) {
-          print('Ошибка при чтении содержимого директории: $e');
+          debugPrint('Ошибка при чтении содержимого директории: $e');
         }
       }
 
 // Получаем список файлов и папок в директории
       List<FileSystemEntity> contents = directory.listSync();
 
-      // Выводим содержимое в консоль
-      print('Содержимое директории ${directory.path}:');
-      _listDirectoryContents(directory);
+      listDirectoryContents(directory);
 
       state = state.copyWith(directory: directory.path);
     }
@@ -109,7 +101,6 @@ class MapNotifier extends _$MapNotifier {
     return (log2(1 / fraction) + log2(screenSize / 256.0)).toDouble();
   }
 
-// ДОБАВИТЬ СКАЧИВАНИЕ ОСТАЛЬНОЙ ИНФЫ
   Future<bool> downloadRoute(Size screenSize) async {
     state = state.copyWith(downloadStatus: DownloadStatus.loading);
     debugPrint('начинаем скачивать');
@@ -124,7 +115,7 @@ class MapNotifier extends _$MapNotifier {
       // await downloader.downloadMapTiles(
       //     bounds, selectedRoute?.id.toString() ?? '0');
       if (selectedRoute != null) {
-        await Future.delayed(Duration(milliseconds: 600));
+        await Future.delayed(const Duration(milliseconds: 600));
         await RouteManager.saveSelectedRoute(selectedRoute!);
       }
 
@@ -150,9 +141,9 @@ class MapNotifier extends _$MapNotifier {
       if (coord.longitude < minLon) minLon = coord.longitude;
       if (coord.longitude > maxLon) maxLon = coord.longitude;
     }
-// Добавляем отступы в 16 пикселей к границам трека
-    final double paddingLat = 0.00014492753623 * 64;
-    final double paddingLon = 0.00014492753623 * 64;
+
+    const double paddingLat = 0.00014492753623 * 64;
+    const double paddingLon = 0.00014492753623 * 64;
 
     minLat -= paddingLat;
     maxLat += paddingLat;

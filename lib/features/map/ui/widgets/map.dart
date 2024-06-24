@@ -151,7 +151,7 @@ class RoutesMap extends ConsumerWidget {
 
     return FlutterMap(
       mapController: ref.watch(mapNotifierProvider).mapController,
-      options: MapOptions(
+      options: const MapOptions(
         initialZoom: 6,
         initialCenter: LatLng(
           55.97016203217208,

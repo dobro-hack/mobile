@@ -31,14 +31,15 @@ class PlaceShortWidget extends StatelessWidget {
             CircleAvatar(
               radius: 32.r,
               backgroundColor: AppColors.greyBackgroundLight,
+
               backgroundImage: NetworkImage(place.icon),
+              // backgroundImage: NetworkImage('https://syomka.tech/files/2.png'),
               child: ImageTypeDetector.isSvg(place.icon)
                   ? SvgPicture.network(place.icon)
                   : null,
             ),
             SizedBox(height: 4.h),
             Text(
-              // place.location?.lat.toString() ?? '',
               place.name,
               style: Theme.of(context).textTheme.bodySmall,
               maxLines: 2,

@@ -14,7 +14,6 @@ class CellBlock extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final status = ref.watch(mapNotifierProvider).downloadStatus;
-    print(status);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -31,16 +30,16 @@ class CellBlock extends ConsumerWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
-        ...cells
-            .map((e) => ListTile(
-                  leading: SvgPicture.asset(e.iconAsset),
-                  title: Text(e.name),
-                  subtitle: Text(
-                    e.description,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                ))
-            .toList(),
+        ...cells.map(
+          (e) => ListTile(
+            leading: SvgPicture.asset(e.iconAsset),
+            title: Text(e.name),
+            subtitle: Text(
+              e.description,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+          ),
+        ),
         Padding(
           padding: EdgeInsets.all(16.h),
           child: NoteWidget(
@@ -64,7 +63,7 @@ class CellBlock extends ConsumerWidget {
                               );
                           if (!res) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                   content: Text('Не удалось скачать маршрут')),
                             );
                           }

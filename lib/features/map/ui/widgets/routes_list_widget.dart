@@ -45,12 +45,13 @@ class RoutesListWidget extends ConsumerWidget {
             const Text('Соединение отсутствует'),
             SizedBox(height: 16.h),
             ref.watch(routesLocalProviderProvider).when(
-                loading: () => SizedBox(),
-                error: (Object error, StackTrace stackTrace) => SizedBox(),
+                loading: () => const SizedBox(),
+                error: (Object error, StackTrace stackTrace) =>
+                    const SizedBox(),
                 data: (List<RouteInfo> data) {
                   routesGlobal = data;
                   return data.isEmpty
-                      ? SizedBox()
+                      ? const SizedBox()
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

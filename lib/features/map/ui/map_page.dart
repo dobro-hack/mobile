@@ -33,8 +33,6 @@ class _MapPageState extends ConsumerState<MapPage> {
 
   void _onBackPressed() {
     ref.read(mapNotifierProvider.notifier).clearSelectedRoute();
-    // Сдвигаем панель до минимальной высоты
-    // _panelController.close();
   }
 
   @override
@@ -51,7 +49,7 @@ class _MapPageState extends ConsumerState<MapPage> {
               SlidingUpPanel(
                 maxHeight: maxH,
                 minHeight: minH,
-                boxShadow: [],
+                boxShadow: const [],
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
                 parallaxEnabled: true,
                 parallaxOffset: 0.5,
@@ -84,7 +82,7 @@ class _MapPageState extends ConsumerState<MapPage> {
                       ),
                       child:
                           ref.watch(locationProviderProvider).isLoading == true
-                              ? CircularProgressIndicator()
+                              ? const CircularProgressIndicator()
                               : SvgPicture.asset('assets/icons/location.svg')),
                 ),
             ],

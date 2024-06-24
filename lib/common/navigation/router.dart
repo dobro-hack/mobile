@@ -39,13 +39,13 @@ final GoRouter router = GoRouter(
           pageBuilder: (context, state) {
             return CustomTransitionPage(
               key: state.pageKey,
-              child: MenuPage(),
+              child: const MenuPage(),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 return SlideTransition(
                   position: Tween<Offset>(
-                    begin:
-                        Offset(1.0, 0.0), // Переход начинает с правой стороны
+                    begin: const Offset(
+                        1.0, 0.0), // Переход начинает с правой стороны
                     end: Offset.zero, // Переход заканчивается в центре
                   ).animate(animation),
                   child: child,

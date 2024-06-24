@@ -108,7 +108,6 @@ class ScrollPanelInfo extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              // top: 16.h,
               bottom: 8.h,
               left: 16.w,
               right: 16.w,
@@ -133,7 +132,6 @@ class ScrollPanelInfo extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              // top: 16.h,
               bottom: 8.h,
               left: 16.w,
               right: 16.w,
@@ -158,7 +156,6 @@ class ScrollPanelInfo extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              // top: 16.h,
               bottom: 8.h,
               left: 16.w,
               right: 16.w,
@@ -181,7 +178,7 @@ class ScrollPanelInfo extends StatelessWidget {
           horizontal: 16.w,
           vertical: 12.h,
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             border: Border(top: BorderSide(color: AppColors.greyLight))),
         child: GreenElevButton(
             onPressed: () {

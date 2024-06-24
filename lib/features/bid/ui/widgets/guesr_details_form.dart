@@ -20,11 +20,11 @@ class GuestDetailsForm extends StatefulWidget {
 }
 
 class GuestDetailsFormState extends State<GuestDetailsForm> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _surnameController = TextEditingController();
-  TextEditingController _thirdController = TextEditingController();
-  TextEditingController _bdayController = TextEditingController();
-  TextEditingController _passportController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _thirdController = TextEditingController();
+  final TextEditingController _bdayController = TextEditingController();
+  final TextEditingController _passportController = TextEditingController();
 
   @override
   void dispose() {
@@ -117,7 +117,6 @@ class GuestDetailsFormState extends State<GuestDetailsForm> {
     return {
       'first_name': _nameController.text,
       'middle_name': _surnameController.text,
-      // 'last_name': _thirdController.text,
       'Passport': _passportController.text,
       'Birthday': _bdayController.text,
     };

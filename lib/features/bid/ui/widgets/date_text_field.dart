@@ -33,7 +33,7 @@ class DateTextField extends ConsumerWidget {
           context: context,
           initialDate: selectedDate ?? DateTime.now(),
           firstDate: needLastDates ? DateTime(1900) : DateTime.now(),
-          lastDate: DateTime.now().add(Duration(days: 365)),
+          lastDate: DateTime.now().add(const Duration(days: 365)),
         );
         if (pickedDate != null) {
           onDateSelected(pickedDate);

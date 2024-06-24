@@ -195,11 +195,6 @@ class DropdownSheetState<T> extends State<DropdownSheet<T>> {
                         title: Text(item.displayText),
                         leading: Radio<T>(
                           activeColor: Theme.of(context).colorScheme.primary,
-                          // visualDensity: const VisualDensity(
-                          //   horizontal: VisualDensity.minimumDensity,
-                          // ),
-                          // materialTapTargetSize:
-                          //     MaterialTapTargetSize.shrinkWrap,
                           value: item.value,
                           groupValue: selectedValue,
                           onChanged: (T? value) {

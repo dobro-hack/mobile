@@ -19,7 +19,8 @@ class LocationPickerPage extends ConsumerStatefulWidget {
 }
 
 class _LocationPickerPageState extends ConsumerState<LocationPickerPage> {
-  LatLng _currentPosition = LatLng(53.024263, 158.643504); // Начальная позиция
+  LatLng _currentPosition =
+      const LatLng(53.024263, 158.643504); // Начальная позиция
 
   final MapController _mapController = MapController();
 
@@ -42,7 +43,7 @@ class _LocationPickerPageState extends ConsumerState<LocationPickerPage> {
         _mapController.move(newPoint, _mapController.zoom);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content: Text('Не удалось определить текущее местоположение')),
         );
       }
@@ -107,7 +108,7 @@ class _LocationPickerPageState extends ConsumerState<LocationPickerPage> {
                           width: 80.0,
                           height: 80.0,
                           point: _currentPosition,
-                          child: Icon(
+                          child: const Icon(
                             Icons.location_on,
                             color: Colors.red,
                             size: 40,
@@ -144,7 +145,7 @@ class _LocationPickerPageState extends ConsumerState<LocationPickerPage> {
                       padding: EdgeInsets.all(8.w),
                     ),
                     child: ref.watch(locationProviderProvider).isLoading == true
-                        ? CircularProgressIndicator()
+                        ? const CircularProgressIndicator()
                         : SvgPicture.asset('assets/icons/location.svg'),
                   ),
                 ),

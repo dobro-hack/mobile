@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../common/utils/asset_type.dart';
 import '../../data/models/place.dart';
 import 'place_short_widget.dart';
 
@@ -14,6 +15,20 @@ class PlacesBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Place> sortPlace = List.from(places);
+
+    sortPlace.sort((a, b) {
+      bool aIsRaster = ImageTypeDetector.isRaster(a.icon);
+      bool bIsRaster = ImageTypeDetector.isRaster(b.icon);
+
+      if (aIsRaster && !bIsRaster) {
+        return -1;
+      } else if (!aIsRaster && bIsRaster) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,7 +54,7 @@ class PlacesBlock extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children:
-                    places.map((pl) => PlaceShortWidget(place: pl)).toList(),
+                    sortPlace.map((pl) => PlaceShortWidget(place: pl)).toList(),
               ),
               SizedBox(width: 12.w),
             ],

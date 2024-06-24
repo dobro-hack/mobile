@@ -36,7 +36,6 @@ class MapAppBar extends StatelessWidget {
                   padding: EdgeInsets.all(8.w),
                 ),
                 child: SvgPicture.asset('assets/icons/menu.svg')),
-            // SizedBox(width: 8.w),
             ElevatedButton(
               onPressed: () {
                 context.pushNamed(RouteName.problem);

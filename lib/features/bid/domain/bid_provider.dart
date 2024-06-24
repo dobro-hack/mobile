@@ -39,12 +39,9 @@ class NumberOfGuests extends _$NumberOfGuests {
 @riverpod
 Future<bool> dateAvailability(DateAvailabilityRef ref, DateTime date) async {
   debugPrint(ref.read(numberOfGuestsProvider).toString());
-  // обращение к серверу
-  print('CHECK DATA');
+
   await Future.delayed(const Duration(milliseconds: 600));
   return ref.read(numberOfGuestsProvider) < 7;
-  // return true;
-  // return false;
 }
 
 @riverpod
@@ -69,7 +66,6 @@ class BookingStatus extends _$BookingStatus {
     try {
       await bidRepository.postPerson(resData);
     } catch (e) {
-      print('nen');
       rethrow;
     }
   }
@@ -78,9 +74,7 @@ class BookingStatus extends _$BookingStatus {
       String uuid, List<Map<String, dynamic>> persons) async {
     state = const AsyncValue.loading();
     try {
-      // final dio = ref.read(dioProvider);
       final selectedDate = ref.read(selectedDateProvider);
-      // final numberOfGuests = ref.read(numberOfGuestsProvider);
       debugPrint(selectedDate.toString());
       if (selectedDate == null) {
         throw Exception('Дата не выбрана');
@@ -102,7 +96,7 @@ class BookingStatus extends _$BookingStatus {
       await Future.delayed(const Duration(milliseconds: 600));
       state = const AsyncValue.data(true);
     } catch (e) {
-      state = const AsyncValue.data(false); // AsyncValue.error(e);
+      state = const AsyncValue.data(false);
     }
   }
 }

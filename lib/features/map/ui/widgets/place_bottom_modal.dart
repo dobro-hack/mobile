@@ -39,9 +39,6 @@ void showPlaceModal(BuildContext context, Place place) {
               ],
             ),
           ),
-          // const SizedBox(
-          //   height: 16,
-          // ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: const DividerGrey(),

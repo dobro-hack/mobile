@@ -27,8 +27,8 @@ class CustomLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double largeGap = 16; // Large gap between months
-    double horizontalGap = 6; // Space for each day bar
+    double largeGap = 16;
+    double horizontalGap = 6;
     double chartWidth =
         horizontalGap * (data.length) + largeGap * (months.length - 1);
 
@@ -59,14 +59,12 @@ class LineChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double smallGap = 2; // Small gap between days
-    double largeGap = 16; // Large gap between months
-    double barRadius = 10; // Radius for rounding corners
-    double verticalPadding =
-        30.0; // Padding for the vertical axis to leave space for labels
+    double smallGap = 2;
+    double largeGap = 16;
+    double barRadius = 10;
+    double verticalPadding = 30.0;
     int daysPerMonth = data.length ~/ months.length;
 
-    // Calculate the horizontal gap dynamically to fit all data points
     double horizontalGap =
         (size.width - (months.length - 1) * largeGap) / data.length;
 
@@ -83,14 +81,9 @@ class LineChartPainter extends CustomPainter {
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 
-    // Paint maxLinePaint = Paint()
-    //   ..color = Colors.redAccent
-    //   ..strokeWidth = 2.0
-    //   ..style = PaintingStyle.stroke;
-
     double currentX = 0;
 
-    // Draw bars for each day
+    // столбики
     for (int i = 0; i < data.length; i++) {
       late Paint paint;
       if (data[i] == null || maxData[i] == null) {
@@ -139,7 +132,7 @@ class LineChartPainter extends CustomPainter {
           horizontalGap + ((i + 1) % daysPerMonth == 0 ? largeGap : smallGap);
     }
 
-    // Draw line for actual data
+    // график
     Path dataPath = Path();
     currentX = 0;
     for (int i = 0; i < data.length; i++) {
@@ -166,7 +159,7 @@ class LineChartPainter extends CustomPainter {
     }
     canvas.drawPath(dataPath, linePaint);
 
-    // Draw line for max data
+    // макс
     Path maxDataPath = Path();
     currentX = 0;
     for (int i = 0; i < maxData.length; i++) {
@@ -187,7 +180,7 @@ class LineChartPainter extends CustomPainter {
           horizontalGap + ((i + 1) % daysPerMonth == 0 ? largeGap : smallGap);
     }
 
-    // Draw month labels
+    // подписи месяцев
     TextPainter textPainter = TextPainter(
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,

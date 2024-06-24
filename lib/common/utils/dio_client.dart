@@ -69,7 +69,6 @@ class DioClient {
       if (file is File && file.path.endsWith('.json')) {
         String content = await file.readAsString();
         Map<String, dynamic> request = jsonDecode(content);
-        print(request);
         try {
           FormData formData = FormData();
           if (request['photoPath'] != null) {
@@ -150,22 +149,18 @@ class DioClient {
   Future<List<LocalRequest>> getPendingRequests() async {
     List<LocalRequest> pendingRequests = [];
     try {
-      // Получаем список файлов в локальной директории
       List<FileSystemEntity> files = _appDocDir.listSync();
 
       for (var file in files) {
         if (file is File && file.path.endsWith('.json')) {
-          // Читаем содержимое файла
           String content = await file.readAsString();
           Map<String, dynamic> requestJson = jsonDecode(content);
 
-          // Преобразуем JSON в LocalRequest
           LocalRequest localRequest = LocalRequest.fromJson(requestJson);
           pendingRequests.add(localRequest);
         }
       }
     } catch (e) {
-      // Логируем ошибку
       logger.e('Failed to retrieve pending requests: $e');
     }
 
@@ -186,7 +181,6 @@ class LocalRequest {
     this.data,
   });
 
-  // Метод для создания LocalRequest из JSON-данных
   factory LocalRequest.fromJson(Map<String, dynamic> json) {
     return LocalRequest(
       url: json['url'] as String,
@@ -197,7 +191,6 @@ class LocalRequest {
     );
   }
 
-  // Метод для преобразования LocalRequest в JSON
   Map<String, dynamic> toJson() {
     return {
       'url': url,

@@ -14,6 +14,4 @@ enum Difficulty {
   const Difficulty(this.name);
 
   final String name;
-
-  // String getTranslation() => Tr.fromTranslationId(_translationId);
 }

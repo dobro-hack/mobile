@@ -112,15 +112,13 @@ class ProblemRepository {
 
   Future<List<ProblemData>> getAllProblems() async {
     try {
-      // Получаем данные с сервера
       final response = await fetchProblemsFromBack();
       List<ProblemBack> serverProblems = List.from(response.problems);
       serverProblems.sort((a, b) => b.date.compareTo(a.date));
-      // Получаем неотправленные запросы
-      List<ProblemData> pendingProblems = List.from(await getPendingRequests());
 
+      List<ProblemData> pendingProblems = List.from(await getPendingRequests());
       pendingProblems.sort((a, b) => b.date.compareTo(a.date));
-      // Объединяем оба списка, приводя все к типу ProblemData
+
       final allProblems = <ProblemData>[...pendingProblems, ...serverProblems];
 
       return allProblems;

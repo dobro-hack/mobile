@@ -16,6 +16,7 @@ import '../data/models/problem_type.dart';
 import '../domain/problem_provider.dart';
 import 'location_picker_page.dart';
 
+// TODO разделить
 class ProblemPage extends ConsumerWidget {
   const ProblemPage({super.key});
 
@@ -23,7 +24,7 @@ class ProblemPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final problemState = ref.watch(problemStateProvider);
 
-    Future<void> _pickImage() async {
+    Future<void> pickImage() async {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(source: ImageSource.gallery);
       ref.read(problemStateProvider.notifier).updateImage(image);
@@ -95,7 +96,7 @@ class ProblemPage extends ConsumerWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 GreenElevButton(
                   onPressed: () {
                     context.pop();
@@ -173,7 +174,7 @@ class ProblemPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      onTap: _pickImage,
+                      onTap: pickImage,
                       leading: Container(
                         clipBehavior: Clip.hardEdge,
                         width: 48.h,
@@ -327,7 +328,6 @@ class ProblemPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              // const DividerGrey(),
             ],
           ),
         ),
@@ -337,7 +337,7 @@ class ProblemPage extends ConsumerWidget {
             horizontal: 16.w,
             vertical: 12.h,
           ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               border: Border(top: BorderSide(color: AppColors.greyLight))),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -370,8 +370,8 @@ class ProblemPage extends ConsumerWidget {
                           }
                         },
                   child: ref.watch(problemStateProvider).isSending
-                      ? CircularProgressIndicator(color: Colors.white)
-                      : Text('Войти через Госуслуги и отправить')),
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text('Войти через Госуслуги и отправить')),
               SizedBox(height: 8.h),
               SizedBox(
                 width: double.infinity,
@@ -394,8 +394,8 @@ class ProblemPage extends ConsumerWidget {
                           );
                         },
                   child: ref.watch(problemStateProvider).isSaving
-                      ? CircularProgressIndicator(color: Colors.white)
-                      : Text('Сохранить черновик без интернета'),
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text('Сохранить черновик без интернета'),
                 ),
               ),
             ],

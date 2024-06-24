@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 
 class FileTileProvider extends TileProvider {
   final Directory tileDirectory;
-  final String saveName; // ID маршрута
+  final String saveName;
 
   FileTileProvider(this.tileDirectory, this.saveName);
 
@@ -21,8 +21,7 @@ class FileTileProvider extends TileProvider {
       return FileImage(file);
     } else {
       logger.e('file does not exist');
-      return AssetImage(
-          'assets/no_tile.png'); // Заглушка или ваше собственное изображение
+      return const AssetImage('assets/no_tile.png');
     }
   }
 }

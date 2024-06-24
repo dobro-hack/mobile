@@ -19,7 +19,6 @@ class RouteRepository {
     try {
       final response = await dioClient.getData(routesUrl);
       if (response.statusCode == 200) {
-        print(response.statusCode);
         return RouteResponse.fromJson(response.data);
       } else {
         logger.e('${response.statusCode} Не удалось получить маршруты');
@@ -44,13 +43,7 @@ class RouteRepository {
 
         final file = File(filePath);
         await file.writeAsBytes(response.data);
-
-        print('Tile saved to $filePath');
-      } else {
-        print('Failed to download tile: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error downloading tile: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 }
