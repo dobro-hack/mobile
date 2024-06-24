@@ -35,10 +35,11 @@
 
 
 ### [Ссылка на демо](https://drive.google.com/file/d/1qobC6L4MhLOvylcETAB1I8MtYNCV5ChO/view?usp=sharing)
-    <details> 
-    <summary>Или посмотрите тут</summary>
-        <p><img src="assets\screenshots\demo.mp4" width=550 hight=240></p>
-    </details>
+<details> 
+<summary>Или посмотрите тут</summary>
+    <p><img src="assets\screenshots\demo.mp4" width=550 hight=240></p>
+</details>
+
 ### [Ссылка на презентацию](https://drive.google.com/file/d/1dEb0t2uc5KhvuXT93YfSRZXikf30oLMK/view?usp=sharing)
 ### [Файл для установки](https://drive.google.com/file/d/1JAJyfBI3TbVSVmYBv3HcS9cY--cXyDAA/view?usp=sharing)
 ### [Сайт для администрирования](https://syomka.tech)
