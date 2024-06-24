@@ -23,6 +23,7 @@ class _MyProblemsState extends ConsumerState<MyProblems> {
   @override
   void initState() {
     super.initState();
+    // ignore: unused_result
     ref.refresh(allProblemsProvider);
   }
 

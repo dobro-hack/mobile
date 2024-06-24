@@ -9,11 +9,13 @@ class NoteWidget extends StatelessWidget {
     required this.title,
     required this.text,
     this.bottomWidget,
+    this.needAvatar = true,
   });
 
   final String title;
   final String text;
   final Widget? bottomWidget;
+  final bool needAvatar;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +29,11 @@ class NoteWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 24.r,
-            backgroundImage: AssetImage('assets/images/mascot_avatar.png'),
-          ),
+          if (needAvatar)
+            CircleAvatar(
+              radius: 24.r,
+              backgroundImage: AssetImage('assets/images/mascot_avatar.png'),
+            ),
           SizedBox(width: 12.w),
           Expanded(
             child: Padding(

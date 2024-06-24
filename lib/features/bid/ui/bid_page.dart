@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../../common/theme/app_colors.dart';
 import '../../../common/widgets/divider_grey.dart';
 import '../../../common/widgets/green_elev_button.dart';
+import '../../map/domain/map_notifier_provider.dart';
 import '../domain/bid_provider.dart';
 import 'widgets/date_text_field.dart';
 import 'package:intl/intl.dart';
@@ -69,40 +70,7 @@ class _BidPageState extends ConsumerState<BidPage> {
       builder: (BuildContext context) {
         return Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'assets/images/mascot_love.png',
-                height: 120,
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Text(
-                'Заявка отправлена, отслеживать статус можно в разделе "Меню"',
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(fontSize: 20.sp),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                'Обычно расмотрение происходит за 2-3 рабочих дня',
-                style: Theme.of(context).textTheme.labelMedium,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20),
-              GreenElevButton(
-                onPressed: () {
-                  context.pop();
-                  context.pop();
-                },
-                text: 'Понятно',
-              ),
-            ],
-          ),
+          child: _SendSuccess(),
         );
       },
     );
@@ -268,6 +236,78 @@ class _BidPageState extends ConsumerState<BidPage> {
               ),
             )
           : null,
+    );
+  }
+}
+
+class _SendSuccess extends ConsumerWidget {
+  const _SendSuccess();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final status = ref.watch(mapNotifierProvider).downloadStatus;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'assets/images/mascot_love.png',
+          height: 120,
+        ),
+        SizedBox(
+          height: 12.h,
+        ),
+        Text(
+          'Заявка отправлена',
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium
+              ?.copyWith(fontSize: 20.sp),
+        ),
+        SizedBox(height: 8.h),
+        Text(
+          'Скачайте маршрут на телефон. Приложение будет работать, даже если интернет пропадёт',
+          style: Theme.of(context).textTheme.labelMedium,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 20),
+        status == DownloadStatus.success
+            ? const GreenElevButton(onPressed: null, child: Text('Скачено'))
+            : status == DownloadStatus.loading
+                ? const GreenElevButton(
+                    onPressed: null,
+                    child: Text(
+                      'Скачивание...',
+                      style: TextStyle(color: AppColors.green),
+                    ))
+                : GreenElevButton(
+                    onPressed: () async {
+                      bool res = await ref
+                          .read(mapNotifierProvider.notifier)
+                          .downloadRoute(
+                            MediaQuery.sizeOf(context),
+                          );
+                      if (!res) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Не удалось скачать маршрут')),
+                        );
+                      }
+                    },
+                    child: const Text('Скачать')),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.greyBackgroundLight,
+            ),
+            onPressed: () {
+              context.pop();
+              context.pop();
+            },
+            child: Text('Продолжить'),
+          ),
+        ),
+      ],
     );
   }
 }

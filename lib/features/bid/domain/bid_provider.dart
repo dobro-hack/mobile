@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:intl/intl.dart';
 
 import 'package:eco/features/base/domain/app_providers.dart';
@@ -8,9 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:uuid/uuid.dart';
-
-import '../../../common/logger.dart';
 import '../data/repositories/bid_repository.dart';
 
 part 'bid_provider.g.dart';
@@ -115,6 +111,6 @@ final allBidsProvider = FutureProvider<List<Bid>>((ref) async {
   final repository = BidRepository(ref.read(dioClientProvider));
   final data = await repository.getBids();
   List<Bid> result = List.from(data.bids);
-  result.sort((a, b) => b.dateStart.compareTo(a.dateStart));
+  result.sort((a, b) => a.dateStart.compareTo(b.dateStart));
   return result;
 });

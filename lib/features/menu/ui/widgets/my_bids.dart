@@ -23,6 +23,7 @@ class _MyBidsState extends ConsumerState<MyBids> {
   @override
   void initState() {
     super.initState();
+    // ignore: unused_result
     ref.refresh(allBidsProvider);
   }
 
@@ -72,8 +73,10 @@ class _MyBidsState extends ConsumerState<MyBids> {
             loading: () => const Center(
                   child: CircularProgressIndicator(),
                 ),
-            error: (Object error, StackTrace stackTrace) =>
-                Text(error.toString()),
+            error: (Object error, StackTrace stackTrace) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: const Text('Не удалось получить заявки'),
+                ),
             data: (List<Bid> data) {
               return data.isEmpty
                   ? Padding(

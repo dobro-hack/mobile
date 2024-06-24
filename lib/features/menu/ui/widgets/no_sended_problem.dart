@@ -49,6 +49,7 @@ class NoSendedProblem extends ConsumerWidget {
       trailing: IconButton(
         onPressed: () async {
           await ref.read(problemStateProvider.notifier).resentProblem(problem);
+          // ignore: unused_result
           ref.refresh(allProblemsProvider);
         },
         icon: const Icon(
