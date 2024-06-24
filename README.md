@@ -4,16 +4,39 @@
 
 ## Pеализованно
 - Интерактивная карта с важными точками на маршрутах и треками
+    <details> 
+    <summary>Пример</summary>
+            <p><img src="assets\screenshots\route.jpg" width=550 hight=240></p>
+    </details>
 - Оффлайн режим:
     * просмотр информации и трека сохранённых маршрутов
+        <details> 
+        <summary>Пример</summary>
+                <p><img src="assets\screenshots\saved.jpg" width=550 hight=240></p>
+        </details>
     * сохранение "черновика" обращений с возможностью последующей отправки
+        <details> 
+        <summary>Пример</summary>
+                <p><img src="assets\screenshots\problem1.jpg" width=550 hight=240></p>
+                <p><img src="assets\screenshots\problem2.jpg" width=550 hight=240></p>
+        </details>
+- Push-уведомления
+    <details> 
+    <summary>Пример</summary>
+        <p><img src="assets\screenshots\push.jfif" width=550 hight=240></p>
+    </details>
 - Запись на маршрут
+    <details> 
+    <summary>Примеры</summary>
+            <p><img src="assets\screenshots\bit1.jpg" width=550 hight=240></p>
+            <p><img src="assets\screenshots\bit2.jpg" width=550 hight=240></p>
+    </details>
 - Отправка сообщения о проблеме
 
-### [Ссылка на макеты](https://www.figma.com/design/SsEjtjUZqTO20gIk3BJ4Hj/HaHaTon?node-id=0-1&t=ck9KUY1JK977kxls-0)
-### [Ссылка на презентацию](https://drive.google.com/file/d/1KclJuWJ21K83E1UzRucDkfwb7PhBFWYJ/view?usp=sharing)
-### [Файл для установки](https://github.com/dobro-hack/mobile/releases/tag/v1)
+### [Ссылка на презентацию](https://drive.google.com/file/d/1dEb0t2uc5KhvuXT93YfSRZXikf30oLMK/view?usp=sharing)
+### [Файл для установки](https://drive.google.com/file/d/1JAJyfBI3TbVSVmYBv3HcS9cY--cXyDAA/view?usp=sharing)
 ### [Сайт для администрирования](https://syomka.tech)
+### [Ссылка на макеты](https://www.figma.com/design/SsEjtjUZqTO20gIk3BJ4Hj/HaHaTon?node-id=0-1&t=ck9KUY1JK977kxls-0)
 
 
 ## Сборка приложения
