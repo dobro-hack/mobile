@@ -11,9 +11,11 @@ class LoadBlock extends StatelessWidget {
   const LoadBlock({
     super.key,
     required this.load,
+    required this.maxLoad,
   });
 
   final List<int?> load;
+  final List<int?> maxLoad;
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'common/app.dart';
 import 'features/base/data/base_repository.dart';
+import 'features/base/data/local_notification_api.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,13 @@ void main() async {
     log(fbToken.toString());
     BaseRepository().sendFBToken(fbToken);
   }
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    if (message.notification != null) {
+      NotifitionAPI.showNatifition(
+          title: message.notification!.title, body: message.notification!.body);
+    }
+  });
 
   runApp(
     const ProviderScope(

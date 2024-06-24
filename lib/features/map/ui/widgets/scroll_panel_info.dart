@@ -90,7 +90,11 @@ class ScrollPanelInfo extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: const DividerGrey(),
           ),
-          if (route.load != null) LoadBlock(load: route.load!),
+          if (route.load != null && route.maxLoad != null)
+            LoadBlock(
+              load: route.load!,
+              maxLoad: route.maxLoad!,
+            ),
           const CellBlock(),
           Padding(
             padding: EdgeInsets.only(
